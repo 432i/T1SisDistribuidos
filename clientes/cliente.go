@@ -9,7 +9,7 @@ import(
         "strconv"
         "golang.org/x/net/context"
         "google.golang.org/grpc"
-        "github.com/tutorialedge/go-grpc-tutorial/chat"
+        "github.com/432i/logistica/chat"
 )
 
 
