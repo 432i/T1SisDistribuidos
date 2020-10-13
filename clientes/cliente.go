@@ -7,6 +7,9 @@ import(
         "fmt"
         "encoding/json"
         "strconv"
+        "golang.org/x/net/context"
+        "google.golang.org/grpc"
+        "github.com/432i/logistica/chat"
 )
 
 
@@ -27,9 +30,7 @@ type Pyme struct{
         destino string `json:"destino"`
         prioritario int `json:"prioritario"`
 }
-
-
-func main(){
+func cargarCsv(){
         fmt.Println("saludos")
         csvpyme, _ := os.Open("pymes.csv")
         csvretail, _ := os.Open("retail.csv")
@@ -86,5 +87,22 @@ func main(){
         fmt.Println(pedidosretail)
         retailjson, _ := json.Marshal(pedidosretail)
         fmt.Println(retailjson)
+}
+
+func main(){
+        var conn *grpc.ClientConn
+        conn, err := grpc.Dial("10.6.40.149:9000", grpc.WithInsecure())
+        if err != nil {
+                log.Fatalf("did not connect: %s", err)
+        }
+        defer conn.Close()
+
+        c := chat.NewChatServiceClient(conn)
+
+        response, err := c.SayHello(context.Background(), &chat.Message{Body: "Hello From Client!"})
+        if err != nil {
+                log.Fatalf("Error when calling SayHello: %s", err)
+        }
+        log.Printf("Response from server: %s", response.Body)
 
 }
