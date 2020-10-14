@@ -14,7 +14,7 @@ type Server struct {
 
 func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error) {
         codigoSeguimiento := "432"+orden.GetId()
-        cuerpo :="Codigo de seguimiento para su producto: "+codigoSeguimiento
+        cuerpo :="Codigo de seguimiento para su producto:   "+codigoSeguimiento
         msj := Message{
                 Body: cuerpo,
         }

@@ -162,7 +162,7 @@ func main(){
                                 if err != nil{
                                         fmt.Println("Error al enviar la orden")
                                 }
-                                log.Printf("Su codigo de seguimiento es %s", response.Body)
+                                log.Printf("%s", response.Body)
 
                                 contRetail = contRetail+1
                         }
