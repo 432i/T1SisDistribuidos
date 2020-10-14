@@ -140,7 +140,7 @@ func main(){
                                 response, err := c.EnviarOrden(context.Background(), &message)
                                 log.Printf("Su codigo de seguimiento es %s", response.Body)
                                 
-                                contPyme := contPyme+1
+                                contPyme = contPyme+1
                         }
                 }
                 if strings.Compare("2", respuesta) == 0{
@@ -161,7 +161,7 @@ func main(){
                                 response, err := c.EnviarOrden(context.Background(), &message)
                                 log.Printf("Su codigo de seguimiento es %s", response.Body)
 
-                                contRetail := contRetail+1
+                                contRetail = contRetail+1
                         }
 
                 }
