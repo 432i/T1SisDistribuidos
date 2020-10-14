@@ -99,8 +99,7 @@ func main(){
         fmt.Println("...\n")
         pedidosPyme := cargarPyme()
         pedidosRetail := cargarRetail()
-        fmt.Println(pedidosPyme)
-        fmt.Println(pedidosRetail)
+
         cantPyme := len(pedidosPyme)
         cantRetail := len(pedidosRetail)
         contPyme := 0
@@ -123,7 +122,7 @@ func main(){
                 fmt.Println(respuesta)
 
                 if strings.Compare("1", respuesta) == 0{
-                        fmt.Println("XD1")
+                        fmt.Println("Enviando orden desde una pyme. . .")
                         if contPyme == (cantPyme-1){
                                 fmt.Println("No quedan más ordenes que realizar. Saliendo... \n ")
                         }else{
@@ -141,13 +140,13 @@ func main(){
                                 if err != nil{
                                         fmt.Println("Error al enviar la orden")
                                 }
-                                log.Printf("Su codigo de seguimiento es %s", response.Body)
+                                log.Printf("%s", response.Body)
                                 
                                 contPyme = contPyme+1
                         }
                 }
                 if strings.Compare("2", respuesta) == 0{
-                        fmt.Println("XD2")
+                        fmt.Println("Enviando orden desde el retail. . .")
                         if contRetail == (cantRetail-1){
                                 fmt.Println("No quedan más ordenes que realizar. Saliendo... \n ")
                         }else{
