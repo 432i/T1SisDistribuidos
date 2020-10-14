@@ -10,7 +10,7 @@ import(
         "strconv"
         "golang.org/x/net/context"
         "google.golang.org/grpc"
-        "github.com/432i/logistica/chat"
+        "github.com/432i/T1SisDistribuidos/logistica/chat"
 )
 
 
