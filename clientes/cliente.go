@@ -112,16 +112,16 @@ func main(){
                 ⣿⣿⣧⣀⣿………⣀⣰⣏⣘⣆⣀
                 \n")
                 fmt.Println("Ingrese la alternativa que desee: \n")
-                fmt.Println("1 Enviar ordenes desde una Pyme")
-                fmt.Println("2 Enviar ordenes desde el Retail")
-                fmt.Println("3 Realizar seguimiento de un pedido")
+                fmt.Println("1 Enviar ordenes desde una Pyme \n")
+                fmt.Println("2 Enviar ordenes desde el Retail \n")
+                fmt.Println("3 Realizar seguimiento de un pedido \n")
                 fmt.Println("432 para salir")
                 _, err := fmt.Scanln(&respuesta)
                 if err != nil {
                         fmt.Fprintln(os.Stderr, err)
                         return
                 }
-                fmt.Println("Tu respuesta fue:")
+                fmt.Println("Tu respuesta fue: ")
                 fmt.Println(respuesta)
                 if strings.Compare("1", respuesta) == 0{
                         fmt.Println("XD1")
