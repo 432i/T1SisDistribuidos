@@ -15,7 +15,7 @@ func (s *Server) SolicitarSeguimiento(ctx context.Context, codigoSeguimiento *Me
 }
 
 func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error) {
-        codigoSeguimiento := "432"+orden.Getid()
+        codigoSeguimiento := "432"+orden.GetId()
         cuerpo :="Codigo de seguimiento para su producto:"+codigoSeguimiento
         msj := Message{
                 Body: cuerpo,
