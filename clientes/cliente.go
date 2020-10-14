@@ -51,7 +51,6 @@ func cargarPyme() []Pyme{
                         prioritario: lineapyme[5],
                 })
         }
-        fmt.Println(pedidospyme)
         return pedidospyme
 }
 
@@ -75,7 +74,6 @@ func cargarRetail() []Retail{
                         destino: linearetail[4],
                 })
         }
-        fmt.Println(pedidosretail)
         return pedidosretail
 }
 
