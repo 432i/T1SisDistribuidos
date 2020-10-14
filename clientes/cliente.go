@@ -6,8 +6,6 @@ import(
         "encoding/csv"
         "log"
         "fmt"
-        "encoding/json"
-        "strconv"
         "golang.org/x/net/context"
         "google.golang.org/grpc"
         "github.com/432i/T1SisDistribuidos/logistica/chat"
@@ -130,13 +128,13 @@ func main(){
                         }else{
                                 ordenPyme := pedidosPyme[contPyme]
                                 message := chat.Orden{
-                                        tipo: ordenPyme[0],
-                                        id: ordenPyme[1],
-                                        producto: ordenPyme[2],
-                                        valor: ordenPyme[3],
-                                        tienda: ordenPyme[4],
-                                        destino: ordenPyme[5],
-                                        prioritario: ordenPyme[6],
+                                        Tipo: ordenPyme[0],
+                                        Id: ordenPyme[1],
+                                        Producto: ordenPyme[2],
+                                        Valor: ordenPyme[3],
+                                        Tienda: ordenPyme[4],
+                                        Destino: ordenPyme[5],
+                                        Prioritario: ordenPyme[6],
                                 }
                                 response, err := c.EnviarOrden(context.Background(), &message)
                                 log.Printf("Su codigo de seguimiento es %s", response.Body)
@@ -151,13 +149,13 @@ func main(){
                         }else{
                                 ordenRetail := pedidosRetail[contRetail]
                                 message := chat.Orden{
-                                        tipo: ordenRetail[0],
-                                        id: ordenRetail[1],
-                                        producto: ordenRetail[2],
-                                        valor: ordenRetail[3],
-                                        tienda: ordenRetail[4],
-                                        destino: ordenRetail[5],
-                                        prioritario: "2",
+                                        Tipo: ordenRetail[0],
+                                        Id: ordenRetail[1],
+                                        Producto: ordenRetail[2],
+                                        Valor: ordenRetail[3],
+                                        Tienda: ordenRetail[4],
+                                        Destino: ordenRetail[5],
+                                        Prioritario: "2",
                                 }
                                 response, err := c.EnviarOrden(context.Background(), &message)
                                 log.Printf("Su codigo de seguimiento es %s", response.Body)
