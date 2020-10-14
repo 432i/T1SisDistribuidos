@@ -9,10 +9,10 @@ import (
 type Server struct {
 }
 
-func (s *Server) SolicitarSeguimiento(ctx context.Context, codigoSeguimiento *Message) (*Message, error) {
-        log.Printf("Receive message body from client: %s", in.Body)
-        return &Message{Body: "Hello From the Server!"}, nil
-}
+//func (s *Server) SolicitarSeguimiento(ctx context.Context, codigoSeguimiento *Message) (*Message, error) {
+//        log.Printf("Receive message body from client: %s", in.Body)
+//        return &Message{Body: "Hello From the Server!"}, nil
+//}
 
 func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error) {
         codigoSeguimiento := "432"+orden.GetId()
