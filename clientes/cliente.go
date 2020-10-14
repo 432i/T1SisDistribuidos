@@ -1,6 +1,7 @@
 package main
 import(
         "os"
+        "strings"
         "io"
         "encoding/csv"
         "log"
@@ -14,21 +15,20 @@ import(
 
 
 type Retail struct {
-        tipo string `json:"tipo"`
-        id int `json:"id"`
-        producto string `json:"producto"`
-        valor int `jso:"valor"`
-        tienda string `json:"tienda"`
-        destino string `json:"destino"`
-}
+        tipo string 
+        id string 
+        producto string
+        valor string
+        tienda string 
+        destino string 
 type Pyme struct{
-        tipo string `json:"tipo"`
-        id int `json:"id"`
-        producto string `json:"producto"`
-        valor int `json:"valor"`
-        tienda string `json:"tienda"`
-        destino string `json:"destino"`
-        prioritario int `json:"prioritario"`
+        tipo string 
+        id string
+        producto string 
+        valor string
+        tienda string 
+        destino string 
+        prioritario string 
 }
 func cargarCsv(){
         fmt.Println("saludos")
@@ -49,22 +49,17 @@ func cargarCsv(){
                         log.Fatal(error)
                 }
 
-                idcsv, error := strconv.Atoi(lineapyme[0])
-                valorcsv, error := strconv.Atoi(lineapyme[2])
-                prioritariocsv, error := strconv.Atoi(lineapyme[5])
                 pedidospyme = append(pedidospyme, Pyme{
                         tipo: "pyme",
-                        id: idcsv,
+                        id: lineapyme[0],
                         producto: lineapyme[1],
-                        valor: valorcsv,
+                        valor: lineapyme[2],
                         tienda: lineapyme[3],
                         destino: lineapyme[4],
-                        prioritario: prioritariocsv,
+                        prioritario: lineapyme[5],
                 })
         }
         fmt.Println(pedidospyme)
-        pymejson, _ := json.Marshal(pedidospyme)
-        fmt.Println(pymejson)
 
         for {
                 linearetail, error := readerretail.Read()
@@ -73,20 +68,16 @@ func cargarCsv(){
                 }else if error != nil{
                         log.Fatal(error)
                 }
-                idcsv, error := strconv.Atoi(linearetail[0])
-                valorcsv, error := strconv.Atoi(linearetail[2])
                 pedidosretail = append(pedidosretail, Retail{
                         tipo: "retail",
-                        id: idcsv,
+                        id: linearetail[0],
                         producto: linearetail[1],
-                        valor: valorcsv,
+                        valor: linearetail[2],
                         tienda: linearetail[3],
                         destino: linearetail[4],
                 })
         }
         fmt.Println(pedidosretail)
-        retailjson, _ := json.Marshal(pedidosretail)
-        fmt.Println(retailjson)
 }
 
 func main(){
@@ -99,10 +90,51 @@ func main(){
 
         c := chat.NewChatServiceClient(conn)
 
-        response, err := c.SayHello(context.Background(), &chat.Message{Body: "Hello From Client!"})
-        if err != nil {
-                log.Fatalf("Error when calling SayHello: %s", err)
+        //response, err := c.SayHello(context.Background(), &chat.Message{Body: "Hello From Client!"})
+        //if err != nil {
+        //        log.Fatalf("Error when calling SayHello: %s", err)
+        //}
+        //log.Printf("Response from server: %s", response.Body)
+        for{
+                var respuesta string
+                fmt.Println("
+                ⠀⠀⠀⣠⣶⡾⠏⠉⠙⠳⢦⡀⠀⠀⠀⢠⠞⠉⠙⠲   ⡀⠀
+                ⠀⠀⠀⣴⠿⠏⠀⠀⠀⠀⠀⠀⢳⡀⠀⡏⠀⠀⠀⠀⠀     ⢷
+                ⠀⠀⢠⣟⣋⡀⢀⣀⣀⡀⠀⣀⡀⣧⠀⢸⠀⠀⠀⠀⠀      ⡇
+                ⠀⠀⢸⣯⡭⠁⠸⣛⣟⠆⡴⣻⡲⣿⠀⣸⠀BIENVENIDO ⡇
+                ⠀⠀⣟⣿⡭⠀⠀⠀⠀⠀⢱⠀⠀⣿⠀⢹⠀⠀⠀⠀⠀       ⡇
+                ⠀⠀⠙⢿⣯⠄⠀⠀⠀⢀⡀⠀⠀⡿⠀⠀⡇⠀⠀⠀⠀    ⡼
+                ⠀⠀⠀⠀⠹⣶⠆⠀⠀⠀⠀⠀⡴⠃⠀⠀⠘⠤⣄⣠ ⠞⠀
+                ⠀⠀⠀⠀⠀⢸⣷⡦⢤⡤⢤⣞⣁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⢀⣤⣴⣿⣏⠁⠀⠀⠸⣏⢯⣷⣖⣦⡀⠀⠀⠀⠀⠀⠀
+                ⢀⣾⣽⣿⣿⣿⣿⠛⢲⣶⣾⢉⡷⣿⣿⠵⣿⠀⠀⠀⠀⠀⠀
+                ⣼⣿⠍⠉⣿⡭⠉⠙⢺⣇⣼⡏⠀⠀⠀⣄⢸⠀⠀⠀⠀⠀⠀
+                ⣿⣿⣧⣀⣿………⣀⣰⣏⣘⣆⣀
+                \n")
+                fmt.Println("Ingrese la alternativa que desee: \n")
+                fmt.Println("1 Enviar ordenes desde una Pyme")
+                fmt.Println("2 Enviar ordenes desde el Retail")
+                fmt.Println("3 Realizar seguimiento de un pedido")
+                fmt.Println("432 para salir")
+                _, err := fmt.Scanln(&respuesta)
+                if err != nil {
+                        fmt.Fprintln(os.Stderr, err)
+                        return
+                }
+                fmt.Println("Tu respuesta fue:")
+                fmt.Println(respuesta)
+                if strings.Compare("1", respuesta) == 0{
+                        fmt.Println("XD1")
+                }
+                if strings.Compare("2", respuesta) == 0{
+                        fmt.Println("XD2")
+                }
+                if strings.Compare("3", respuesta) == 0{
+                        fmt.Println("X3D")
+                }
+                if strings.Compare("432", respuesta) == 0{
+                        fmt.Println("X432D")
+                        break
+                }
         }
-        log.Printf("Response from server: %s", response.Body)
-
 }

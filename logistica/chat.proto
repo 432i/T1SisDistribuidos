@@ -1,10 +1,24 @@
 syntax = "proto3";
 package chat;
 
+message Orden{
+  string tipo = 1;
+  int id = 2;
+  string producto = 3;
+  int valor = 4;
+  string tienda = 5;
+  string destino = 6;
+  int prioritario = 7; 
+}
+
+
 message Message {
   string body = 1;
 }
 
 service ChatService {
-  rpc SayHello(Message) returns (Message) {}
+  rpc EnviarOrden(Orden) returns (Message){}
+  rpc SolicitarSeguimiento(Message) returns (Message){}
+  rpc EnviarSeguimiento(Message) returns (Message){}
+  rpc EnviarEstado(Message) returns (Message){}
 }
