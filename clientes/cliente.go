@@ -138,6 +138,9 @@ func main(){
                                         Prioritario: ordenPyme.prioritario,
                                 }
                                 response, err := c.EnviarOrden(context.Background(), &message)
+                                if err != nil{
+                                        fmt.Println("Error al enviar la orden")
+                                }
                                 log.Printf("Su codigo de seguimiento es %s", response.Body)
                                 
                                 contPyme = contPyme+1
@@ -159,6 +162,9 @@ func main(){
                                         Prioritario: "2",
                                 }
                                 response, err := c.EnviarOrden(context.Background(), &message)
+                                if err != nil{
+                                        fmt.Println("Error al enviar la orden")
+                                }
                                 log.Printf("Su codigo de seguimiento es %s", response.Body)
 
                                 contRetail = contRetail+1
