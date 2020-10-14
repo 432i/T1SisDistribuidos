@@ -128,13 +128,13 @@ func main(){
                         }else{
                                 ordenPyme := pedidosPyme[contPyme]
                                 message := chat.Orden{
-                                        Tipo: ordenPyme[0],
-                                        Id: ordenPyme[1],
-                                        Producto: ordenPyme[2],
-                                        Valor: ordenPyme[3],
-                                        Tienda: ordenPyme[4],
-                                        Destino: ordenPyme[5],
-                                        Prioritario: ordenPyme[6],
+                                        Tipo: ordenPyme.tipo,
+                                        Id: ordenPyme.id,
+                                        Producto: ordenPyme.producto,
+                                        Valor: ordenPyme.valor,
+                                        Tienda: ordenPyme.tienda,
+                                        Destino: ordenPyme.destino,
+                                        Prioritario: ordenPyme.prioritario,
                                 }
                                 response, err := c.EnviarOrden(context.Background(), &message)
                                 log.Printf("Su codigo de seguimiento es %s", response.Body)
@@ -149,12 +149,12 @@ func main(){
                         }else{
                                 ordenRetail := pedidosRetail[contRetail]
                                 message := chat.Orden{
-                                        Tipo: ordenRetail[0],
-                                        Id: ordenRetail[1],
-                                        Producto: ordenRetail[2],
-                                        Valor: ordenRetail[3],
-                                        Tienda: ordenRetail[4],
-                                        Destino: ordenRetail[5],
+                                        Tipo: ordenRetail.tipo,
+                                        Id: ordenRetail.id,
+                                        Producto: ordenRetail.producto,
+                                        Valor: ordenRetail.valor,
+                                        Tienda: ordenRetail.tienda,
+                                        Destino: ordenRetail.destino,
                                         Prioritario: "2",
                                 }
                                 response, err := c.EnviarOrden(context.Background(), &message)
