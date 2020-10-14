@@ -95,8 +95,7 @@ func main(){
         //        log.Fatalf("Error when calling SayHello: %s", err)
         //}
         //log.Printf("Response from server: %s", response.Body)
-        var ordenPyme Pyme
-        var ordenRetail Retail
+        
         fmt.Println("...\n")
         pedidosPyme := cargarPyme()
         pedidosRetail := cargarRetail()
