@@ -14,7 +14,7 @@ func crearRegistro(){
                 log.Println(err)
         }
         defer archivo.Close()
-})
+}
 func main() {
 
         fmt.Println("Go gRPC Beginners Tutorial!")
