@@ -105,7 +105,7 @@ func main(){
         fmt.Println("csvs cargados correctamente\n")
         for{
                 var respuesta string
-                fmt.Println("ヾ(•ω•`)o Bienvenido ヾ(•ω•`)o, \n")
+                fmt.Println("ヾ(≧▽≦*)o Bienvenido ヾ(≧▽≦*)o, \n")
                 fmt.Println("Ingrese la alternativa que desee: \n")
                 fmt.Println("1 Enviar una orden desde una Pyme \n")
                 fmt.Println("2 Enviar una orden desde el Retail \n")
@@ -118,6 +118,7 @@ func main(){
                 }
                 fmt.Println("Tu respuesta fue: ")
                 fmt.Println(respuesta)
+
 
                 if strings.Compare("1", respuesta) == 0{
                         fmt.Println("Enviando orden desde una pyme. . .")
@@ -143,6 +144,8 @@ func main(){
                                 contPyme = contPyme+1
                         }
                 }
+
+
                 if strings.Compare("2", respuesta) == 0{
                         fmt.Println("Enviando orden desde el retail. . .")
                         if contRetail == (cantRetail-1){
@@ -168,8 +171,25 @@ func main(){
                         }
 
                 }
+
+
                 if strings.Compare("3", respuesta) == 0{
-                        fmt.Println("X3D")
+                        fmt.Println("Ingrese el número de seguimiento que desea consultar: \n")
+                        var codigoSeguimiento string
+                        _, err := fmt.Scanln(&codigoSeguimiento)
+                        if err != nil {
+                                fmt.Fprintln(os.Stderr, err)
+                                return
+                        }
+                        fmt.Println("Realizando seguimiento del código %s. . .  \n", codigoSeguimiento)
+                        message := chat.Message{
+				Body: codigoSeguimiento,
+                        }
+                        response, err := c.SolicitarSeguimiento(context.Background(), &message)
+                        if err != nil{
+                                fmt.Println("Error al consultar :(!!!!!!!!!!")
+                        }
+                        log.Printf("%s", response.Body)
                 }
                 if strings.Compare("432", respuesta) == 0{
                         fmt.Println("X432D")
