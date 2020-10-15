@@ -11,6 +11,9 @@ import (
 )
 
 type Server struct {
+        cola_ret_a_camion []Paquete
+        cola_prio_a_camion []Paquete
+        cola_norm_a_camion []Paquete
 }
 //se guarda la orden en registro.csv
 func guardarOrden(id string, producto string, valor string, tienda string, destino string, codigo string){
@@ -63,5 +66,46 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
 
         guardarOrden(orden.GetId(), orden.GetProducto(), orden.GetValor(), orden.GetTienda(), orden.GetDestino(), orden.GetPrioritario(), codigoSeguimiento)
         //tambien se implementan las colas segun el tipo
+        return &msj, nil
+}
+
+func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*Paquete, error) {
+        var msj Paquete
+
+        if mensaje.GetBody() == "retail" {
+                if len(s.cola_ret_a_camion) > 0 {
+                        msj = Paquete{
+                                Id: s.cola_ret_a_camion[0].GetId(),
+                                Seguimiento: s.cola_ret_a_camion[0].GetSeguimiento(),
+                                Tipo: s.cola_ret_a_camion[0].GetTipo(),
+                                Valor: s.cola_ret_a_camion[0].GetValor(),
+                                Intentos: s.cola_ret_a_camion[0].GetIntentos(),
+                                Estado: s.cola_ret_a_camion[0].GetEstado(),
+                        }
+                        s.cola_ret_a_camion = s.cola_ret_a_camion[1:]
+                }
+        } else if mensaje.GetBody() == "normal" {
+                if len(s.cola_prio_a_camion) > 0 {
+                        msj = Paquete{
+                                Id: s.cola_prio_a_camion[0].GetId(),
+                                Seguimiento: s.cola_prio_a_camion[0].GetSeguimiento(),
+                                Tipo: s.cola_prio_a_camion[0].GetTipo(),
+                                Valor: s.cola_prio_a_camion[0].GetValor(),
+                                Intentos: s.cola_prio_a_camion[0].GetIntentos(),
+                                Estado: s.cola_prio_a_camion[0].GetEstado(),
+                        }
+                        s.cola_prio_a_camion = s.cola_prio_a_camion[1:]
+                } else if len(s.cola_norm_a_camion) > 0 {
+                        msj = Paquete{
+                                Id: s.cola_norm_a_camion[0].GetId(),
+                                Seguimiento: s.cola_norm_a_camion[0].GetSeguimiento(),
+                                Tipo: s.cola_norm_a_camion[0].GetTipo(),
+                                Valor: s.cola_norm_a_camion[0].GetValor(),
+                                Intentos: s.cola_norm_a_camion[0].GetIntentos(),
+                                Estado: s.cola_norm_a_camion[0].GetEstado(),
+                        }
+                        s.cola_norm_a_camion = s.cola_norm_a_camion[1:]
+                }
+        }
         return &msj, nil
 }

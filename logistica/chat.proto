@@ -11,6 +11,14 @@ message Orden{
   string Prioritario = 7; 
 }
 
+message Paquete  {
+    string Id = 1;
+    string Seguimiento = 2;
+    string Tipo = 3;
+    string Valor = 4
+    string Intentos = 5;
+    string Estado = 6;
+}
 
 message Message {
   string body = 1;
@@ -19,4 +27,5 @@ message Message {
 service ChatService {
   rpc EnviarOrden(Orden) returns (Message){}
   rpc SolicitarSeguimiento(Message) returns (Message){}
+  //rpc PaqueteQueueToCamion(Message) returns (Message) {}
 }
