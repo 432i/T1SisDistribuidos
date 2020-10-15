@@ -17,7 +17,9 @@ type Camion struct {
 	Paquete2 chat.Paquete
 }
 
-func Send(camion Camion) {
+
+
+func Carga(camion Camion) {
 	var conn *grpc.ClientConn
 	conn, err := grpc.Dial("10.6.40.149:9000", grpc.WithInsecure())
 	if err != nil {
