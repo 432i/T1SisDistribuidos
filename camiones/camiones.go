@@ -17,7 +17,7 @@ type Camion struct {
 	Paquete1 chat.Paquete
 	Paquete2 chat.Paquete
 }
-/*
+
 func xd(camion Camion) {
 	//rand.float64()
 	if camion.Paquete1.Valor > camion.Paquete2.Valor {
@@ -32,7 +32,7 @@ func xd(camion Camion) {
 
 	}
 }
-*/
+
 func Carga(camion Camion) {
 	var conn *grpc.ClientConn
 	conn, err := grpc.Dial("10.6.40.149:9000", grpc.WithInsecure())
