@@ -192,7 +192,7 @@ func main(){
                         log.Printf("%s", response.Body)
                 }
                 if strings.Compare("432", respuesta) == 0{
-                        fmt.Println("X432D")
+                        fmt.Println("Saliendo del programa. . . ")
                         break
                 }
         }
