@@ -6,6 +6,7 @@ import (
         "log"
         "time"
         "golang.org/x/net/context"
+        "encoding/csv"
         "strings"
 )
 
@@ -13,19 +14,20 @@ type Server struct {
 }
 //se guarda la orden en registro.csv
 func guardarOrden(id string, producto string, valor string, tienda string, destino string, codigo string){
+        var tipof string
         tiempoactual := time.Now()
         timestamp := tiempoactual.Format("02-01-2006 15:04")
-        if stringsCompare("0", prioritario) == 0{
-                tipof := "normal"
+        if strings.Compare("0", prioritario) == 0{
+                tipof = "normal"
         }
-        if stringsCompare("1", prioritario) == 0{
-                tipof := "prioritario"
+        if strings.Compare("1", prioritario) == 0{
+                tipof = "prioritario"
         }
-        if stringsCompare("2", prioritario) == 0{
-                tipof := "retail"
+        if strings.Compare("2", prioritario) == 0{
+                tipof = "retail"
         }
 
-        orden := timestamp+","+ id+","+tipof +","+ producto+","+ valor+","+tienda +","+destino +","+codigo
+        orden := []string{timestamp, id,tipof, producto, valor, tienda, destino, codigo}
         archivo, err := os.OpenFile("registro.csv", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 
 	if err != nil {
