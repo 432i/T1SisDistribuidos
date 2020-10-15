@@ -27,7 +27,7 @@ func guardarOrden(id string, producto string, valor string, tienda string, desti
                 tipof = "retail"
         }
 
-        orden := []string{timestamp, id,tipof, producto, valor, tienda, destino, codigo}
+        orden := []string{timestamp, id, tipof, producto, valor, tienda, destino, codigo}
         archivo, err := os.OpenFile("registro.csv", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 
 	if err != nil {
@@ -42,10 +42,17 @@ func guardarOrden(id string, producto string, valor string, tienda string, desti
 	archivo.Close()
 }
 
-//func (s *Server) SolicitarSeguimiento(ctx context.Context, codigoSeguimiento *Message) (*Message, error) {
-//        log.Printf("Receive message body from client: %s", in.Body)
-//        return &Message{Body: "Hello From the Server!"}, nil
-//}
+func (s *Server) SolicitarSeguimiento(ctx context.Context, message *Message) (*Message, error) {
+        codigoSeguimiento := message.GetBody()
+        m := "sorry todavia no está implementado ._.XD  "+codigoSeguimiento
+        //buscar estado del pedido 
+        msj := Message{
+                Body: m
+        }
+
+
+        return &msj, nil
+}
 
 func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error) {
         codigoSeguimiento := "432"+orden.GetId()

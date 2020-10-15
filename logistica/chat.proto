@@ -18,5 +18,5 @@ message Message {
 
 service ChatService {
   rpc EnviarOrden(Orden) returns (Message){}
-  //rpc SolicitarSeguimiento(Message) returns (Message){}
+  rpc SolicitarSeguimiento(Message) returns (Message){}
 }
