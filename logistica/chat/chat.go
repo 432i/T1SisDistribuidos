@@ -84,7 +84,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                         }
                         s.cola_ret_a_camion = s.cola_ret_a_camion[1:]
                 }
-        } else if mensaje.GetBody() == "normal" {
+        } else {
                 if len(s.cola_prio_a_camion) > 0 {
                         msj = Paquete{
                                 Id: s.cola_prio_a_camion[0].GetId(),
@@ -105,7 +105,9 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                                 Estado: s.cola_norm_a_camion[0].GetEstado(),
                         }
                         s.cola_norm_a_camion = s.cola_norm_a_camion[1:]
+                } 
+                else {
+                        return &msj, nil
                 }
         }
-        return &msj, nil
 }
