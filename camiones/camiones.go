@@ -7,6 +7,7 @@ import (
 	"time"
 	"bufio"
 	"context"
+	"math/rand"
 	"github.com/432i/T1SisDistribuidos/logistica/chat"
 	"google.golang.org/grpc"
 )
@@ -17,7 +18,13 @@ type Camion struct {
 	Paquete2 chat.Paquete
 }
 
+func xd(camion Camion) {
+	if camion.Paquete1.Valor > camion.Paquete2.Valor {
+		
+	} else {
 
+	}
+}
 
 func Carga(camion Camion) {
 	var conn *grpc.ClientConn
