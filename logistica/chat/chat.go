@@ -20,7 +20,7 @@ type Server struct {
         cola_norm_a_server []Paquete
 }
 //se guarda la orden en registro.csv
-func guardarOrden(id string, producto string, valor string, tienda string, destino string, prioritario string, codigo string){
+func guardarOrden(id string, producto string, valor string, tienda string, destino string, prioritario, codigo string){
         var tipof string
         tiempoactual := time.Now()
         timestamp := tiempoactual.Format("02-01-2006 15:04")
