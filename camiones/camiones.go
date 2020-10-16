@@ -55,6 +55,7 @@ func Intento(paquete *chat.Paquete) {
 }
 
 func Entrega(camion *Camion, tEnvio int) bool {
+	fmt.Println("Entra")
 	if camion.Paquete1.Valor > camion.Paquete2.Valor {
 		time.Sleep(time.Duration(tEnvio) * time.Second)
 		Intento(camion.Paquete1)
@@ -87,12 +88,15 @@ func Carga(camion *Camion, tEspera int, tEnvio int) {
 
 	paquete1, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
 	if paquete1.GetId() != "" {
+		fmt.Println("Hola")
 		camion.Paquete1 = paquete1
 		msj := chat.Message{
 			Body: camion.Paquete1.GetSeguimiento() + ",En Camino",
 		}
+		fmt.Println("Hola2")
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
 		fmt.Println(respuesta)
+		fmt.Println("Hola3")
 	}
 	fmt.Println(camion.Paquete1.Id)
 	time.Sleep(time.Duration(tEspera) * time.Second)
@@ -134,15 +138,17 @@ func main() {
     CamionR1 := Camion {
 		Tipo: "retail",
 	}
+	/*
 	CamionR2 := Camion {
 		Tipo: "retail",
 	}
 	CamionN := Camion{
 		Tipo: "normal",
-	}
+	}*/
 
 	for {
 		Carga(&CamionR1, tEspera, tEnvio)
+		fmt.Println(CamionR1.Paquete1.Seguimiento)
 		//Carga(CamionR2, tEspera, tEnvio)
 		//Carga(CamionN, tEspera, tEnvio)
 
