@@ -70,33 +70,32 @@ func Entrega(camion *Camion, tEnvio int) bool {
 }
 
 func Carga(camion *Camion, tEspera int, tEnvio int) {
+	fmt.Println("Debug")
 	var conn *grpc.ClientConn
 	conn, err := grpc.Dial("10.6.40.149:9000", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("Error al conectar: %s", err)
 	}
 	defer conn.Close()
+	fmt.Println("Debug")
 
 	c := chat.NewChatServiceClient(conn)
 	if err != nil {
 		log.Fatalf("No se pudo generar comunicacion: %s", err)
 	}
-
+	fmt.Println("Debug")
 	mensaje := chat.Message{
 		Body: camion.Tipo,
 	}
-
+	fmt.Println("Debug")
 	paquete1, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
 	if paquete1.GetId() != "" {
-		fmt.Println("Hola")
 		camion.Paquete1 = paquete1
 		msj := chat.Message{
 			Body: camion.Paquete1.GetSeguimiento() + ",En Camino",
 		}
-		fmt.Println("Hola2")
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
 		fmt.Println(respuesta)
-		fmt.Println("Hola3")
 	}
 	fmt.Println(camion.Paquete1.Id)
 	time.Sleep(time.Duration(tEspera) * time.Second)
@@ -135,14 +134,9 @@ func main() {
 	tEspera, _ := strconv.Atoi(tEspera1)
 	tEnvio, _ := strconv.Atoi(tEnvio1)
 
-	fmt.Println("Debug")
-
     CamionR1 := Camion {
 		Tipo: "retail",
 	}
-
-	fmt.Println("Debug")
-
 	/*
 	CamionR2 := Camion {
 		Tipo: "retail",
