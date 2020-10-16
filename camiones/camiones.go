@@ -96,7 +96,7 @@ func Carga(camion Camion, tEspera int64, tEnvio int64) {
 		Track:    paquete2.GetTrack(),
 		Tipo:     paquete2.GetTipo(),
 		Intentos: paquete2.GetIntentos(),
-		Estado:   paquete2.GetEstado(),
+		Estado:   "En Camino",
 	}
 
 	//for Entrega(camion, tEnvio){}
