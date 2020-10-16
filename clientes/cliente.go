@@ -96,7 +96,7 @@ func main(){
         //log.Printf("Response from server: %s", response.Body)
         var segundos int
         fmt.Println("Cuantos segundos desea esperar por cada orden?: \n")
-        _, err := fmt.Scanln(&segundos)
+        lesera, err := fmt.Scanln(&segundos)
         if err != nil {
                 fmt.Fprintln(os.Stderr, err)
                 return
@@ -115,7 +115,7 @@ func main(){
                 fmt.Println("2 Enviar una orden desde el Retail \n")
                 fmt.Println("3 Realizar seguimiento de un pedido \n")
                 fmt.Println("432 para salir")
-                _, err := fmt.Scanln(&respuesta)
+                lesera, err := fmt.Scanln(&respuesta)
                 if err != nil {
                         fmt.Fprintln(os.Stderr, err)
                         return
