@@ -51,8 +51,8 @@ func guardarOrden(id string, producto string, valor string, tienda string, desti
 
 //debe recibirse un string de forma "codigoSeguimiento,nuevoEstado"
 func (s *Server) ModificarEstado(ctx context.Context, message *Message) (*Message, error){
-        s := message.GetBody()
-        l := strings.Split(s, ",")
+        s = message.GetBody()
+        l = strings.Split(s, ",")
         codigoSeguimiento := l[0]
         nuevoEstado := l[1]
         //se modifica el estado del paquete 
@@ -85,6 +85,7 @@ func (s *Server) ModificarEstado(ctx context.Context, message *Message) (*Messag
 
 func (s *Server) SolicitarSeguimiento(ctx context.Context, message *Message) (*Message, error) {
         codigoSeguimiento := message.GetBody()
+        var msj Message
         for _, pakete := range s.todos_paquetes{
                 if strings.Compare(pakete.GetSeguimiento(), codigoSeguimiento) == 0{
                         m := "El estado de su pedido "+codigoSeguimiento+" es "+pakete.GetEstado()
@@ -95,7 +96,6 @@ func (s *Server) SolicitarSeguimiento(ctx context.Context, message *Message) (*M
                         break
                 }
         }
-
         return &msj, nil
 }
 
@@ -205,7 +205,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
         } else {
                 msj = Paquete{
                         Id: "",
-                        Track: "",
+                        Seguimiento: "",
                         Tipo: "",
                         Valor: "",
                         Intentos: "",
