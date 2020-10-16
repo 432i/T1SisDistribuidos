@@ -69,7 +69,7 @@ func Entrega(camion *Camion, tEnvio int) bool {
 	return true
 }
 
-func Carga(camion *Camion, tEspera int, tEnvio int) {
+func Carga(camion Camion, tEspera int, tEnvio int) {
 	var conn *grpc.ClientConn
 	conn, err := grpc.Dial("10.6.40.149:9000", grpc.WithInsecure())
 	if err != nil {
@@ -81,7 +81,7 @@ func Carga(camion *Camion, tEspera int, tEnvio int) {
 	if err != nil {
 		log.Fatalf("No se pudo generar comunicacion: %s", err)
 	}
-	
+
 	mensaje := chat.Message{
 		Body: camion.Tipo,
 	}
@@ -121,13 +121,13 @@ func Carga(camion *Camion, tEspera int, tEnvio int) {
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 
-	fmt.Println("Ingrese el tiempo de espera de los camiones\n")
+	fmt.Printf("Ingrese el tiempo de espera de los camiones\n")
 	tEspera1, _ := reader.ReadString('\n')
-	fmt.Println("El tiempo de espera para tomar el segundo paquete es de %s segundos", tEspera1)
+	fmt.Printf("El tiempo de espera para tomar el segundo paquete es de %s segundos", tEspera1)
 
-	fmt.Println("Ingrese el tiempo de envio de los paquetes\n")
+	fmt.Printf("Ingrese el tiempo de envio de los paquetes\n")
 	tEnvio1, _ := reader.ReadString('\n')
-	fmt.Println("El tiempo de envío entre paquetes es de %s segundos", tEnvio1)
+	fmt.Printf("El tiempo de envío entre paquetes es de %s segundos", tEnvio1)
 
 	tEspera, _ := strconv.Atoi(tEspera1)
 	tEnvio, _ := strconv.Atoi(tEnvio1)
@@ -144,7 +144,7 @@ func main() {
 	}*/
 
 	for {
-		Carga(&CamionR1, tEspera, tEnvio)
+		Carga(CamionR1, tEspera, tEnvio)
 		fmt.Println(CamionR1.Paquete1.Seguimiento)
 		//Carga(CamionR2, tEspera, tEnvio)
 		//Carga(CamionN, tEspera, tEnvio)
