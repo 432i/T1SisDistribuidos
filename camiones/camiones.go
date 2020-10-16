@@ -27,22 +27,26 @@ func getTime() string {
 }
 
 func Intento(paquete chat.Paquete) {
+	intentos, _ = strconv.Atoi(paquete.Intentos)
+	valor, _ = strconv.Atoi(paquete.Valor)
 	if paquete.Tipo == "retail" {
-		if paquete.Intentos < 3 {
+		if intentos < 3 {
 			if rand.Float64() <= 0.8 {
 				paquete.Estado = "Recibido"
 			} else {
-				paquete.Intentos += 1
+				intentos += 1
+				paquete.Intentos = strconv.Itoa(intentos)
 			}
 		} else {
 			paquete.Estado = "No Recibido"
 		}
 	} else {
-		if paquete.Intentos * 10 < paquete.Valor && paquete.Intentos < 2 {
+		if intentos * 10 < valor && intentos < 2 {
 			if rand.Float64() <= 0.8 {
 				paquete.Estado = "Recibido"
 			} else {
-				paquete.Intentos += 1
+				intentos += 1
+				paquete.Intentos = strconv.Itoa(intentos)
 			}
 		} else {
 			paquete.Estado = "No Recibido"
