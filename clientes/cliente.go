@@ -6,6 +6,7 @@ import(
         "encoding/csv"
         "log"
         "fmt"
+        "bufio"
         "time"
         "golang.org/x/net/context"
         "google.golang.org/grpc"
