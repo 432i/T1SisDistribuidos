@@ -11,13 +11,13 @@ import (
 )
 
 type Server struct {
-        todos_paquetes []chat.Paquete //registro en memoria de todos los paquetes, para consultar su estado y demás
-        cola_ret_a_camion []chat.Paquete
-        cola_prio_a_camion []chat.Paquete
-        cola_norm_a_camion []chat.Paquete
-        cola_ret_a_server []chat.Paquete
-        cola_prio_a_server []chat.Paquete
-        cola_norm_a_server []chat.Paquete
+        todos_paquetes []Paquete //registro en memoria de todos los paquetes, para consultar su estado y demás
+        cola_ret_a_camion []Paquete
+        cola_prio_a_camion []Paquete
+        cola_norm_a_camion []Paquete
+        cola_ret_a_server []Paquete
+        cola_prio_a_server []Paquete
+        cola_norm_a_server []Paquete
 }
 //se guarda la orden en registro.csv
 func guardarOrden(id string, producto string, valor string, tienda string, destino string, prioritario string, codigo string){
@@ -75,7 +75,7 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
 
         //colas segun el tipo, tipo -> retail prioritario normal  
         if strings.Compare(orden.GetPrioritario(), "0") == 0 {
-                pakete = chat.Paquete{
+                pakete = Paquete{
                         Id: orden.GetId(),
                         Seguimiento: codigoSeguimiento,
                         Tipo: "normal",
@@ -87,7 +87,7 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
                 s.todos_paquetes = append(s.todos_paquetes, pakete)
         }
         if strings.Compare(orden.GetPrioritario(), "1") == 0 {
-                pakete = chat.Paquete{
+                pakete = Paquete{
                         Id: orden.GetId(),
                         Seguimiento: codigoSeguimiento,
                         Tipo: "prioritario",
@@ -99,7 +99,7 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
                 s.todos_paquetes = append(s.todos_paquetes, pakete)
         }
         if strings.Compare(orden.GetPrioritario(), "2") == 0 {
-                pakete = chat.Paquete{
+                pakete = Paquete{
                         Id: orden.GetId(),
                         Seguimiento: codigoSeguimiento,
                         Tipo: "retail",
@@ -120,7 +120,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
 
         if mensaje.GetBody() == "retail" {
                 if len(s.cola_ret_a_camion) > 0 {
-                        msj = chat.Paquete{
+                        msj = Paquete{
                                 Id: s.cola_ret_a_camion[0].GetId(),
                                 Seguimiento: s.cola_ret_a_camion[0].GetSeguimiento(),
                                 Tipo: s.cola_ret_a_camion[0].GetTipo(),
@@ -132,7 +132,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                         cont := 0 //para saber la posicion de la lista
                         for _, pakete := range s.todos_paquetes{
                                 if strings.Compare(pakete.GetSeguimiento(), s.cola_ret_a_camion[0].GetSeguimiento()) == 0{
-                                        nuevopakete = chat.Paquete{
+                                        nuevopakete = Paquete{
                                                 Id: pakete.GetId(),
                                                 Seguimiento: pakete.GetSeguimiento(),
                                                 Tipo: pakete.GetTipo(),
@@ -151,7 +151,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                 }
         } else {
                 if len(s.cola_prio_a_camion) > 0 {
-                        msj = chat.Paquete{
+                        msj = Paquete{
                                 Id: s.cola_prio_a_camion[0].GetId(),
                                 Seguimiento: s.cola_prio_a_camion[0].GetSeguimiento(),
                                 Tipo: s.cola_prio_a_camion[0].GetTipo(),
@@ -163,7 +163,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                         cont := 0 //para saber la posicion de la lista
                         for _, pakete := range s.todos_paquetes{
                                 if strings.Compare(pakete.GetSeguimiento(), s.cola_prio_a_camion[0].GetSeguimiento()) == 0{
-                                        nuevopakete = chat.Paquete{
+                                        nuevopakete = Paquete{
                                                 Id: pakete.GetId(),
                                                 Seguimiento: pakete.GetSeguimiento(),
                                                 Tipo: pakete.GetTipo(),
@@ -180,7 +180,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                         }
                         s.cola_prio_a_camion = s.cola_prio_a_camion[1:]
                 } else if len(s.cola_norm_a_camion) > 0 {
-                        msj = chat.Paquete{
+                        msj = Paquete{
                                 Id: s.cola_norm_a_camion[0].GetId(),
                                 Seguimiento: s.cola_norm_a_camion[0].GetSeguimiento(),
                                 Tipo: s.cola_norm_a_camion[0].GetTipo(),
@@ -192,7 +192,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                         cont := 0 //para saber la posicion de la lista
                         for _, pakete := range s.todos_paquetes{
                                 if strings.Compare(pakete.GetSeguimiento(), s.cola_norm_a_camion[0].GetSeguimiento()) == 0{
-                                        nuevopakete = chat.Paquete{
+                                        nuevopakete = Paquete{
                                                 Id: pakete.GetId(),
                                                 Seguimiento: pakete.GetSeguimiento(),
                                                 Tipo: pakete.GetTipo(),
