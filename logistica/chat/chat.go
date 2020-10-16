@@ -54,7 +54,7 @@ func (s *Server) SolicitarSeguimiento(ctx context.Context, message *Message) (*M
         m := "sorry todavia no está implementado ._.XD  "+codigoSeguimiento
         //buscar estado del pedido 
         msj := Message{
-                Body: m
+                Body: m,
         }
 
 
@@ -208,8 +208,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                                 cont = cont +1
                         }
                         s.cola_norm_a_camion = s.cola_norm_a_camion[1:]
-                } 
-                else {
+                } else {
                         return &msj, nil
                 }
         }
