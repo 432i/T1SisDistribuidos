@@ -68,7 +68,7 @@ func Entrega(camion *Camion, tEnvio int) bool {
 	return true
 }
 
-func Carga(camion Camion, tEspera int, tEnvio int) {
+func Carga(camion *Camion, tEspera int, tEnvio int) {
 	var conn *grpc.ClientConn
 	conn, err := grpc.Dial("10.6.40.149:9000", grpc.WithInsecure())
 	if err != nil {
@@ -97,7 +97,7 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 		msj := chat.Message{
 			Body: camion.Paquete1.GetSeguimiento() + ",En Camino",
 		}
-		respuesta, _ = c.EstadoPaquete(context.Background(), &msj)
+		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
 		fmt.Println(respuesta)
 	}
 	fmt.Println(camion.Paquete1.Id)
@@ -115,7 +115,7 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 		msj := chat.Message{
 			Body: camion.Paquete2.GetSeguimiento() + ",En Camino",
 		}
-		respuesta, _ = c.EstadoPaquete(context.Background(), &msj)
+		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
 		fmt.Println(respuesta)
 	}
 
