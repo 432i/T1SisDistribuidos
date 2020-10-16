@@ -135,9 +135,14 @@ func main() {
 	tEspera, _ := strconv.Atoi(tEspera1)
 	tEnvio, _ := strconv.Atoi(tEnvio1)
 
+	fmt.Println("Debug")
+
     CamionR1 := Camion {
 		Tipo: "retail",
 	}
+
+	fmt.Println("Debug")
+
 	/*
 	CamionR2 := Camion {
 		Tipo: "retail",
