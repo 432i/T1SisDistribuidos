@@ -31,8 +31,7 @@ func Intento(paquete chat.Paquete) {
 		if paquete.Intentos < 3 {
 			if rand.Float64() <= 0.8 {
 				paquete.Estado = "Recibido"
-			}
-			else {
+			} else {
 				paquete.Intentos += 1
 			}
 		} else {
