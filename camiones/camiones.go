@@ -116,9 +116,9 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 	}
 
 	aux = true
-	do {
-    	aux = Entrega(*camion, tEnvio);
-	} while (aux);
+	for aux {
+		aux = Entrega(*camion, tEnvio)
+	}
 
 	PaqueteCamionToQueue(context.Background(), &camion.paquete1)
 	PaqueteCamionToQueue(context.Background(), &camion.paquete2)
