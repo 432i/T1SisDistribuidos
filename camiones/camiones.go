@@ -81,24 +81,21 @@ func Carga(camion *Camion, tEspera int, tEnvio int) {
 	if err != nil {
 		log.Fatalf("No se pudo generar comunicacion: %s", err)
 	}
+	
 	mensaje := chat.Message{
 		Body: camion.Tipo,
 	}
+
 	paquete1, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
-	fmt.Println("xddd")
-	fmt.Printf(paquete1.GetSeguimiento())
-	fmt.Println("Debugaaaaa")
 	if paquete1.GetId() != "" {
-		fmt.Println("Debug")
 		camion.Paquete1 = paquete1
-		fmt.Println("Debug")
 		msj := chat.Message{
 			Body: camion.Paquete1.GetSeguimiento() + ",En Camino",
 		}
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
 		fmt.Println(respuesta)
 	}
-	fmt.Println(camion.Paquete1.Id)
+
 	time.Sleep(time.Duration(tEspera) * time.Second)
 
 	paquete2, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
