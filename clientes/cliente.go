@@ -128,6 +128,7 @@ func main(){
 
                 if strings.Compare("1", respuesta) == 0{
                         fmt.Println("Enviando orden desde una pyme. . .")
+                        time.Sleep(time.Duration(segundos)*time.Second)
                         if contPyme == (cantPyme-1){
                                 fmt.Println("No quedan más ordenes que realizar. Saliendo... \n ")
                         }else{
@@ -148,14 +149,13 @@ func main(){
                                 log.Printf("%s", response.Body)
                                 
                                 contPyme = contPyme+1
-                                fmt.Println("Espere un momento antes de realizar otra accion")
-                                time.Sleep(time.Duration(segundos)*time.Second)
                         }
                 }
 
 
                 if strings.Compare("2", respuesta) == 0{
                         fmt.Println("Enviando orden desde el retail. . .")
+                        time.Sleep(time.Duration(segundos)*time.Second)
                         if contRetail == (cantRetail-1){
                                 fmt.Println("No quedan más ordenes que realizar. Saliendo... \n ")
                         }else{
@@ -176,8 +176,7 @@ func main(){
                                 log.Printf("%s", response.Body)
 
                                 contRetail = contRetail+1
-                                fmt.Println("Espere un momento antes de realizar otra accion")
-                                time.Sleep(time.Duration(segundos)*time.Second)
+
                         }
 
                 }
@@ -191,7 +190,8 @@ func main(){
                                 fmt.Fprintln(os.Stderr, err)
                                 return
                         }
-                        fmt.Println("Realizando seguimiento del código %s. . .  \n", codigoSeguimiento)
+                        fmt.Println("Realizando seguimiento del codigo entregado")
+                        time.Sleep(time.Duration(segundos)*time.Second)
                         message := chat.Message{
 				Body: codigoSeguimiento,
                         }
@@ -200,8 +200,6 @@ func main(){
                                 fmt.Println("Error al consultar :(!!!!!!!!!!")
                         }
                         log.Printf("%s", response.Body)
-                        fmt.Println("Espere un momento antes de realizar otra accion")
-                        time.Sleep(time.Duration(segundos)*time.Second)
                 }
                 if strings.Compare("432", respuesta) == 0{
                         fmt.Println("Saliendo del programa. . . ")
