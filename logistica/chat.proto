@@ -15,8 +15,8 @@ message Paquete  {
     string Id = 1;
     string Seguimiento = 2;
     string Tipo = 3;
-    int Valor = 4
-    int Intentos = 5;
+    int64 Valor = 4
+    int32 Intentos = 5;
     string Estado = 6;
 }
 
