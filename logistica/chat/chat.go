@@ -90,7 +90,7 @@ func (s *Server) SolicitarSeguimiento(ctx context.Context, message *Message) (*M
                 if strings.Compare(pakete.GetSeguimiento(), codigoSeguimiento) == 0{
                         m := "El estado de su pedido "+codigoSeguimiento+" es "+pakete.GetEstado()
                         //buscar estado del pedido 
-                        msj := Message{
+                        msj = Message{
                                 Body: m,
                         }
                         break
