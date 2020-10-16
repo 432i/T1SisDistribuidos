@@ -89,13 +89,13 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 	if paquete1.GetId() != "" {
 		camion.Paquete1 = chat.Paquete{
 			Id:       paquete1.GetId(),
-			Track:    paquete1.GetTrack(),
+			Seguimiento:    paquete1.GetSeguimiento(),
 			Tipo:     paquete1.GetTipo(),
 			Intentos: paquete1.GetIntentos(),
 			Estado:   paquete1.GetEstado(),
 		}
 		msj = chat.Message{
-			Body: camion.Paquete1.GetTrack() + ",En Camino",
+			Body: camion.Paquete1.GetSeguimiento() + ",En Camino",
 		}
 		respuesta, _ = c.EstadoPaquete(context.Background(), &msj)
 		fmt.Println(respuesta)
@@ -107,13 +107,13 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 	if paquete2.GetId() != "" {
 		camion.Paquete2 = chat.Paquete{
 			Id:       paquete2.GetId(),
-			Track:    paquete2.GetTrack(),
+			Seguimiento:    paquete2.GetSeguimiento(),
 			Tipo:     paquete2.GetTipo(),
 			Intentos: paquete2.GetIntentos(),
 			Estado:   paquete2.GetEstado(),
 		}
 		msj = chat.Message{
-			Body: camion.Paquete2.GetTrack() + ",En Camino",
+			Body: camion.Paquete2.GetSeguimiento() + ",En Camino",
 		}
 		respuesta, _ = c.EstadoPaquete(context.Background(), &msj)
 		fmt.Println(respuesta)
