@@ -280,14 +280,21 @@ var file_chat_proto_rawDesc = []byte{
 	0x74, 0x61, 0x64, 0x6f, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x45, 0x73, 0x74, 0x61,
 	0x64, 0x6f, 0x22, 0x1d, 0x0a, 0x07, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x12, 0x0a,
 	0x04, 0x62, 0x6f, 0x64, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x62, 0x6f, 0x64,
-	0x79, 0x32, 0x72, 0x0a, 0x0b, 0x43, 0x68, 0x61, 0x74, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x12, 0x2b, 0x0a, 0x0b, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4f, 0x72, 0x64, 0x65, 0x6e, 0x12,
-	0x0b, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x4f, 0x72, 0x64, 0x65, 0x6e, 0x1a, 0x0d, 0x2e, 0x63,
-	0x68, 0x61, 0x74, 0x2e, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x00, 0x12, 0x36, 0x0a,
-	0x14, 0x53, 0x6f, 0x6c, 0x69, 0x63, 0x69, 0x74, 0x61, 0x72, 0x53, 0x65, 0x67, 0x75, 0x69, 0x6d,
-	0x69, 0x65, 0x6e, 0x74, 0x6f, 0x12, 0x0d, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x4d, 0x65, 0x73,
-	0x73, 0x61, 0x67, 0x65, 0x1a, 0x0d, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x4d, 0x65, 0x73, 0x73,
-	0x61, 0x67, 0x65, 0x22, 0x00, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x79, 0x32, 0xdd, 0x01, 0x0a, 0x0b, 0x43, 0x68, 0x61, 0x74, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63,
+	0x65, 0x12, 0x2b, 0x0a, 0x0b, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4f, 0x72, 0x64, 0x65, 0x6e,
+	0x12, 0x0b, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x4f, 0x72, 0x64, 0x65, 0x6e, 0x1a, 0x0d, 0x2e,
+	0x63, 0x68, 0x61, 0x74, 0x2e, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x00, 0x12, 0x36,
+	0x0a, 0x14, 0x53, 0x6f, 0x6c, 0x69, 0x63, 0x69, 0x74, 0x61, 0x72, 0x53, 0x65, 0x67, 0x75, 0x69,
+	0x6d, 0x69, 0x65, 0x6e, 0x74, 0x6f, 0x12, 0x0d, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x4d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x1a, 0x0d, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x4d, 0x65, 0x73,
+	0x73, 0x61, 0x67, 0x65, 0x22, 0x00, 0x12, 0x31, 0x0a, 0x0f, 0x4d, 0x6f, 0x64, 0x69, 0x66, 0x69,
+	0x63, 0x61, 0x72, 0x45, 0x73, 0x74, 0x61, 0x64, 0x6f, 0x12, 0x0d, 0x2e, 0x63, 0x68, 0x61, 0x74,
+	0x2e, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x1a, 0x0d, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x2e,
+	0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x00, 0x12, 0x36, 0x0a, 0x14, 0x50, 0x61, 0x71,
+	0x75, 0x65, 0x74, 0x65, 0x51, 0x75, 0x65, 0x75, 0x65, 0x54, 0x6f, 0x43, 0x61, 0x6d, 0x69, 0x6f,
+	0x6e, 0x12, 0x0d, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
+	0x1a, 0x0d, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x50, 0x61, 0x71, 0x75, 0x65, 0x74, 0x65, 0x22,
+	0x00, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -311,10 +318,14 @@ var file_chat_proto_goTypes = []interface{}{
 var file_chat_proto_depIdxs = []int32{
 	0, // 0: chat.ChatService.EnviarOrden:input_type -> chat.Orden
 	2, // 1: chat.ChatService.SolicitarSeguimiento:input_type -> chat.Message
-	2, // 2: chat.ChatService.EnviarOrden:output_type -> chat.Message
-	2, // 3: chat.ChatService.SolicitarSeguimiento:output_type -> chat.Message
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+	2, // 2: chat.ChatService.ModificarEstado:input_type -> chat.Message
+	2, // 3: chat.ChatService.PaqueteQueueToCamion:input_type -> chat.Message
+	2, // 4: chat.ChatService.EnviarOrden:output_type -> chat.Message
+	2, // 5: chat.ChatService.SolicitarSeguimiento:output_type -> chat.Message
+	2, // 6: chat.ChatService.ModificarEstado:output_type -> chat.Message
+	1, // 7: chat.ChatService.PaqueteQueueToCamion:output_type -> chat.Paquete
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -397,6 +408,8 @@ const _ = grpc.SupportPackageIsVersion6
 type ChatServiceClient interface {
 	EnviarOrden(ctx context.Context, in *Orden, opts ...grpc.CallOption) (*Message, error)
 	SolicitarSeguimiento(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Message, error)
+	ModificarEstado(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Message, error)
+	PaqueteQueueToCamion(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Paquete, error)
 }
 
 type chatServiceClient struct {
@@ -425,10 +438,30 @@ func (c *chatServiceClient) SolicitarSeguimiento(ctx context.Context, in *Messag
 	return out, nil
 }
 
+func (c *chatServiceClient) ModificarEstado(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Message, error) {
+	out := new(Message)
+	err := c.cc.Invoke(ctx, "/chat.ChatService/ModificarEstado", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *chatServiceClient) PaqueteQueueToCamion(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Paquete, error) {
+	out := new(Paquete)
+	err := c.cc.Invoke(ctx, "/chat.ChatService/PaqueteQueueToCamion", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ChatServiceServer is the server API for ChatService service.
 type ChatServiceServer interface {
 	EnviarOrden(context.Context, *Orden) (*Message, error)
 	SolicitarSeguimiento(context.Context, *Message) (*Message, error)
+	ModificarEstado(context.Context, *Message) (*Message, error)
+	PaqueteQueueToCamion(context.Context, *Message) (*Paquete, error)
 }
 
 // UnimplementedChatServiceServer can be embedded to have forward compatible implementations.
@@ -440,6 +473,12 @@ func (*UnimplementedChatServiceServer) EnviarOrden(context.Context, *Orden) (*Me
 }
 func (*UnimplementedChatServiceServer) SolicitarSeguimiento(context.Context, *Message) (*Message, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SolicitarSeguimiento not implemented")
+}
+func (*UnimplementedChatServiceServer) ModificarEstado(context.Context, *Message) (*Message, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ModificarEstado not implemented")
+}
+func (*UnimplementedChatServiceServer) PaqueteQueueToCamion(context.Context, *Message) (*Paquete, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PaqueteQueueToCamion not implemented")
 }
 
 func RegisterChatServiceServer(s *grpc.Server, srv ChatServiceServer) {
@@ -482,6 +521,42 @@ func _ChatService_SolicitarSeguimiento_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ChatService_ModificarEstado_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Message)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChatServiceServer).ModificarEstado(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/chat.ChatService/ModificarEstado",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChatServiceServer).ModificarEstado(ctx, req.(*Message))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ChatService_PaqueteQueueToCamion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Message)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChatServiceServer).PaqueteQueueToCamion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/chat.ChatService/PaqueteQueueToCamion",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChatServiceServer).PaqueteQueueToCamion(ctx, req.(*Message))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _ChatService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "chat.ChatService",
 	HandlerType: (*ChatServiceServer)(nil),
@@ -493,6 +568,14 @@ var _ChatService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SolicitarSeguimiento",
 			Handler:    _ChatService_SolicitarSeguimiento_Handler,
+		},
+		{
+			MethodName: "ModificarEstado",
+			Handler:    _ChatService_ModificarEstado_Handler,
+		},
+		{
+			MethodName: "PaqueteQueueToCamion",
+			Handler:    _ChatService_PaqueteQueueToCamion_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
