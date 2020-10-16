@@ -215,7 +215,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
         }
 }
 
-func (s *Server) PaqueteCamionToQueue(ctx context.Context, paquete *Paquete) (*Paquete, error) {
+func (s *Server) PaqueteCamionToQueue(ctx context.Context, paquete *Paquete) {
         if paquete.GetTipo() == "retail" {
                 s.cola_ret_a_server = append(s.cola_ret_a_server, paquete)
         } else if paquete.GetTipo() == "prioritario"{

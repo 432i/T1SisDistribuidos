@@ -50,15 +50,21 @@ func Intento(paquete chat.Paquete) {
 	}
 }
 
-func Entrega(camion Camion) {
+func Entrega(camion Camion, tEnvio int64) bool {
 	if camion.Paquete1.Valor > camion.Paquete2.Valor {
+		time.Sleep(tEnvio * time.Second)
 		Intento(camion.Paquete1)
 	} else {
-		Intento(camion.Paquete1)
+		time.Sleep(tEnvio * time.Second)
+		Intento(camion.Paquete2)
 	}
+	if camion.Paquete1.Estado != "En Camino" && camion.Paquete2.Estado != "En Camino"{
+		return false
+	}
+	return true
 }
 
-func Carga(camion Camion) {
+func Carga(camion Camion, tEspera int64, tEnvio int64) {
 	var conn *grpc.ClientConn
 	conn, err := grpc.Dial("10.6.40.149:9000", grpc.WithInsecure())
 	if err != nil {
@@ -83,7 +89,7 @@ func Carga(camion Camion) {
 		Intentos: paquete1.GetIntentos(),
 		Estado:   paquete1.GetEstado(),
 	}
-
+	time.Sleep(tEspera * time.Second)
 	paquete2, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
 	camion.Paquete2 = chat.Paquete{
 		Id:       paquete2.GetId(),
@@ -93,8 +99,13 @@ func Carga(camion Camion) {
 		Estado:   paquete2.GetEstado(),
 	}
 
-	Entrega(camion)
+	//for Entrega(camion, tEnvio){}
+	do {
+    	aux = Entrega(camion, tEnvio);
+	} while (aux);
 
+	PaqueteCamionToQueue(context.Background(), &camion.paquete1)
+	PaqueteCamionToQueue(context.Background(), &camion.paquete2)
 
 }
 
@@ -102,10 +113,10 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 
 	fmt.Println("Ingrese el tiempo de espera de los camiones\n")
-	tEspera, _ := strconv.Atoi(reader.ReadString('\n'))
+	tEspera, _ := strconv.ParseInt(reader.ReadString('\n'))
 
 	fmt.Println("Ingrese el tiempo de envio de los paquetes\n")
-	tEnvio, _ := strconv.Atoi(reader.ReadString('\n'))
+	tEnvio, _ := strconv.ParseInt(reader.ReadString('\n'))
 
     CamionR1 := Camion {
 		Tipo: "retail",
@@ -118,7 +129,6 @@ func main() {
 	}
 
 	for {
-		time.Sleep(tEspera * time.Second)
 		go Carga(CamionR1)
 		go Carga(CamionR2)
 		go Carga(CamionN)
