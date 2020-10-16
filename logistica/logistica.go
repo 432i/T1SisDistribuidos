@@ -13,7 +13,7 @@ func crearRegistro(){
         if err != nil{
                 log.Println(err)
         }
-        defer archivo.Close()
+        archivo.Close()
 }
 func main() {
 
