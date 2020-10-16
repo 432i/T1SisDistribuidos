@@ -29,7 +29,7 @@ func getTime() string {
 func Intento(paquete chat.Paquete) {
 	if paquete.Tipo == "retail" {
 		if paquete.Intentos < 3 {
-			if rand.float64() <= 0.8 {
+			if rand.Float64() <= 0.8 {
 				paquete.Estado = "Recibido"
 			}
 			else {
@@ -40,7 +40,7 @@ func Intento(paquete chat.Paquete) {
 		}
 	} else {
 		if paquete.Intentos * 10 < paquete.Valor && paquete.Intentos < 2 {
-			if rand.float64() <= 0.8 {
+			if rand.Float64() <= 0.8 {
 				paquete.Estado = "Recibido"
 			} else {
 				paquete.Intentos += 1
@@ -97,7 +97,7 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 		respuesta, _ = c.EstadoPaquete(context.Background(), &msj)
 		fmt.Println(respuesta)
 	}
-
+	fmt.Println(camion.Paquete1.Id)
 	time.Sleep(tEspera * time.Second)
 
 	paquete2, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
@@ -137,8 +137,8 @@ func main() {
 	tEnvio, _ := reader.ReadString('\n')
 	fmt.Println("El tiempo de envío entre paquetes es de %s segundos", tEnvio)
 
-	tEspera = strconv.Atoi(tEspera)
-	tEnvio = strconv.Atoi(tEnvio)
+	tEspera, _ = strconv.Atoi(tEspera)
+	tEnvio, _ = strconv.Atoi(tEnvio)
 
     CamionR1 := Camion {
 		Tipo: "retail",
@@ -151,9 +151,9 @@ func main() {
 	}
 
 	for {
-		go Carga(CamionR1, tEspera, tEnvio)
-		go Carga(CamionR2, tEspera, tEnvio)
-		Carga(CamionN, tEspera, tEnvio)
+		Carga(CamionR1, tEspera, tEnvio)
+		//Carga(CamionR2, tEspera, tEnvio)
+		//Carga(CamionN, tEspera, tEnvio)
 
 	}
 
