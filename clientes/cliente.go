@@ -101,7 +101,7 @@ func main(){
         reader := bufio.NewReader(os.Stdin)
         fmt.Println("Cuantos segundos desea esperar por cada orden?: \n")
         tu, _ = reader.ReadString('\n')
-        segundos, err := strconv.Atoi(tu)
+        segundos, err = strconv.Atoi(tu)
         
         pedidosPyme := cargarPyme()
         pedidosRetail := cargarRetail()
