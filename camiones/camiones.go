@@ -107,13 +107,13 @@ func Carga(camion *Camion, tEspera int, tEnvio int) {
 		fmt.Println(respuesta)
 	}
 
-	aux = true
+	aux := true
 	for aux {
-		aux = Entrega(*camion, tEnvio)
+		aux = Entrega(camion, tEnvio)
 	}
 
-	PaqueteCamionToQueue(context.Background(), &camion.paquete1)
-	PaqueteCamionToQueue(context.Background(), &camion.paquete2)
+	//PaqueteCamionToQueue(context.Background(), &camion.paquete1)
+	//PaqueteCamionToQueue(context.Background(), &camion.paquete2)
 
 }
 
@@ -121,15 +121,15 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 
 	fmt.Println("Ingrese el tiempo de espera de los camiones\n")
-	tEspera, _ := reader.ReadString('\n')
+	tEspera1, _ := reader.ReadString('\n')
 	fmt.Println("El tiempo de espera para tomar el segundo paquete es de %s segundos", tEspera)
 
 	fmt.Println("Ingrese el tiempo de envio de los paquetes\n")
-	tEnvio, _ := reader.ReadString('\n')
+	tEnvio1, _ := reader.ReadString('\n')
 	fmt.Println("El tiempo de envío entre paquetes es de %s segundos", tEnvio)
 
-	tEspera, _ = strconv.Atoi(tEspera)
-	tEnvio, _ = strconv.Atoi(tEnvio)
+	tEspera, _ := strconv.Atoi(tEspera1)
+	tEnvio, _ := strconv.Atoi(tEnvio1)
 
     CamionR1 := Camion {
 		Tipo: "retail",
