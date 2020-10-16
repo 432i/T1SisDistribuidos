@@ -138,7 +138,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                                                 Tipo: pakete.GetTipo(),
                                                 Valor: pakete.GetValor(),
                                                 Intentos: 0,
-                                                Estado: "En transito",
+                                                Estado: "En Camino",
                                         }
                                         s.todos_paquetes = append(todos_paquetes[:cont], todos_paquetes[cont+1:]...)
                                         s.todos_paquetes = append(s.todos_paquetes, nuevopakete)
@@ -169,7 +169,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                                                 Tipo: pakete.GetTipo(),
                                                 Valor: pakete.GetValor(),
                                                 Intentos: 0,
-                                                Estado: "En transito",
+                                                Estado: "En Camino",
                                         }
                                         s.todos_paquetes = append(todos_paquetes[:cont], todos_paquetes[cont+1:]...)
                                         s.todos_paquetes = append(s.todos_paquetes, nuevopakete)
@@ -198,7 +198,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                                                 Tipo: pakete.GetTipo(),
                                                 Valor: pakete.GetValor(),
                                                 Intentos: 0,
-                                                Estado: "En transito",
+                                                Estado: "En Camino",
                                         }
                                         s.todos_paquetes = append(todos_paquetes[:cont], todos_paquetes[cont+1:]...)
                                         s.todos_paquetes = append(s.todos_paquetes, nuevopakete)
