@@ -18,12 +18,11 @@ func crearRegistro(){
 func main() {
 
         fmt.Println("Go gRPC Beginners Tutorial!")
-
+        crearRegistro()
         lis, err := net.Listen("tcp", fmt.Sprintf(":%d", 9000))
         if err != nil {
                 log.Fatalf("failed to listen: %v", err)
         }
-        crearRegistro()
         
 
         s := chat.Server{}
