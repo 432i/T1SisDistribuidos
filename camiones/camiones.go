@@ -122,11 +122,11 @@ func main() {
 
 	fmt.Println("Ingrese el tiempo de espera de los camiones\n")
 	tEspera1, _ := reader.ReadString('\n')
-	fmt.Println("El tiempo de espera para tomar el segundo paquete es de %s segundos", tEspera)
+	fmt.Println("El tiempo de espera para tomar el segundo paquete es de %s segundos", tEspera1)
 
 	fmt.Println("Ingrese el tiempo de envio de los paquetes\n")
 	tEnvio1, _ := reader.ReadString('\n')
-	fmt.Println("El tiempo de envío entre paquetes es de %s segundos", tEnvio)
+	fmt.Println("El tiempo de envío entre paquetes es de %s segundos", tEnvio1)
 
 	tEspera, _ := strconv.Atoi(tEspera1)
 	tEnvio, _ := strconv.Atoi(tEnvio1)
@@ -142,7 +142,7 @@ func main() {
 	}
 
 	for {
-		Carga(CamionR1, tEspera, tEnvio)
+		Carga(&CamionR1, tEspera, tEnvio)
 		//Carga(CamionR2, tEspera, tEnvio)
 		//Carga(CamionN, tEspera, tEnvio)
 
