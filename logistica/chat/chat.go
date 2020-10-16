@@ -35,7 +35,7 @@ func guardarOrden(id string, producto string, valor string, tienda string, desti
         }
 
         orden := []string{timestamp, id, tipof, producto, valor, tienda, destino, codigo}
-        archivo, err := os.OpenFile("registro.csv", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+        archivo, err := os.OpenFile("../registro.csv", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 
 	if err != nil {
 		log.Fatal(err)
