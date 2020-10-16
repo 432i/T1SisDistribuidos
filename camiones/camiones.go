@@ -22,9 +22,18 @@ func xd(camion Camion) {
 	//rand.float64()
 	if camion.Paquete1.Valor > camion.Paquete2.Valor {
 		if camion.Paquete1.Tipo == "retail" {
-
-		} else if camion.Paquete1.Tipo == "prio" {
-
+			if camion.Paquete1.Intentos < 3 {
+				if rand.float64() <= 0.8 {
+					camion.Paquete1.Estado = "Recibido"
+				}
+				else {
+					camion.Paquete1.Intentos += 1
+				}
+			} else {
+				camion.Paquete1.Estado = "No Recibido"
+			}
+		} else if camion.Paquete1.Tipo == "prioritario" {
+			
 		} else {
 
 		}
@@ -51,8 +60,6 @@ func Carga(camion Camion) {
 	}
 
 	paquete1, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
-	paquete2, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
-
 	camion.Paquete1 = chat.Paquete{
 		Id:       paquete1.GetId(),
 		Track:    paquete1.GetTrack(),
@@ -60,6 +67,8 @@ func Carga(camion Camion) {
 		Intentos: paquete1.GetIntentos(),
 		Estado:   paquete1.GetEstado(),
 	}
+
+	paquete2, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
 	camion.Paquete2 = chat.Paquete{
 		Id:       paquete2.GetId(),
 		Track:    paquete2.GetTrack(),
