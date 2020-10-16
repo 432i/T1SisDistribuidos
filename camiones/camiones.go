@@ -27,8 +27,8 @@ func getTime() string {
 }
 
 func Intento(paquete chat.Paquete) {
-	intentos, _ = strconv.Atoi(paquete.Intentos)
-	valor, _ = strconv.Atoi(paquete.Valor)
+	intentos, _ := strconv.Atoi(paquete.Intentos)
+	valor, _ := strconv.Atoi(paquete.Valor)
 	if paquete.Tipo == "retail" {
 		if intentos < 3 {
 			if rand.Float64() <= 0.8 {
