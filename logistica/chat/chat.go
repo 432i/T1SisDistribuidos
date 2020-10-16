@@ -76,11 +76,12 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
 
         //colas segun el tipo, tipo -> retail prioritario normal  
         if strings.Compare(orden.GetPrioritario(), "0") == 0 {
+                nuevovalor, _ := strconv.Atoi(orden.GetValor())
                 pakete := Paquete{
                         Id: orden.GetId(),
                         Seguimiento: codigoSeguimiento,
                         Tipo: "normal",
-                        Valor: strconv.ParseInt(orden.GetValor()),
+                        Valor: nuevovalor,
                         Intentos: 0,
                         Estado: "En bodega",
                 }
@@ -88,11 +89,12 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
                 s.todos_paquetes = append(s.todos_paquetes, pakete)
         }
         if strings.Compare(orden.GetPrioritario(), "1") == 0 {
+                nuevovalor, _ := strconv.Atoi(orden.GetValor())
                 pakete := Paquete{
                         Id: orden.GetId(),
                         Seguimiento: codigoSeguimiento,
                         Tipo: "prioritario",
-                        Valor: strconv.ParseInt(orden.GetValor()),
+                        Valor: nuevovalor,
                         Intentos: 0,
                         Estado: "En bodega",
                 }
@@ -100,11 +102,12 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
                 s.todos_paquetes = append(s.todos_paquetes, pakete)
         }
         if strings.Compare(orden.GetPrioritario(), "2") == 0 {
+                nuevovalor, _ := strconv.Atoi(orden.GetValor())
                 pakete := Paquete{
                         Id: orden.GetId(),
                         Seguimiento: codigoSeguimiento,
                         Tipo: "retail",
-                        Valor: strconv.ParseInt(orden.GetValor()),
+                        Valor: nuevovalor,
                         Intentos: 0,
                         Estado: "En bodega",
                 }
