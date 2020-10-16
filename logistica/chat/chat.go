@@ -11,6 +11,7 @@ import (
 )
 
 type Server struct {
+        todos_paquetes []Paquete //registro en memoria de todos los paquetes, para consultar su estado y demás
         cola_ret_a_camion []Paquete
         cola_prio_a_camion []Paquete
         cola_norm_a_camion []Paquete
@@ -60,12 +61,54 @@ func (s *Server) SolicitarSeguimiento(ctx context.Context, message *Message) (*M
 func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error) {
         codigoSeguimiento := "432"+orden.GetId()
         cuerpo :="Codigo de seguimiento para su producto:   "+codigoSeguimiento
+
+        //mensaje que se envia al cliente
         msj := Message{
                 Body: cuerpo,
         }
 
         guardarOrden(orden.GetId(), orden.GetProducto(), orden.GetValor(), orden.GetTienda(), orden.GetDestino(), orden.GetPrioritario(), codigoSeguimiento)
-        //tambien se implementan las colas segun el tipo
+
+
+        //colas segun el tipo, tipo -> retail prioritario normal  
+        if strings.Compare(orden.GetPrioritario(), "0") == 0 {
+                pakete = Paquete{
+                        Id: orden.GetId(),
+                        Seguimiento: codigoSeguimiento,
+                        Tipo: "normal",
+                        Valor: orden.GetValor(),
+                        Intentos: "0",
+                        Estado: "En bodega",
+                }
+                s.cola_norm_a_camion = append(s.cola_norm_a_camion, pakete)
+                s.todos_paquetes = append(s.todos_paquetes, pakete)
+        }
+        if strings.Compare(orden.GetPrioritario(), "1") == 0 {
+                pakete = Paquete{
+                        Id: orden.GetId(),
+                        Seguimiento: codigoSeguimiento,
+                        Tipo: "prioritario",
+                        Valor: orden.GetValor(),
+                        Intentos: "0",
+                        Estado: "En bodega",
+                }
+                s.cola_prio_a_camion = append(s.cola_prio_a_camion, pakete)
+                s.todos_paquetes = append(s.todos_paquetes, pakete)
+        }
+        if strings.Compare(orden.GetPrioritario(), "2") == 0 {
+                pakete = Paquete{
+                        Id: orden.GetId(),
+                        Seguimiento: codigoSeguimiento,
+                        Tipo: "retail",
+                        Valor: orden.GetValor(),
+                        Intentos: "0",
+                        Estado: "En bodega",
+                }
+                s.cola_ret_a_camion = append(s.cola_ret_a_camion, pakete)
+                s.todos_paquetes = append(s.todos_paquetes, pakete)
+
+        }
+
         return &msj, nil
 }
 
