@@ -8,7 +8,6 @@ import (
         "golang.org/x/net/context"
         "encoding/csv"
         "strings"
-        "github.com/432i/T1SisDistribuidos/logistica/chat"
 )
 
 type Server struct {
