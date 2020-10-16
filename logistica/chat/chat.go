@@ -8,7 +8,6 @@ import (
         "golang.org/x/net/context"
         "encoding/csv"
         "strings"
-        "strconv"
 )
 
 type Server struct {
@@ -81,7 +80,7 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
                         Seguimiento: codigoSeguimiento,
                         Tipo: "normal",
                         Valor: orden.GetValor(),
-                        Intentos: 0,
+                        Intentos: "0",
                         Estado: "En bodega",
                 }
                 s.cola_norm_a_camion = append(s.cola_norm_a_camion, pakete)
@@ -93,7 +92,7 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
                         Seguimiento: codigoSeguimiento,
                         Tipo: "prioritario",
                         Valor: orden.GetValor(),
-                        Intentos: 0,
+                        Intentos: "0",
                         Estado: "En bodega",
                 }
                 s.cola_prio_a_camion = append(s.cola_prio_a_camion, pakete)
@@ -105,7 +104,7 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
                         Seguimiento: codigoSeguimiento,
                         Tipo: "retail",
                         Valor: orden.GetValor(),
-                        Intentos: 0,
+                        Intentos: "0",
                         Estado: "En bodega",
                 }
                 s.cola_ret_a_camion = append(s.cola_ret_a_camion, pakete)
@@ -138,7 +137,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                                                 Seguimiento: pakete.GetSeguimiento(),
                                                 Tipo: pakete.GetTipo(),
                                                 Valor: pakete.GetValor(),
-                                                Intentos: 0,
+                                                Intentos: "0",
                                                 Estado: "En Camino",
                                         }
                                         s.todos_paquetes = append(todos_paquetes[:cont], todos_paquetes[cont+1:]...)
@@ -169,7 +168,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                                                 Seguimiento: pakete.GetSeguimiento(),
                                                 Tipo: pakete.GetTipo(),
                                                 Valor: pakete.GetValor(),
-                                                Intentos: 0,
+                                                Intentos: "0",
                                                 Estado: "En Camino",
                                         }
                                         s.todos_paquetes = append(todos_paquetes[:cont], todos_paquetes[cont+1:]...)
@@ -198,7 +197,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                                                 Seguimiento: pakete.GetSeguimiento(),
                                                 Tipo: pakete.GetTipo(),
                                                 Valor: pakete.GetValor(),
-                                                Intentos: 0,
+                                                Intentos: "0",
                                                 Estado: "En Camino",
                                         }
                                         s.todos_paquetes = append(todos_paquetes[:cont], todos_paquetes[cont+1:]...)
