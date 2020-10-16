@@ -94,7 +94,8 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 		msj = chat.Message{
 			Body: camion.Paquete1.GetTrack() + ",En Camino",
 		}
-		fmt.Println(c.EstadoPaquete(context.Background(), &msj))
+		respuesta, _ = c.EstadoPaquete(context.Background(), &msj)
+		fmt.Println(respuesta)
 	}
 
 	time.Sleep(tEspera * time.Second)
@@ -111,7 +112,8 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 		msj = chat.Message{
 			Body: camion.Paquete2.GetTrack() + ",En Camino",
 		}
-		fmt.Println(c.EstadoPaquete(context.Background(), &msj))
+		respuesta, _ = c.EstadoPaquete(context.Background(), &msj)
+		fmt.Println(respuesta)
 	}
 
 	aux = true

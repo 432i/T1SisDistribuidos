@@ -28,6 +28,6 @@ service ChatService {
   rpc EnviarOrden(Orden) returns (Message){}
   rpc SolicitarSeguimiento(Message) returns (Message){}
   rpc ModificarEstado(Message) returns (Message){}
-//  rpc PaqueteQueueToCamion(Message) returns (Message) {}
+  rpc PaqueteQueueToCamion(Message) returns (Paquete) {}
 //  rpc PaqueteCamionToQueue(Message) returns (Message) {}
 }
