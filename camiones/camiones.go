@@ -26,7 +26,7 @@ func getTime() string {
         t.Hour(), t.Minute(), t.Second())
 }
 
-func Intento(paquete chat.Paquete) {
+func Intento(paquete *chat.Paquete) {
 	intentos, _ := strconv.Atoi(paquete.Intentos)
 	valor, _ := strconv.Atoi(paquete.Valor)
 	if paquete.Tipo == "retail" {
@@ -54,12 +54,12 @@ func Intento(paquete chat.Paquete) {
 	}
 }
 
-func Entrega(camion *Camion, tEnvio int64) bool {
+func Entrega(camion *Camion, tEnvio int) bool {
 	if camion.Paquete1.Valor > camion.Paquete2.Valor {
-		time.Sleep(tEnvio * time.Second)
+		time.Sleep(time.Duration(tEnvio) * time.Second)
 		Intento(camion.Paquete1)
 	} else {
-		time.Sleep(tEnvio * time.Second)
+		time.Sleep(time.Duration(tEnvio) * time.Second)
 		Intento(camion.Paquete2)
 	}
 	if camion.Paquete1.Estado != "En Camino" && camion.Paquete2.Estado != "En Camino"{
@@ -94,14 +94,14 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 			Intentos: paquete1.GetIntentos(),
 			Estado:   paquete1.GetEstado(),
 		}
-		msj = chat.Message{
+		msj := chat.Message{
 			Body: camion.Paquete1.GetSeguimiento() + ",En Camino",
 		}
 		respuesta, _ = c.EstadoPaquete(context.Background(), &msj)
 		fmt.Println(respuesta)
 	}
 	fmt.Println(camion.Paquete1.Id)
-	time.Sleep(tEspera * time.Second)
+	time.Sleep(time.Duration(tEspera) * time.Second)
 
 	paquete2, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
 	if paquete2.GetId() != "" {
@@ -112,7 +112,7 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 			Intentos: paquete2.GetIntentos(),
 			Estado:   paquete2.GetEstado(),
 		}
-		msj = chat.Message{
+		msj := chat.Message{
 			Body: camion.Paquete2.GetSeguimiento() + ",En Camino",
 		}
 		respuesta, _ = c.EstadoPaquete(context.Background(), &msj)
