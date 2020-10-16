@@ -51,8 +51,8 @@ func guardarOrden(id string, producto string, valor string, tienda string, desti
 
 //debe recibirse un string de forma "codigoSeguimiento,nuevoEstado"
 func (s *Server) ModificarEstado(ctx context.Context, message *Message) (*Message, error){
-        s := message.GetBody()
-        l := strings.Split(s, ",")
+        estring := message.GetBody()
+        l := strings.Split(estring, ",")
         codigoSeguimiento := l[0]
         nuevoEstado := l[1]
         //se modifica el estado del paquete 
