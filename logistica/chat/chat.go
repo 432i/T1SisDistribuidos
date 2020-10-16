@@ -153,13 +153,12 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
         return &msj, nil
 }
 
-/*
 func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*Paquete, error) {
         var msj Paquete
 
         if mensaje.GetBody() == "retail" {
                 if len(s.cola_ret_a_camion) > 0 {
-                        msj = Paquete{
+                        msj = Paquete {
                                 Id: s.cola_ret_a_camion[0].GetId(),
                                 Seguimiento: s.cola_ret_a_camion[0].GetSeguimiento(),
                                 Tipo: s.cola_ret_a_camion[0].GetTipo(),
@@ -167,30 +166,15 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                                 Intentos: s.cola_ret_a_camion[0].GetIntentos(),
                                 Estado: s.cola_ret_a_camion[0].GetEstado(),
                         }
-                        //se modifica el estado del paquete a En transito
-                        cont := 0 //para saber la posicion de la lista
-                        for _, pakete := range s.todos_paquetes{
-                                if strings.Compare(pakete.GetSeguimiento(), s.cola_ret_a_camion[0].GetSeguimiento()) == 0{
-                                        nuevopakete := Paquete{
-                                                Id: pakete.GetId(),
-                                                Seguimiento: pakete.GetSeguimiento(),
-                                                Tipo: pakete.GetTipo(),
-                                                Valor: pakete.GetValor(),
-                                                Intentos: "0",
-                                                Estado: "En Camino",
-                                        }
-                                        s.todos_paquetes = append(s.todos_paquetes[:cont], s.todos_paquetes[cont+1:]...)
-                                        s.todos_paquetes = append(s.todos_paquetes, nuevopakete)
-                                        cont = cont +1
-
-                                }
-                                cont = cont +1
+                        if len(s.cola_ret_a_camion) == 1 {
+                                s.cola_ret_a_camion = make([]Paquete, 0)
+                        } else {
+                                s.cola_ret_a_camion = s.cola_ret_a_camion[1:]
                         }
-                        s.cola_ret_a_camion = s.cola_ret_a_camion[1:]
                 }
-        } else {
+        } else if mensaje.GetBody() == "normal" {
                 if len(s.cola_prio_a_camion) > 0 {
-                        msj = Paquete{
+                        msj = Paquete {
                                 Id: s.cola_prio_a_camion[0].GetId(),
                                 Seguimiento: s.cola_prio_a_camion[0].GetSeguimiento(),
                                 Tipo: s.cola_prio_a_camion[0].GetTipo(),
@@ -198,28 +182,13 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                                 Intentos: s.cola_prio_a_camion[0].GetIntentos(),
                                 Estado: s.cola_prio_a_camion[0].GetEstado(),
                         }
-                        //se modifica el estado del paquete a En transito
-                        cont := 0 //para saber la posicion de la lista
-                        for _, pakete := range s.todos_paquetes{
-                                if strings.Compare(pakete.GetSeguimiento(), s.cola_prio_a_camion[0].GetSeguimiento()) == 0{
-                                        nuevopakete := Paquete{
-                                                Id: pakete.GetId(),
-                                                Seguimiento: pakete.GetSeguimiento(),
-                                                Tipo: pakete.GetTipo(),
-                                                Valor: pakete.GetValor(),
-                                                Intentos: "0",
-                                                Estado: "En Camino",
-                                        }
-                                        s.todos_paquetes = append(s.todos_paquetes[:cont], s.todos_paquetes[cont+1:]...)
-                                        s.todos_paquetes = append(s.todos_paquetes, nuevopakete)
-                                        cont = cont +1
-
-                                }
-                                cont = cont +1
+                        if len(s.cola_prio_a_camion) == 1 {
+                                s.cola_prio_a_camion = make([]Paquete, 0)
+                        } else {
+                                s.cola_prio_a_camion = s.cola_prio_a_camion[1:]
                         }
-                        s.cola_prio_a_camion = s.cola_prio_a_camion[1:]
                 } else if len(s.cola_norm_a_camion) > 0 {
-                        msj = Paquete{
+                        msj = Paquete {
                                 Id: s.cola_norm_a_camion[0].GetId(),
                                 Seguimiento: s.cola_norm_a_camion[0].GetSeguimiento(),
                                 Tipo: s.cola_norm_a_camion[0].GetTipo(),
@@ -227,34 +196,24 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                                 Intentos: s.cola_norm_a_camion[0].GetIntentos(),
                                 Estado: s.cola_norm_a_camion[0].GetEstado(),
                         }
-                        //se modifica el estado del paquete a En transito
-                        cont := 0 //para saber la posicion de la lista
-                        for _, pakete := range s.todos_paquetes{
-                                if strings.Compare(pakete.GetSeguimiento(), s.cola_norm_a_camion[0].GetSeguimiento()) == 0{
-                                        nuevopakete := Paquete{
-                                                Id: pakete.GetId(),
-                                                Seguimiento: pakete.GetSeguimiento(),
-                                                Tipo: pakete.GetTipo(),
-                                                Valor: pakete.GetValor(),
-                                                Intentos: "0",
-                                                Estado: "En Camino",
-                                        }
-                                        s.todos_paquetes = append(s.todos_paquetes[:cont], s.todos_paquetes[cont+1:]...)
-                                        s.todos_paquetes = append(s.todos_paquetes, nuevopakete)
-                                        cont = cont +1
-
-                                }
-                                cont = cont +1
+                        if len(s.cola_norm_a_camion) == 1 {
+                                s.cola_norm_a_camion = make([]Paquete, 0)
+                        } else {
+                                s.cola_norm_a_camion = s.cola_norm_a_camion[1:]
                         }
-                        s.cola_norm_a_camion = s.cola_norm_a_camion[1:]
-                } else {
-                        return &msj, nil
                 }
-                return &msj, nil
+        } else {
+                msj = Paquete{
+                        Id: "",
+                        Track: "",
+                        Tipo: "",
+                        Valor: "",
+                        Intentos: "",
+                        Estado: "",
+                }
         }
         return &msj, nil
 }
-/*
 /*
 func (s *Server) PaqueteCamionToQueue(ctx context.Context, paquete *Paquete) (*Message, error){
         if paquete.GetTipo() == "retail" {
