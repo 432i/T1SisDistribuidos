@@ -2,6 +2,7 @@ package main
 import(
         "os"
         "strings"
+        "strconv"
         "io"
         "encoding/csv"
         "log"
@@ -98,7 +99,7 @@ func main(){
         var segundos int
         reader := bufio.NewReader(os.Stdin)
         fmt.Println("Cuantos segundos desea esperar por cada orden?: \n")
-        segundos, _ := reader.ReadString('\n')
+        segundos, _ := strconv.Atoi(reader.ReadString('\n'))
         
         pedidosPyme := cargarPyme()
         pedidosRetail := cargarRetail()
