@@ -115,6 +115,7 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
         return &msj, nil
 }
 
+/*
 func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*Paquete, error) {
         var msj Paquete
 
@@ -215,6 +216,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
         }
         return &msj, nil
 }
+/*
 /*
 func (s *Server) PaqueteCamionToQueue(ctx context.Context, paquete *Paquete) (*Message, error){
         if paquete.GetTipo() == "retail" {
