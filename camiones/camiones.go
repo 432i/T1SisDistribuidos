@@ -87,13 +87,7 @@ func Carga(camion *Camion, tEspera int, tEnvio int) {
 
 	paquete1, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
 	if paquete1.GetId() != "" {
-		camion.Paquete1 = chat.Paquete{
-			Id:       paquete1.GetId(),
-			Seguimiento:    paquete1.GetSeguimiento(),
-			Tipo:     paquete1.GetTipo(),
-			Intentos: paquete1.GetIntentos(),
-			Estado:   paquete1.GetEstado(),
-		}
+		camion.Paquete1 = paquete1
 		msj := chat.Message{
 			Body: camion.Paquete1.GetSeguimiento() + ",En Camino",
 		}
@@ -105,13 +99,7 @@ func Carga(camion *Camion, tEspera int, tEnvio int) {
 
 	paquete2, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
 	if paquete2.GetId() != "" {
-		camion.Paquete2 = chat.Paquete{
-			Id:       paquete2.GetId(),
-			Seguimiento:    paquete2.GetSeguimiento(),
-			Tipo:     paquete2.GetTipo(),
-			Intentos: paquete2.GetIntentos(),
-			Estado:   paquete2.GetEstado(),
-		}
+		camion.Paquete2 = paquete2
 		msj := chat.Message{
 			Body: camion.Paquete2.GetSeguimiento() + ",En Camino",
 		}
