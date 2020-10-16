@@ -15,6 +15,9 @@ type Server struct {
         cola_ret_a_camion []Paquete
         cola_prio_a_camion []Paquete
         cola_norm_a_camion []Paquete
+        cola_ret_a_server []Paquete
+        cola_prio_a_server []Paquete
+        cola_norm_a_server []Paquete
 }
 //se guarda la orden en registro.csv
 func guardarOrden(id string, producto string, valor string, tienda string, destino string, codigo string){
@@ -152,5 +155,15 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                 else {
                         return &msj, nil
                 }
+        }
+}
+
+func (s *Server) PaqueteCamionToQueue(ctx context.Context, paquete *Paquete) (*Paquete, error) {
+        if paquete.GetTipo() == "retail" {
+                s.cola_ret_a_server = append(s.cola_ret_a_server, paquete)
+        } else if paquete.GetTipo() == "prioritario"{
+                s.cola_prio_a_server = append(s.cola_prio_a_server, paquete)
+        } else {
+                s.cola_norm_a_server = append(s.cola_norm_a_server, paquete)
         }
 }

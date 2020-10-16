@@ -18,27 +18,43 @@ type Camion struct {
 	Paquete2 chat.Paquete
 }
 
-func xd(camion Camion) {
-	//rand.float64()
-	if camion.Paquete1.Valor > camion.Paquete2.Valor {
-		if camion.Paquete1.Tipo == "retail" {
-			if camion.Paquete1.Intentos < 3 {
-				if rand.float64() <= 0.8 {
-					camion.Paquete1.Estado = "Recibido"
-				}
-				else {
-					camion.Paquete1.Intentos += 1
-				}
-			} else {
-				camion.Paquete1.Estado = "No Recibido"
-			}
-		} else if camion.Paquete1.Tipo == "prioritario" {
-			
-		} else {
+func getTime() string {
+    t := time.Now()
+    return fmt.Sprintf("%d-%02d-%02d %02d:%02d:%02d",
+        t.Year(), t.Month(), t.Day(),
+        t.Hour(), t.Minute(), t.Second())
+}
 
+func Intento(paquete chat.Paquete) {
+	if paquete.Tipo == "retail" {
+		if paquete.Intentos < 3 {
+			if rand.float64() <= 0.8 {
+				paquete.Estado = "Recibido"
+			}
+			else {
+				paquete.Intentos += 1
+			}
+		} else {
+			paquete.Estado = "No Recibido"
 		}
 	} else {
+		if paquete.Intentos * 10 < paquete.Valor && paquete.Intentos < 2 {
+			if rand.float64() <= 0.8 {
+				paquete.Estado = "Recibido"
+			} else {
+				paquete.Intentos += 1
+			}
+		} else {
+			paquete.Estado = "No Recibido"
+		}
+	}
+}
 
+func Entrega(camion Camion) {
+	if camion.Paquete1.Valor > camion.Paquete2.Valor {
+		Intento(camion.Paquete1)
+	} else {
+		Intento(camion.Paquete1)
 	}
 }
 
@@ -77,7 +93,8 @@ func Carga(camion Camion) {
 		Estado:   paquete2.GetEstado(),
 	}
 
-	//Llamar a funcion que entrega los paquetes
+	Entrega(camion)
+
 
 }
 
