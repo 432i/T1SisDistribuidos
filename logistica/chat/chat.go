@@ -8,6 +8,7 @@ import (
         "golang.org/x/net/context"
         "encoding/csv"
         "strings"
+        "strconv"
 )
 
 type Server struct {
@@ -79,7 +80,7 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
                         Id: orden.GetId(),
                         Seguimiento: codigoSeguimiento,
                         Tipo: "normal",
-                        Valor: orden.GetValor(),
+                        Valor: strconv.ParseInt(orden.GetValor()),
                         Intentos: 0,
                         Estado: "En bodega",
                 }
@@ -91,7 +92,7 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
                         Id: orden.GetId(),
                         Seguimiento: codigoSeguimiento,
                         Tipo: "prioritario",
-                        Valor: orden.GetValor(),
+                        Valor: strconv.ParseInt(orden.GetValor()),
                         Intentos: 0,
                         Estado: "En bodega",
                 }
@@ -103,7 +104,7 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
                         Id: orden.GetId(),
                         Seguimiento: codigoSeguimiento,
                         Tipo: "retail",
-                        Valor: orden.GetValor(),
+                        Valor: strconv.ParseInt(orden.GetValor()),
                         Intentos: 0,
                         Estado: "En bodega",
                 }
