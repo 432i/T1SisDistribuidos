@@ -140,7 +140,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                                                 Intentos: "0",
                                                 Estado: "En Camino",
                                         }
-                                        s.todos_paquetes = append(todos_paquetes[:cont], todos_paquetes[cont+1:]...)
+                                        s.todos_paquetes = append(s.todos_paquetes[:cont], s.todos_paquetes[cont+1:]...)
                                         s.todos_paquetes = append(s.todos_paquetes, nuevopakete)
                                         cont = cont +1
 
@@ -200,7 +200,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                                                 Intentos: "0",
                                                 Estado: "En Camino",
                                         }
-                                        s.todos_paquetes = append(todos_paquetes[:cont], todos_paquetes[cont+1:]...)
+                                        s.todos_paquetes = append(s.todos_paquetes[:cont], s.todos_paquetes[cont+1:]...)
                                         s.todos_paquetes = append(s.todos_paquetes, nuevopakete)
                                         cont = cont +1
 
