@@ -85,6 +85,7 @@ func Carga(camion *Camion, tEspera int, tEnvio int) {
 		Body: camion.Tipo,
 	}
 	paquete1, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
+	fmt.Printf(paquete1.GetSeguimiento())
 	fmt.Println("Debug")
 	if paquete1.GetId != "" {
 		fmt.Println("Debug")
