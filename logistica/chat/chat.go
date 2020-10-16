@@ -213,6 +213,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                 }
                 return &msj, nil
         }
+        return &msj, nil
 }
 
 func (s *Server) PaqueteCamionToQueue(ctx context.Context, paquete Paquete) {
