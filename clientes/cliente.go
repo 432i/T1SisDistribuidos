@@ -117,7 +117,7 @@ func main(){
                 fmt.Println("2 Enviar una orden desde el Retail \n")
                 fmt.Println("3 Realizar seguimiento de un pedido \n")
                 fmt.Println("432 para salir")
-                lesera, err := fmt.Scanln(&respuesta)
+                _, err := fmt.Scanln(&respuesta)
                 if err != nil {
                         fmt.Fprintln(os.Stderr, err)
                         return
