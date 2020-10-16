@@ -15,7 +15,7 @@ message Paquete  {
     string Id = 1;
     string Seguimiento = 2;
     string Tipo = 3;
-    int64 Valor = 4
+    int64 Valor = 4;
     int32 Intentos = 5;
     string Estado = 6;
 }
@@ -28,5 +28,5 @@ service ChatService {
   rpc EnviarOrden(Orden) returns (Message){}
   rpc SolicitarSeguimiento(Message) returns (Message){}
   rpc PaqueteQueueToCamion(Message) returns (Message) {}
-  rpc PaqueteCamionToQueue(Message) returns (){}
+  rpc PaqueteCamionToQueue(Message) returns (Message){}
 }
