@@ -120,7 +120,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
 
         if mensaje.GetBody() == "retail" {
                 if len(s.cola_ret_a_camion) > 0 {
-                        msj := Paquete{
+                        msj = Paquete{
                                 Id: s.cola_ret_a_camion[0].GetId(),
                                 Seguimiento: s.cola_ret_a_camion[0].GetSeguimiento(),
                                 Tipo: s.cola_ret_a_camion[0].GetTipo(),
@@ -151,7 +151,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                 }
         } else {
                 if len(s.cola_prio_a_camion) > 0 {
-                        msj := Paquete{
+                        msj = Paquete{
                                 Id: s.cola_prio_a_camion[0].GetId(),
                                 Seguimiento: s.cola_prio_a_camion[0].GetSeguimiento(),
                                 Tipo: s.cola_prio_a_camion[0].GetTipo(),
@@ -180,7 +180,7 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                         }
                         s.cola_prio_a_camion = s.cola_prio_a_camion[1:]
                 } else if len(s.cola_norm_a_camion) > 0 {
-                        msj := Paquete{
+                        msj = Paquete{
                                 Id: s.cola_norm_a_camion[0].GetId(),
                                 Seguimiento: s.cola_norm_a_camion[0].GetSeguimiento(),
                                 Tipo: s.cola_norm_a_camion[0].GetTipo(),
