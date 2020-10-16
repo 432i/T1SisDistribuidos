@@ -54,7 +54,7 @@ func Intento(paquete *chat.Paquete) {
 	}
 }
 
-func Entrega(camion *Camion, tEnvio int) bool {
+func Entrega(camion Camion, tEnvio int) bool {
 	fmt.Println("Entra")
 	if camion.Paquete1.Valor > camion.Paquete2.Valor {
 		time.Sleep(time.Duration(tEnvio) * time.Second)
