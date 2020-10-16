@@ -95,12 +95,10 @@ func main(){
         //}
         //log.Printf("Response from server: %s", response.Body)
         var segundos int
+        reader := bufio.NewReader(os.Stdin)
         fmt.Println("Cuantos segundos desea esperar por cada orden?: \n")
-        lesera, err := fmt.Scanln(&segundos)
-        if err != nil {
-                fmt.Fprintln(os.Stderr, err)
-                return
-        }
+        segundos, _ := reader.ReadString('\n')
+        
         pedidosPyme := cargarPyme()
         pedidosRetail := cargarRetail()
 
