@@ -6,6 +6,7 @@ import(
         "encoding/csv"
         "log"
         "fmt"
+        "time"
         "golang.org/x/net/context"
         "google.golang.org/grpc"
         "github.com/432i/T1SisDistribuidos/logistica/chat"
@@ -93,8 +94,13 @@ func main(){
         //        log.Fatalf("Error when calling SayHello: %s", err)
         //}
         //log.Printf("Response from server: %s", response.Body)
-
-        fmt.Println("...\n")
+        var segundos int
+        fmt.Println("Cuantos segundos desea esperar por cada orden?: \n")
+        _, err := fmt.Scanln(&segundos)
+        if err != nil {
+                fmt.Fprintln(os.Stderr, err)
+                return
+        }
         pedidosPyme := cargarPyme()
         pedidosRetail := cargarRetail()
 
@@ -102,10 +108,8 @@ func main(){
         cantRetail := len(pedidosRetail)
         contPyme := 0
         contRetail := 0
-        fmt.Println("csvs cargados correctamente\n")
-        for{
+        for{    
                 var respuesta string
-                fmt.Println("ヾ(≧▽≦*)o Bienvenido ヾ(≧▽≦*)o, \n")
                 fmt.Println("Ingrese la alternativa que desee: \n")
                 fmt.Println("1 Enviar una orden desde una Pyme \n")
                 fmt.Println("2 Enviar una orden desde el Retail \n")
@@ -142,6 +146,8 @@ func main(){
                                 log.Printf("%s", response.Body)
                                 
                                 contPyme = contPyme+1
+                                fmt.Println("Espere un momento antes de realizar otra accion")
+                                time.Sleep(time.Duration(segundos)*time.Second)
                         }
                 }
 
@@ -168,6 +174,8 @@ func main(){
                                 log.Printf("%s", response.Body)
 
                                 contRetail = contRetail+1
+                                fmt.Println("Espere un momento antes de realizar otra accion")
+                                time.Sleep(time.Duration(segundos)*time.Second)
                         }
 
                 }
@@ -190,6 +198,8 @@ func main(){
                                 fmt.Println("Error al consultar :(!!!!!!!!!!")
                         }
                         log.Printf("%s", response.Body)
+                        fmt.Println("Espere un momento antes de realizar otra accion")
+                        time.Sleep(time.Duration(segundos)*time.Second)
                 }
                 if strings.Compare("432", respuesta) == 0{
                         fmt.Println("Saliendo del programa. . . ")

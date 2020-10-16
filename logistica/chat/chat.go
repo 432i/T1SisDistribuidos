@@ -49,14 +49,52 @@ func guardarOrden(id string, producto string, valor string, tienda string, desti
 	archivo.Close()
 }
 
-func (s *Server) SolicitarSeguimiento(ctx context.Context, message *Message) (*Message, error) {
-        codigoSeguimiento := message.GetBody()
-        m := "sorry todavia no está implementado ._.XD  "+codigoSeguimiento
-        //buscar estado del pedido 
+//debe recibirse un string de forma "codigoSeguimiento,nuevoEstado"
+func (s *Server) ModificarEstado(ctx context.Context, message *Message) (*Message, error){
+        s := message.GetBody()
+        l := strings.Split(s, ",")
+        codigoSeguimiento := l[0]
+        nuevoEstado := l[1]
+        //se modifica el estado del paquete 
+        cont := 0 //para saber la posicion de la lista
+        for _, pakete := range s.todos_paquetes{
+                if strings.Compare(pakete.GetSeguimiento(), codigoSeguimiento) == 0{
+                        nuevopakete := Paquete{
+                                Id: pakete.GetId(),
+                                Seguimiento: pakete.GetSeguimiento(),
+                                Tipo: pakete.GetTipo(),
+                                Valor: pakete.GetValor(),
+                                Intentos: pakete.GetIntentos(),
+                                Estado: nuevoEstado,
+                        }
+                        s.todos_paquetes = append(s.todos_paquetes[:cont], s.todos_paquetes[cont+1:]...)
+                        s.todos_paquetes = append(s.todos_paquetes, nuevopakete)
+                        break
+
+                }
+                cont = cont +1
+        }
+        m := "Estado modificado exitosamente"
         msj := Message{
                 Body: m,
         }
+        return &msj, nil
 
+}
+
+
+func (s *Server) SolicitarSeguimiento(ctx context.Context, message *Message) (*Message, error) {
+        codigoSeguimiento := message.GetBody()
+        for _, pakete := range s.todos_paquetes{
+                if strings.Compare(pakete.GetSeguimiento(), codigoSeguimiento) == 0{
+                        m := "El estado de su pedido "+codigoSeguimiento+" es "+pakete.GetEstado()
+                        //buscar estado del pedido 
+                        msj := Message{
+                                Body: m,
+                        }
+                        break
+                }
+        }
 
         return &msj, nil
 }
