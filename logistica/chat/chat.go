@@ -173,6 +173,8 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                                 Valor: s.cola_ret_a_camion[0].GetValor(),
                                 Intentos: s.cola_ret_a_camion[0].GetIntentos(),
                                 Estado: s.cola_ret_a_camion[0].GetEstado(),
+                                Origen: s.cola_ret_a_camion[0].GetOrigen(),
+                                Destino: s.cola_ret_a_camion[0].GetDestino(),
                         }
                         if len(s.cola_ret_a_camion) == 1 {
                                 s.cola_ret_a_camion = make([]Paquete, 0)
@@ -198,6 +200,8 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                                 Valor: s.cola_prio_a_camion[0].GetValor(),
                                 Intentos: s.cola_prio_a_camion[0].GetIntentos(),
                                 Estado: s.cola_prio_a_camion[0].GetEstado(),
+                                Origen: s.cola_prio_a_camion[0].GetOrigen(),
+                                Destino: s.cola_prio_a_camion[0].GetDestino(),
                         }
                         if len(s.cola_prio_a_camion) == 1 {
                                 s.cola_prio_a_camion = make([]Paquete, 0)
@@ -212,6 +216,8 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                                 Valor: s.cola_norm_a_camion[0].GetValor(),
                                 Intentos: s.cola_norm_a_camion[0].GetIntentos(),
                                 Estado: s.cola_norm_a_camion[0].GetEstado(),
+                                Origen: s.cola_norm_a_camion[0].GetOrigen(),
+                                Destino: s.cola_norm_a_camion[0].GetDestino(),
                         }
                         if len(s.cola_norm_a_camion) == 1 {
                                 s.cola_norm_a_camion = make([]Paquete, 0)
