@@ -120,7 +120,6 @@ func Carga(camion Camion, tEspera int, tEnvio int, nombreArchivo string) {
 			Body: camion.Paquete1.GetSeguimiento() + ",En Camino",
 		}
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
-		respuesta = chat.Message{Body: "Estado modificado del paquete 1"}
 		fmt.Println(respuesta.GetBody())
 		fmt.Printf("Paquete recibido, detalle:\n")
 		fmt.Println("     Id: ", camion.Paquete1.Id)
@@ -146,7 +145,6 @@ func Carga(camion Camion, tEspera int, tEnvio int, nombreArchivo string) {
 			Body: camion.Paquete2.GetSeguimiento() + ",En Camino",
 		}
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
-		respuesta = chat.Message{Body: "Estado modificado del paquete 2"}
 		fmt.Println(respuesta.GetBody())
 		fmt.Printf("     Paquete recibido, detalle:\n")
 		fmt.Println("     Id: ", camion.Paquete2.Id)
@@ -166,9 +164,9 @@ func Carga(camion Camion, tEspera int, tEnvio int, nombreArchivo string) {
 	for aux {
 		aux = Entrega(camion, tEnvio)
 	}
-	var msj Message
+	var msj chat.Message
 
-	respuesta, _ := PaqueteCamionToQueue(context.Background(), camion.paquete1)
+	respuesta, _ := c.PaqueteCamionToQueue(context.Background(), camion.Paquete1)
 	fmt.Println(respuesta)
 	msj = chat.Message{
 			Body: camion.Paquete1.GetSeguimiento() + "," + camion.Paquete1.GetEstado(),
@@ -181,7 +179,7 @@ func Carga(camion Camion, tEspera int, tEnvio int, nombreArchivo string) {
 		guardarPaquete(nombreArchivo, camion.Paquete1.Id, camion.Paquete1.Tipo, camion.Paquete1.Valor, camion.Paquete1.Origen, camion.Paquete1.Destino, camion.Paquete1.Intentos, "0")
 	}
 
-	respuesta, _ = PaqueteCamionToQueue(context.Background(), camion.paquete2)
+	respuesta, _ = c.PaqueteCamionToQueue(context.Background(), camion.Paquete2)
 	fmt.Println(respuesta)
 	msj = chat.Message{
 			Body: camion.Paquete2.GetSeguimiento() + "," + camion.Paquete2.GetEstado(),
