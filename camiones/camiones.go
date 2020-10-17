@@ -180,10 +180,12 @@ func main() {
 	CamionN := Camion{
 		Tipo: "normal",
 	}*/
-
+	n := 0
 	for {
 		Carga(CamionR1, tEspera, tEnvio)
-		fmt.Println(CamionR1.Paquete1.Seguimiento)
+		n += 1
+		fmt.Prinln(n)
+		//fmt.Println(CamionR1.Paquete1.Seguimiento)
 		//Carga(CamionR2, tEspera, tEnvio)
 		//Carga(CamionN, tEspera, tEnvio)
 
