@@ -89,6 +89,7 @@ func (s *Server) ModificarEstado(ctx context.Context, message *Message) (*Messag
 func (s *Server) SolicitarSeguimiento(ctx context.Context, message *Message) (*Message, error) {
         codigoSeguimiento := message.GetBody()
         var msj Message
+        flag := 1
         for _, pakete := range s.todos_paquetes{
                 if strings.Compare(pakete.GetSeguimiento(), codigoSeguimiento) == 0{
                         m := "El estado de su pedido "+codigoSeguimiento+" es "+pakete.GetEstado()
@@ -96,7 +97,15 @@ func (s *Server) SolicitarSeguimiento(ctx context.Context, message *Message) (*M
                         msj = Message{
                                 Body: m,
                         }
+                        flag = 0
                         break
+                }
+        }
+        if flag == 1{
+                m := "Orden no encontrada en el sistema, fijese bien porfa"
+                        //buscar estado del pedido 
+                msj = Message{
+                        Body: m,
                 }
         }
         return &msj, nil
