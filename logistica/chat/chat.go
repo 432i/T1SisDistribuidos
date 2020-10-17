@@ -171,6 +171,12 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
         return &msj, nil
 }
 
+func failOnError(err error, msg string) {
+        if err != nil {
+            log.Fatalf("%s: %s", msg, err)
+        }
+}
+
 func PaquetesAFinanzas(){
         conn, err := amqp.Dial("amqp://finanzas:finanzas@10.6.40.150:5672/")
         failOnError(err, "Failed to connect to RabbitMQ")
