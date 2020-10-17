@@ -211,26 +211,23 @@ func main() {
     	IdCamion: "R1",
 		Tipo: "retail",
 	}
-	/*
 	CamionR2 := Camion {
 		IdCamion: "R2",
 		Tipo: "retail",
 	}
 	CamionN := Camion{
-		IdCamion: "N"
+		IdCamion: "N",
 		Tipo: "normal",
-	}*/
+	}
 
 	crearRegistro("registroCamion" + CamionR1.IdCamion + ".csv")
-	//crearRegistro("registroCamion" + CamionR2.IdCamion + ".csv")
-	//crearRegistro("registroCamion" + CamionN.IdCamion + ".csv")
+	crearRegistro("registroCamion" + CamionR2.IdCamion + ".csv")
+	crearRegistro("registroCamion" + CamionN.IdCamion + ".csv")
 
 	for {
+		go Carga(CamionR2, tEspera, tEnvio, "registroCamionR2.csv")
+		go Carga(CamionN, tEspera, tEnvio, "registroCamionN.csv")
 		Carga(CamionR1, tEspera, tEnvio, "registroCamionR1.csv")
-		//fmt.Println(CamionR1.Paquete1.Seguimiento)
-		//Carga(CamionR2, tEspera, tEnvio)
-		//Carga(CamionN, tEspera, tEnvio)
-
 	}
 
 }
