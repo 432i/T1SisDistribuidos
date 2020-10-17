@@ -252,8 +252,26 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
 func (s *Server) PaqueteCamionToQueue(ctx context.Context, paquete *Paquete) (*Message, error) {
         var msj Message
         if paquete.Tipo != "" {
-                s.cola_a_server = append(s.cola_a_server, paquete)
-                s.cola_a_finanzas = append(s.cola_a_finanzas, paquete)
+                s.cola_a_server = append(s.cola_a_server, Paquete {
+                        Id = paquete.GetId(),
+                        Seguimiento = paquete.GetSeguimiento(),
+                        Tipo = paquete.GetTipo(),
+                        Valor = paquete.GetValor(),
+                        Intentos = paquete.GetIntentos(),
+                        Estado = paquete.GetEstado(),
+                        Origen = paquete.GetOrigen(),
+                        Destino = paquete.GetDestino(),
+                })
+                s.cola_a_finanzas = append(s.cola_a_finanzas, Paquete {
+                        Id = paquete.GetId(),
+                        Seguimiento = paquete.GetSeguimiento(),
+                        Tipo = paquete.GetTipo(),
+                        Valor = paquete.GetValor(),
+                        Intentos = paquete.GetIntentos(),
+                        Estado = paquete.GetEstado(),
+                        Origen = paquete.GetOrigen(),
+                        Destino = paquete.GetDestino(),
+                })
                 msj = Message {Body: "El paquete ingreso a las colas de servidor y finanzas"}
         } else {
                 msj = Message {Body: "No habia paquete"}
