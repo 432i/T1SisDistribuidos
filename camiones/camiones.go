@@ -95,12 +95,12 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
 		fmt.Println(respuesta.GetBody())
 		fmt.Printf("Paquete recibido, detalle:\n")
-		fmt.Println("Id: ", camion.Paquete1.Id)
-		fmt.Println("Seguimiento: ", camion.Paquete1.Seguimiento)
-		fmt.Println("Tipo: ", camion.Paquete1.Tipo)
-		fmt.Println("Valor: ", camion.Paquete1.Valor)
-		fmt.Println("Intentos: ", camion.Paquete1.Intentos)
-		fmt.Println("Estado: ", camion.Paquete1.Estado)
+		fmt.Println("     Id: ", camion.Paquete1.Id)
+		fmt.Println("     Seguimiento: ", camion.Paquete1.Seguimiento)
+		fmt.Println("     Tipo: ", camion.Paquete1.Tipo)
+		fmt.Println("     Valor: ", camion.Paquete1.Valor)
+		fmt.Println("     Intentos: ", camion.Paquete1.Intentos)
+		fmt.Println("     Estado: ", camion.Paquete1.Estado)
 	}
 
 	time.Sleep(time.Duration(tEspera) * time.Second)
@@ -113,13 +113,13 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 		}
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
 		fmt.Println(respuesta.GetBody())
-		fmt.Printf("Paquete recibido, detalle:\n")
-		fmt.Println("Id: ", camion.Paquete1.Id)
-		fmt.Println("Seguimiento: ", camion.Paquete1.Seguimiento)
-		fmt.Println("Tipo: ", camion.Paquete1.Tipo)
-		fmt.Println("Valor: ", camion.Paquete1.Valor)
-		fmt.Println("Intentos: ", camion.Paquete1.Intentos)
-		fmt.Println("Estado: ", camion.Paquete1.Estado)
+		fmt.Printf("     Paquete recibido, detalle:\n")
+		fmt.Println("     Id: ", camion.Paquete2.Id)
+		fmt.Println("     Seguimiento: ", camion.Paquete2.Seguimiento)
+		fmt.Println("     Tipo: ", camion.Paquete2.Tipo)
+		fmt.Println("     Valor: ", camion.Paquete2.Valor)
+		fmt.Println("     Intentos: ", camion.Paquete2.Intentos)
+		fmt.Println("     Estado: ", camion.Paquete2.Estado)
 	}
 
 	aux := true
