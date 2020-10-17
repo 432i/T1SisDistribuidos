@@ -97,7 +97,7 @@ func main(){
         var segundos int
         fmt.Println("Cuantos segundos desea esperar por cada orden?: ")
         fmt.Scanln(&segundos)
-        
+        //mmm
         pedidosPyme := cargarPyme()
         pedidosRetail := cargarRetail()
 
