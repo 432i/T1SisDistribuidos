@@ -2,7 +2,7 @@ package chat
 
 import (
         "os"
- //       "fmt"
+        "fmt"
         "log"
         "time"
         "golang.org/x/net/context"
@@ -177,7 +177,7 @@ func failOnError(err error, msg string) {
         }
 }
 
-func PaquetesAFinanzas(){
+func PaquetesAFinanzas(pakete string){
         conn, err := amqp.Dial("amqp://finanzas:finanzas@10.6.40.150:5672/")
         failOnError(err, "Failed to connect to RabbitMQ")
         defer conn.Close()
@@ -195,15 +195,14 @@ func PaquetesAFinanzas(){
                 nil,     // arguments
         )
         failOnError(err, "Failed to declare a queue")
-
-        body := "Hello World!"
+        body := pakete
         err = ch.Publish(
                 "",     // exchange
                 q.Name, // routing key
                 false,  // mandatory
                 false,  // immediate
                 amqp.Publishing{
-                ContentType: "text/plain",
+                ContentType: "application/json",
                 Body:        []byte(body),
         })
         log.Printf(" [x] Sent %s", body)
@@ -330,7 +329,17 @@ func (s *Server) PaqueteCamionToQueue(ctx context.Context, paquete *Paquete) (*M
                         Destino: paquete.GetDestino(),
                 })
                 msj = Message {Body: "El paquete ingreso a las colas de servidor y finanzas"}
-                PaquetesAFinanzas()
+                //sacamos el paquete y lo dejamos en json para mandarlo a finanzas
+                pakete := s.cola_a_finanzas[0]
+                //eliminamos el paquete de la cola
+                if len(s.cola_a_finanzas) == 1 {
+                        s.cola_a_finanzas = make([]Paquete, 0)
+                } else {
+                        s.cola_a_finanzas = s.cola_a_finanzas[1:]
+                }
+                //pasamos a json el pakete
+                body := fmt.Sprintf(`{"id":"%s", "tipo":"%s", "valor":%s, "intentos":%s, "estado":"%s"}`, pakete.GetId(), pakete.GetTipo(), pakete.GetValor(), pakete.GetIntentos(), pakete.GetEstado())
+                PaquetesAFinanzas(body)
         } else {
                 msj = Message {Body: "No habia paquete"}
         }
