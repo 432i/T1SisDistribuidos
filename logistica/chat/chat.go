@@ -195,15 +195,23 @@ func PaquetesAFinanzas(){
                 nil,     // arguments
         )
         failOnError(err, "Failed to declare a queue")
-
-        body := "Hello World!"
+        //sacamos el paquete y lo dejamos en json para mandarlo a finanzas
+        pakete := s.PaquetesAFinanzas[0]
+        //eliminamos el paquete de la cola
+        if len(s.PaquetesAFinanzas) == 1 {
+                s.PaquetesAFinanzas = make([]Paquete, 0)
+        } else {
+                s.PaquetesAFinanzas = s.PaquetesAFinanzas[1:]
+        }
+        //pasamos a json el pakete
+        body := fmt.Sprintf(`{"id":"%s", "tipo":"%s", "valor":%d, "intentos":%s, "estado":"%s"}`, pakete.GetId(), pakete.GetTipo(), pakete.GetValor(), pakete.GetIntentos(), pakete.GetEstado())
         err = ch.Publish(
                 "",     // exchange
                 q.Name, // routing key
                 false,  // mandatory
                 false,  // immediate
                 amqp.Publishing{
-                ContentType: "text/plain",
+                ContentType: "application/json",
                 Body:        []byte(body),
         })
         log.Printf(" [x] Sent %s", body)
