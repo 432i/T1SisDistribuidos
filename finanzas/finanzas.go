@@ -14,11 +14,11 @@ func failOnError(err error, msg string) {
 }
 	
 type Paquete struct {
-	id string `json:"id"`
-	tipo string `json:"tipo"`
-	valor string `json:"valor"`
-	intentos string `json:"intentos"`
-	estado string `json:"estado"`
+	Id string `json:"id"`
+	Tipo string `json:"tipo"`
+	Valor string `json:"valor"`
+	Intentos string `json:"intentos"`
+	Estado string `json:"estado"`
 }
 
 var gastos int
@@ -60,10 +60,9 @@ func conexion(){
     go func() {
         for d := range msgs {
 			pakete := Paquete{}
-			msj := d.Body //{tipo: , id:, }
-			fmt.Println(msj)
-			json.Unmarshal([]byte(msj), &pakete)
+			json.Unmarshal([]byte(d.Body), &pakete)
 			fmt.Println(pakete)
+
         }
     }()
 
