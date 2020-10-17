@@ -187,7 +187,7 @@ func PaquetesAFinanzas(){
         defer ch.Close()
         //definimos una cola
         q, err := ch.QueueDeclare(
-                "test",
+                "testeoooadspasd",
                 false,
                 false,
                 false,
@@ -201,7 +201,7 @@ func PaquetesAFinanzas(){
         //publicar un mensaje en la cola
         err = ch.Publish(
                 "",
-                "testeooo",
+                q.Name,
                 false,
                 false,
                 amqp.Publishing{
