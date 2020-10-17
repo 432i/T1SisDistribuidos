@@ -12,15 +12,18 @@ func failOnError(err error, msg string) {
 	}
 }
 	
-type registro struct {
-    enviosCompletados int32
-    cantIntentosPaquete int32
-    paquetesNoEntregados int32
-    perdidasOGananciasPaquete float64
+type Paquete struct {
+	id string
+	tipo string
+	valor int
+	intentos int
+	estado string
 }
 
+var gastos int
+var ingresos int
 
-func main() {
+func conexion(){
 	//Se establece conexion a rabbit con usuario e ip del servidor
 	conn, err := amqp.Dial("amqp://finanzas:finanzas@10.6.40.150:5672/")
 	failOnError(err, "Failed to connect to RabbitMQ")
@@ -52,13 +55,34 @@ func main() {
     failOnError(err, "Failed to register a consumer")
 
     forever := make(chan bool)
-
+	var pakete Paquete
     go func() {
         for d := range msgs {
-            log.Printf("Received a message: %s", d.Body)
+			pakete := d.Body
+			json.Unmarshal([]byte(str), &pakete)
+			fmt.Println(pakete)
         }
     }()
 
     log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
     <-forever
+}
+
+func main() {
+	var respuesta int
+	go conexion()
+	for{
+		fmt.Println("Ingrese 432 para salir del sistema y mostrar balance financiero: \n")
+		fmt.Scanln(&respuesta)
+		if respuesta == 432{
+			fmt.Println("\n ---------------------- \n")
+			fmt.Println("\n BALANCE FINANCIERO: \n")
+			fmt.Println(" Ganancias: %d\n", ingresos)
+			fmt.Println(" Gastos: %d\n", gastos)
+			fmt.Println(" Total: %d\n", ingresos-gastos)
+			fmt.Println("\n ---------------------- \n")
+			break
+		}
+	}
+
 }
