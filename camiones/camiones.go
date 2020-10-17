@@ -45,7 +45,7 @@ func Intento(paquete *chat.Paquete) {
 				fmt.Println("Debug2")
 			}
 		} else {
-			mt.Println("Debug3")
+			fmt.Println("Debug3")
 			paquete.Estado = "No Recibido"
 		}
 	} else {
