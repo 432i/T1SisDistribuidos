@@ -191,10 +191,6 @@ func Carga(camion Camion, tEspera int, tEnvio int, nombreArchivo string) {
 	} else {
 		guardarPaquete(nombreArchivo, camion.Paquete2.Id, camion.Paquete2.Tipo, camion.Paquete2.Valor, camion.Paquete2.Origen, camion.Paquete2.Destino, camion.Paquete2.Intentos, "0")
 	}
-
-	respuesta = chat.Message{
-			Body: "Se guardo registro de los paquetes",
-		}
 	fmt.Println(respuesta.GetBody())
 }
 
