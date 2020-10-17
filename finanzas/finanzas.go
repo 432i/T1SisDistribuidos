@@ -16,8 +16,8 @@ func failOnError(err error, msg string) {
 type Paquete struct {
 	id string
 	tipo string
-	valor int
-	intentos int
+	valor string
+	intentos string
 	estado string
 }
 
