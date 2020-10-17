@@ -196,12 +196,12 @@ func PaquetesAFinanzas(){
         )
         failOnError(err, "Failed to declare a queue")
         //sacamos el paquete y lo dejamos en json para mandarlo a finanzas
-        pakete := s.PaquetesAFinanzas[0]
+        pakete := s.cola_a_finanzas[0]
         //eliminamos el paquete de la cola
-        if len(s.PaquetesAFinanzas) == 1 {
-                s.PaquetesAFinanzas = make([]Paquete, 0)
+        if len(s.cola_a_finanzas) == 1 {
+                s.cola_a_finanzas = make([]Paquete, 0)
         } else {
-                s.PaquetesAFinanzas = s.PaquetesAFinanzas[1:]
+                s.cola_a_finanzas = s.cola_a_finanzas[1:]
         }
         //pasamos a json el pakete
         body := fmt.Sprintf(`{"id":"%s", "tipo":"%s", "valor":%d, "intentos":%s, "estado":"%s"}`, pakete.GetId(), pakete.GetTipo(), pakete.GetValor(), pakete.GetIntentos(), pakete.GetEstado())
