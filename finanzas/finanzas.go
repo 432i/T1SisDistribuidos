@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/streadway/amqp"
+	"strconv"
 )
 
 func failOnError(err error, msg string) {
@@ -61,8 +62,8 @@ func conexion(){
         for d := range msgs {
 			pakete := Paquete{}
 			json.Unmarshal([]byte(d.Body), &pakete)
-			fmt.Println(pakete)
-			fmt.Println(pakete.Intentos)
+			intentos, _ := strconv.Atoi(pakete.Intentos)
+			fmt.Println(intentos)
 
         }
     }()
