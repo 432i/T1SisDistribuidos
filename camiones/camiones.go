@@ -70,46 +70,27 @@ func Intento(paquete *chat.Paquete) {
 }
 
 func Entrega(camion Camion, tEnvio int) bool {
-	fmt.Println("Print funcion Entrega")
 	if camion.Paquete1.Estado == "" && camion.Paquete2.Estado == "" {
-		fmt.Println("Ambos nulos")
 		return false;
-	} else if camion.Paquete1.Estado == "" && camion.Paquete2.Estado != "" && camion.Paquete2.Estado != "No Recibido" && camion.Paquete2.Estado != "Recibido"{
-		fmt.Println("P1 nulo y P2 no")
+	} else if camion.Paquete1.Estado == "" && camion.Paquete2.Estado != "" && camion.Paquete2.Estado != "No Recibido" && camion.Paquete2.Estado != "Recibido" {
 		Intento(camion.Paquete2)
-		fmt.Println("P1 nulo y P2 no")
-	} else if camion.Paquete1.Estado != "" && camion.Paquete2.Estado == "" && camion.Paquete1.Estado != "No Recibido" && camion.Paquete1.Estado != "Recibido"{
-		fmt.Println("P2 nulo y P1 no")
+	} else if camion.Paquete1.Estado != "" && camion.Paquete2.Estado == "" && camion.Paquete1.Estado != "No Recibido" && camion.Paquete1.Estado != "Recibido" {
 		Intento(camion.Paquete1)
-		fmt.Println("P2 nulo y P1 no")
 	} else if camion.Paquete1.Estado != "En Camino" && camion.Paquete2.Estado != "En Camino" {
-		fmt.Println("C")
 		return false
 	} else if camion.Paquete1.Estado == "Recibido" || camion.Paquete1.Estado == "No Recibido" {
-		fmt.Println("X")
 		Intento(camion.Paquete2)
-		fmt.Println("X")
 	} else if camion.Paquete2.Estado == "Recibido" || camion.Paquete2.Estado == "No Recibido" {
-		fmt.Println("Y")
 		Intento(camion.Paquete1)
-		fmt.Println("Y")
 	} else if camion.Paquete1.Valor > camion.Paquete2.Valor {
-		fmt.Println("A")
 		Intento(camion.Paquete1)
 		time.Sleep(time.Duration(tEnvio) * time.Second)
-		fmt.Println("A")
 		Intento(camion.Paquete2)
-		fmt.Println("A")
 	} else {
-		fmt.Println("B")
 		Intento(camion.Paquete2)
-		fmt.Println("B")
 		time.Sleep(time.Duration(tEnvio) * time.Second)
-		fmt.Println("B")
 		Intento(camion.Paquete1)
-		fmt.Println("B")
 	}
-	fmt.Println("Debug4")
 	return true
 }
 
@@ -129,6 +110,8 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 	mensaje := chat.Message{
 		Body: camion.Tipo,
 	}
+
+	time.Sleep(time.Duration(tEspera) * time.Second)
 
 	paquete1, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
 	if paquete1.GetId() != "" {
@@ -182,9 +165,12 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 	for aux {
 		aux = Entrega(camion, tEnvio)
 	}
-
-	//PaqueteCamionToQueue(context.Background(), &camion.paquete1)
-	//PaqueteCamionToQueue(context.Background(), &camion.paquete2)
+	respuesta, _ := PaqueteCamionToQueue(context.Background(), camion.paquete1)
+	fmt.Println(respuesta)
+	//Guardar paquete1 en registro
+	respuesta, _ = PaqueteCamionToQueue(context.Background(), camion.paquete2)
+	fmt.Println(respuesta)
+	//Guardar paquete2 en registro
 
 }
 
@@ -209,10 +195,8 @@ func main() {
 	CamionN := Camion{
 		Tipo: "normal",
 	}*/
-	n := 0
 	for {
 		Carga(CamionR1, tEspera, tEnvio)
-		n += 1
 		fmt.Println(n)
 		//fmt.Println(CamionR1.Paquete1.Seguimiento)
 		//Carga(CamionR2, tEspera, tEnvio)

@@ -31,5 +31,5 @@ service ChatService {
   rpc SolicitarSeguimiento(Message) returns (Message){}
   rpc ModificarEstado(Message) returns (Message){}
   rpc PaqueteQueueToCamion(Message) returns (Paquete) {}
-//  rpc PaqueteCamionToQueue(Message) returns (Message) {}
+  rpc PaqueteCamionToQueue(Paquete) returns (Message) {}
 }
