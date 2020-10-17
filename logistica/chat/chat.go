@@ -66,6 +66,8 @@ func (s *Server) ModificarEstado(ctx context.Context, message *Message) (*Messag
                                 Valor: pakete.GetValor(),
                                 Intentos: pakete.GetIntentos(),
                                 Estado: nuevoEstado,
+                                Origen: pakete.GetOrigen(),
+                                Destino: pakete.GetDestino(),
                         }
                         s.todos_paquetes = append(s.todos_paquetes[:cont], s.todos_paquetes[cont+1:]...)
                         s.todos_paquetes = append(s.todos_paquetes, nuevopakete)
@@ -120,6 +122,8 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
                         Valor: orden.GetValor(),
                         Intentos: "0",
                         Estado: "En bodega",
+                        Origen: orden.GetTienda(),
+                        Destino: orden.GetDestino(),
                 }
                 s.cola_norm_a_camion = append(s.cola_norm_a_camion, pakete)
                 s.todos_paquetes = append(s.todos_paquetes, pakete)
@@ -132,6 +136,8 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
                         Valor: orden.GetValor(),
                         Intentos: "0",
                         Estado: "En bodega",
+                        Origen: orden.GetTienda(),
+                        Destino: orden.GetDestino(),
                 }
                 s.cola_prio_a_camion = append(s.cola_prio_a_camion, pakete)
                 s.todos_paquetes = append(s.todos_paquetes, pakete)
@@ -144,6 +150,8 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
                         Valor: orden.GetValor(),
                         Intentos: "0",
                         Estado: "En bodega",
+                        Origen: orden.GetTienda(),
+                        Destino: orden.GetDestino(),
                 }
                 s.cola_ret_a_camion = append(s.cola_ret_a_camion, pakete)
                 s.todos_paquetes = append(s.todos_paquetes, pakete)

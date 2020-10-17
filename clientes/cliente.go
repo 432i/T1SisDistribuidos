@@ -95,7 +95,7 @@ func main(){
         //}
         //log.Printf("Response from server: %s", response.Body)
         var segundos int
-        fmt.Println("Cuantos segundos desea esperar por cada orden?: \n")
+        fmt.Println("Cuantos segundos desea esperar por cada orden?: ")
         fmt.Scanln(&segundos)
         
         pedidosPyme := cargarPyme()
@@ -107,7 +107,7 @@ func main(){
         contRetail := 0
         for{    
                 var respuesta string
-                fmt.Println("Ingrese la alternativa que desee: \n")
+                fmt.Println("\nIngrese la alternativa que desee: \n")
                 fmt.Println("1 Enviar una orden desde una Pyme \n")
                 fmt.Println("2 Enviar una orden desde el Retail \n")
                 fmt.Println("3 Realizar seguimiento de un pedido \n")
@@ -125,7 +125,7 @@ func main(){
                         fmt.Println("Enviando orden desde una pyme. . .")
                         time.Sleep(time.Duration(segundos)*time.Second)
                         if contPyme == (cantPyme-1){
-                                fmt.Println("No quedan más ordenes que realizar. Saliendo... \n ")
+                                fmt.Println("No quedan más ordenes que realizar. Saliendo. \n ")
                         }else{
                                 ordenPyme := pedidosPyme[contPyme]
                                 message := chat.Orden{
@@ -152,7 +152,7 @@ func main(){
                         fmt.Println("Enviando orden desde el retail. . .")
                         time.Sleep(time.Duration(segundos)*time.Second)
                         if contRetail == (cantRetail-1){
-                                fmt.Println("No quedan más ordenes que realizar. Saliendo... \n ")
+                                fmt.Println("No quedan más ordenes que realizar. Saliendo. \n ")
                         }else{
                                 ordenRetail := pedidosRetail[contRetail]
                                 message := chat.Orden{
@@ -178,14 +178,14 @@ func main(){
 
 
                 if strings.Compare("3", respuesta) == 0{
-                        fmt.Println("Ingrese el número de seguimiento que desea consultar: \n")
+                        fmt.Println("Ingrese el número de seguimiento que desea consultar: ")
                         var codigoSeguimiento string
                         _, err := fmt.Scanln(&codigoSeguimiento)
                         if err != nil {
                                 fmt.Fprintln(os.Stderr, err)
                                 return
                         }
-                        fmt.Println("Realizando seguimiento del codigo entregado")
+                        fmt.Println("Realizando seguimiento del codigo entregado. . .")
                         time.Sleep(time.Duration(segundos)*time.Second)
                         message := chat.Message{
 				Body: codigoSeguimiento,
