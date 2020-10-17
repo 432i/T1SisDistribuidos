@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"fmt"
 	//"log"
 	"time"
@@ -24,7 +25,7 @@ func crearRegistro(nombreArchivo string){
 	archivo.Close()
 }
 
-func guardarPaquete(nombreArchivo string,id string, tipo string, valor string, origen string, destino string, intentos string, fechaEntrega string){
+func guardarPaquete(nombreArchivo string, id string, tipo string, valor string, origen string, destino string, intentos string, fechaEntrega string){
 	orden := []string{id, tipo, valor, origen, destino, intentos, fechaEntrega}
 	archivo, err := os.OpenFile(nombreArchivo, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 
@@ -175,9 +176,9 @@ func Carga(camion Camion, tEspera int, tEnvio int, nombreArchivo string) {
 	respuesta, _ = c.ModificarEstado(context.Background(), &msj)
 
 	if camion.Paquete1.Estado != "No Recibido" {
-		guardarPaquete(nombreArchivo, camion.Paquete1.Id, camion.Paquete1.Valor, camion.Paquete1.Origen, camion.Paquete1.Destino, camion.Paquete1.Intentos, getTime())
+		guardarPaquete(nombreArchivo, camion.Paquete1.Id, camion.Paquete1.Tipo, camion.Paquete1.Valor, camion.Paquete1.Origen, camion.Paquete1.Destino, camion.Paquete1.Intentos, getTime())
 	} else {
-		guardarPaquete(nombreArchivo, camion.Paquete1.Id, camion.Paquete1.Valor, camion.Paquete1.Origen, camion.Paquete1.Destino, camion.Paquete1.Intentos, "0")
+		guardarPaquete(nombreArchivo, camion.Paquete1.Id, camion.Paquete1.Tipo, camion.Paquete1.Valor, camion.Paquete1.Origen, camion.Paquete1.Destino, camion.Paquete1.Intentos, "0")
 	}
 
 	respuesta, _ = PaqueteCamionToQueue(context.Background(), camion.paquete2)
@@ -188,9 +189,9 @@ func Carga(camion Camion, tEspera int, tEnvio int, nombreArchivo string) {
 	respuesta, _ = c.ModificarEstado(context.Background(), &msj)
 	
 	if camion.Paquete2.Estado != "No Recibido" {
-		guardarPaquete(nombreArchivo, camion.Paquete2.Id, camion.Paquete2.Valor, camion.Paquete2.Origen, camion.Paquete2.Destino, camion.Paquete2.Intentos, getTime())
+		guardarPaquete(nombreArchivo, camion.Paquete2.Id, camion.Paquete2.Tipo, camion.Paquete2.Valor, camion.Paquete2.Origen, camion.Paquete2.Destino, camion.Paquete2.Intentos, getTime())
 	} else {
-		guardarPaquete(nombreArchivo, camion.Paquete2.Id, camion.Paquete2.Valor, camion.Paquete2.Origen, camion.Paquete2.Destino, camion.Paquete2.Intentos, "0")
+		guardarPaquete(nombreArchivo, camion.Paquete2.Id, camion.Paquete2.Tipo, camion.Paquete2.Valor, camion.Paquete2.Origen, camion.Paquete2.Destino, camion.Paquete2.Intentos, "0")
 	}
 
 	respuesta = chat.Message{
