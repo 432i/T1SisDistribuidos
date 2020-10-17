@@ -22,6 +22,8 @@ type Paquete struct {
 	Estado string `json:"estado"`
 }
 
+
+
 var gastos int
 var ingresos int
 
@@ -62,7 +64,7 @@ func conexion(){
         for d := range msgs {
 			pakete := Paquete{}
 			json.Unmarshal([]byte(d.Body), &pakete)
-			intentos, _ := strconv.Atoi(pakete.Intentos)
+			//intentos, _ := strconv.Atoi(pakete.Intentos)
 			fmt.Println(pakete)
 
         }
