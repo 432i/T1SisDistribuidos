@@ -127,8 +127,7 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 			Body: camion.Paquete1.GetSeguimiento() + ",En Camino",
 		}
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
-		respuesta = "En logistica, se modifico el estado del paquete a En Camino"
-		//fmt.Println(respuesta.GetBody())
+		fmt.Println(respuesta.GetBody())
 		fmt.Printf("Paquete recibido, detalle:\n")
 		fmt.Println("     Id: ", camion.Paquete1.Id)
 		fmt.Println("     Seguimiento: ", camion.Paquete1.Seguimiento)
@@ -150,8 +149,7 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 			Body: camion.Paquete2.GetSeguimiento() + ",En Camino",
 		}
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
-		respuesta = "En logistica, se modifico el estado del paquete a En Camino"
-		//fmt.Println(respuesta.GetBody())
+		fmt.Println(respuesta.GetBody())
 		fmt.Printf("     Paquete recibido, detalle:\n")
 		fmt.Println("     Id: ", camion.Paquete2.Id)
 		fmt.Println("     Seguimiento: ", camion.Paquete2.Seguimiento)
