@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"log"
+	//"log"
 	"time"
 	"context"
 	"math/rand"
@@ -21,19 +21,12 @@ type Camion struct {
 
 func crearRegistro(nombreArchivo string){
 	archivo, err := os.Create(nombreArchivo)
-	if err != nil{
-			log.Println(err)
-	}
 	archivo.Close()
 }
 
 func guardarPaquete(nombreArchivo string,id string, tipo string, valor string, origen string, destino string, intentos string, fechaEntrega string){
 	orden := []string{id, tipo, valor, origen, destino, intentos, fechaEntrega}
 	archivo, err := os.OpenFile(nombreArchivo, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
-
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	w := csv.NewWriter(archivo)
 
@@ -53,43 +46,28 @@ func getTime() string {
 func Intento(paquete *chat.Paquete) {
 	intentos, _ := strconv.Atoi(paquete.Intentos)
 	valor, _ := strconv.Atoi(paquete.Valor)
-	fmt.Println("Debug")
 	if paquete.Estado != "Recibido" || paquete.Estado != "No Recibido" {
 		if paquete.Tipo == "retail" {
-			fmt.Println("Debug")
 			if intentos < 3 {
-				fmt.Println("Debug")
 				if rand.Float64() <= 0.8 {
-					fmt.Println("Debug")
 					paquete.Estado = "Recibido"
-					fmt.Println("Debug")
 				} else {
-					fmt.Println("Debug2")
 					intentos += 1
 					paquete.Intentos = strconv.Itoa(intentos)
-					fmt.Println("Debug2")
 				}
 			} else {
-				fmt.Println("Debug3")
 				paquete.Estado = "No Recibido"
 			}
 		} else {
-			fmt.Println("Debug4")
 			if intentos * 10 < valor && intentos < 2 {
-				fmt.Println("Debug4")
 				if rand.Float64() <= 0.8 {
-					fmt.Println("Debug4")
 					paquete.Estado = "Recibido"
 				} else {
-					fmt.Println("Debug5")
 					intentos += 1
 					paquete.Intentos = strconv.Itoa(intentos)
-					fmt.Println("Debug5")
 				}
 			} else {
-				fmt.Println("Debug6")
 				paquete.Estado = "No Recibido"
-				fmt.Println("Debug6")
 			}
 		}
 	}
@@ -123,15 +101,9 @@ func Entrega(camion Camion, tEnvio int) bool {
 func Carga(camion Camion, tEspera int, tEnvio int, nombreArchivo string) {
 	var conn *grpc.ClientConn
 	conn, err := grpc.Dial("10.6.40.149:9000", grpc.WithInsecure())
-	if err != nil {
-		log.Fatalf("Error al conectar: %s", err)
-	}
 	defer conn.Close()
 
 	c := chat.NewChatServiceClient(conn)
-	if err != nil {
-		log.Fatalf("No se pudo generar comunicacion: %s", err)
-	}
 
 	mensaje := chat.Message{
 		Body: camion.Tipo,
@@ -147,6 +119,7 @@ func Carga(camion Camion, tEspera int, tEnvio int, nombreArchivo string) {
 			Body: camion.Paquete1.GetSeguimiento() + ",En Camino",
 		}
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
+		respuesta = chat.Message{Body: "Estado modificado del paquete 1"}
 		fmt.Println(respuesta.GetBody())
 		fmt.Printf("Paquete recibido, detalle:\n")
 		fmt.Println("     Id: ", camion.Paquete1.Id)
@@ -172,6 +145,7 @@ func Carga(camion Camion, tEspera int, tEnvio int, nombreArchivo string) {
 			Body: camion.Paquete2.GetSeguimiento() + ",En Camino",
 		}
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
+		respuesta = chat.Message{Body: "Estado modificado del paquete 2"}
 		fmt.Println(respuesta.GetBody())
 		fmt.Printf("     Paquete recibido, detalle:\n")
 		fmt.Println("     Id: ", camion.Paquete2.Id)
