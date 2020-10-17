@@ -71,16 +71,14 @@ func Intento(paquete *chat.Paquete) {
 
 func Entrega(camion Camion, tEnvio int) bool {
 	fmt.Println("A")
-	if camion.Paquete1.Estado != "En Camino" && camion.Paquete2.Estado != "En Camino"{
+	if camion.Paquete1.Estado != "En Camino" && camion.Paquete2.Estado != "En Camino" {
 		fmt.Println("C")
 		return false
-	}
-	fmt.Println("A")
-	if camion.Paquete1.Estado == "Recibido" || camion.Paquete1.Estado == "No Recibido" {
+	} else if camion.Paquete1.Estado == "Recibido" || camion.Paquete1.Estado == "No Recibido" {
 		fmt.Println("X")
 		Intento(camion.Paquete2)
 		fmt.Println("X")
-	} else if camion.Paquete2.Estado == "Recibido" || camion.Paquete2.Estado == "No Recibido"{
+	} else if camion.Paquete2.Estado == "Recibido" || camion.Paquete2.Estado == "No Recibido" {
 		fmt.Println("Y")
 		Intento(camion.Paquete1)
 		fmt.Println("Y")
@@ -129,7 +127,8 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 			Body: camion.Paquete1.GetSeguimiento() + ",En Camino",
 		}
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
-		fmt.Println(respuesta.GetBody())
+		respuesta = "En logistica, se modifico el estado del paquete a En Camino"
+		//fmt.Println(respuesta.GetBody())
 		fmt.Printf("Paquete recibido, detalle:\n")
 		fmt.Println("     Id: ", camion.Paquete1.Id)
 		fmt.Println("     Seguimiento: ", camion.Paquete1.Seguimiento)
@@ -151,7 +150,8 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 			Body: camion.Paquete2.GetSeguimiento() + ",En Camino",
 		}
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
-		fmt.Println(respuesta.GetBody())
+		respuesta = "En logistica, se modifico el estado del paquete a En Camino"
+		//fmt.Println(respuesta.GetBody())
 		fmt.Printf("     Paquete recibido, detalle:\n")
 		fmt.Println("     Id: ", camion.Paquete2.Id)
 		fmt.Println("     Seguimiento: ", camion.Paquete2.Seguimiento)
