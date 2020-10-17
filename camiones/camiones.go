@@ -216,7 +216,7 @@ func main() {
 		Tipo: "retail",
 	}
 	CamionN := Camion{
-		IdCamion: "N"
+		IdCamion: "N",
 		Tipo: "normal",
 	}
 
