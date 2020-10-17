@@ -87,15 +87,19 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 	}
 
 	paquete1, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
+	fmt.Println("Debug")
 	if paquete1.GetId() != "" {
+		fmt.Println("Debug")
 		camion.Paquete1 = paquete1
 		msj := chat.Message{
 			Body: camion.Paquete1.GetSeguimiento() + ",En Camino",
 		}
+		fmt.Println("Debug")
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
 		fmt.Println(respuesta)
+		fmt.Println("Debug")
 	}
-
+	fmt.Println("Debug2")
 	time.Sleep(time.Duration(tEspera) * time.Second)
 
 	paquete2, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
@@ -123,11 +127,11 @@ func main() {
 
 	fmt.Printf("Ingrese el tiempo de espera de los camiones\n")
 	tEspera1, _ := reader.ReadString('\n')
-	fmt.Printf("El tiempo de espera para tomar el segundo paquete es de %s segundos", tEspera1)
+	fmt.Printf("El tiempo de espera para tomar el segundo paquete es de %s segundos\n", tEspera1)
 
 	fmt.Printf("Ingrese el tiempo de envio de los paquetes\n")
 	tEnvio1, _ := reader.ReadString('\n')
-	fmt.Printf("El tiempo de envío entre paquetes es de %s segundos", tEnvio1)
+	fmt.Printf("El tiempo de envío entre paquetes es de %s segundos\n", tEnvio1)
 
 	tEspera, _ := strconv.Atoi(tEspera1)
 	tEnvio, _ := strconv.Atoi(tEnvio1)
