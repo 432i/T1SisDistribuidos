@@ -81,7 +81,6 @@ func Entrega(camion Camion, tEnvio int) bool {
 	} else if camion.Paquete1.Estado != "" && camion.Paquete2.Estado == "" && camion.Paquete1.Estado != "No Recibido" && camion.Paquete1.Estado != "Recibido"{
 		fmt.Println("P2 nulo y P1 no")
 		Intento(camion.Paquete1)
-		return false
 		fmt.Println("P2 nulo y P1 no")
 	} else if camion.Paquete1.Estado != "En Camino" && camion.Paquete2.Estado != "En Camino" {
 		fmt.Println("C")
