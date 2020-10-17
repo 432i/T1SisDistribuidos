@@ -59,7 +59,7 @@ func conexion(){
 	var pakete Paquete
     go func() {
         for d := range msgs {
-			msj = d.Body
+			msj := d.Body
 			json.Unmarshal([]byte(msj), &pakete)
 			fmt.Println(pakete)
         }
