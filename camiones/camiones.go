@@ -184,7 +184,7 @@ func main() {
 	for {
 		Carga(CamionR1, tEspera, tEnvio)
 		n += 1
-		fmt.Prinln(n)
+		fmt.Println(n)
 		//fmt.Println(CamionR1.Paquete1.Seguimiento)
 		//Carga(CamionR2, tEspera, tEnvio)
 		//Carga(CamionN, tEspera, tEnvio)
