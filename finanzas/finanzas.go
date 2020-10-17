@@ -60,6 +60,7 @@ func conexion(){
     go func() {
         for d := range msgs {
 			msj := d.Body //{tipo: , id:, }
+			fmt.Println(msj)
 			json.Unmarshal([]byte(msj), &pakete)
 			fmt.Println(pakete)
         }
@@ -78,9 +79,9 @@ func main() {
 		if respuesta == 432{
 			fmt.Println("\n ---------------------- \n")
 			fmt.Println("\n BALANCE FINANCIERO: \n")
-			fmt.Printf(" Ganancias: %d\n", ingresos)
-			fmt.Printf(" Gastos: %d\n", gastos)
-			fmt.Printf(" Total: %d\n", ingresos-gastos)
+			fmt.Printf(" Ganancias: %d\n", &ingresos)
+			fmt.Printf(" Gastos: %d\n", &gastos)
+			fmt.Printf(" Total: \n", ingresos-gastos)
 			fmt.Println("\n ---------------------- \n")
 			break
 		}
