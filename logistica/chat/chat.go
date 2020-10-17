@@ -2,7 +2,7 @@ package chat
 
 import (
         "os"
-        "fmt"
+ //       "fmt"
         "log"
         "time"
         "golang.org/x/net/context"
