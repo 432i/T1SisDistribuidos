@@ -146,7 +146,7 @@ func Carga(camion Camion, tEspera int, tEnvio int, nombreArchivo string) {
 		}
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
 		fmt.Println(respuesta.GetBody())
-		fmt.Printf("     Paquete recibido, detalle:\n")
+		fmt.Printf("Paquete recibido, detalle:\n")
 		fmt.Println("     Id: ", camion.Paquete2.Id)
 		fmt.Println("     Seguimiento: ", camion.Paquete2.Seguimiento)
 		fmt.Println("     Tipo: ", camion.Paquete2.Tipo)
@@ -159,6 +159,8 @@ func Carga(camion Camion, tEspera int, tEnvio int, nombreArchivo string) {
 		fmt.Println("No hay paquetes en la cola")
 		camion.Paquete2 = paquete2
 	}
+
+	time.Sleep(time.Duration(tEspera) * time.Second)
 
 	aux := true
 	for aux {
@@ -219,6 +221,10 @@ func main() {
 		IdCamion: "N",
 		Tipo: "normal",
 	}
+
+	fmt.Println("Se ha creado el camion: ", CamionR1.IdCamion, " de tipo ", CamionR1.Tipo)
+	fmt.Println("Se ha creado el camion: ", CamionR2.IdCamion, " de tipo ", CamionR2.Tipo)
+	fmt.Println("Se ha creado el camion: ", CamionN.IdCamion, " de tipo ", CamionN.Tipo)
 
 	crearRegistro("registroCamion" + CamionR1.IdCamion + ".csv")
 	crearRegistro("registroCamion" + CamionR2.IdCamion + ".csv")
