@@ -172,7 +172,7 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
 }
 
 func PaquetesAFinanzas(){
-        conn, er := amqp.Dial("amqp://finanzas:finanzas@10.6.40.150:5672/")
+        conn, err := amqp.Dial("amqp://finanzas:finanzas@10.6.40.150:5672/")
         if err != nil{
                 fmt.Println(err)
                 panic(err)
