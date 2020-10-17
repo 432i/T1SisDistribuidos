@@ -137,6 +137,8 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 		fmt.Println("     Valor: ", camion.Paquete1.Valor)
 		fmt.Println("     Intentos: ", camion.Paquete1.Intentos)
 		fmt.Println("     Estado: ", camion.Paquete1.Estado)
+		fmt.Println("     Origen: ", camion.Paquete1.Origen)
+		fmt.Println("     Destino: ", camion.Paquete1.Destino)
 	}
 
 	time.Sleep(time.Duration(tEspera) * time.Second)
@@ -157,6 +159,8 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 		fmt.Println("     Valor: ", camion.Paquete2.Valor)
 		fmt.Println("     Intentos: ", camion.Paquete2.Intentos)
 		fmt.Println("     Estado: ", camion.Paquete2.Estado)
+		fmt.Println("     Origen: ", camion.Paquete2.Origen)
+		fmt.Println("     Destino: ", camion.Paquete2.Destino)
 	}
 
 	aux := true

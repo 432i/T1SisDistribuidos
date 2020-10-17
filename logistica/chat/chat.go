@@ -232,6 +232,8 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                                 Valor: "",
                                 Intentos: "",
                                 Estado: "",
+                                Origen: "",
+                                Destino: "",
                         }
                 }
         }
