@@ -3,9 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
 	"time"
-	"bufio"
 	"context"
 	"math/rand"
 	"strconv"
