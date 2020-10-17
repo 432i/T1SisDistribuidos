@@ -29,49 +29,55 @@ func getTime() string {
 func Intento(paquete *chat.Paquete) {
 	intentos, _ := strconv.Atoi(paquete.Intentos)
 	valor, _ := strconv.Atoi(paquete.Valor)
+	fmt.Println("Debug")
 	if paquete.Tipo == "retail" {
+		fmt.Println("Debug")
 		if intentos < 3 {
+			fmt.Println("Debug")
 			if rand.Float64() <= 0.8 {
+				fmt.Println("Debug")
 				paquete.Estado = "Recibido"
+				fmt.Println("Debug")
 			} else {
+				fmt.Println("Debug2")
 				intentos += 1
 				paquete.Intentos = strconv.Itoa(intentos)
+				fmt.Println("Debug2")
 			}
 		} else {
+			mt.Println("Debug3")
 			paquete.Estado = "No Recibido"
 		}
 	} else {
+		fmt.Println("Debug4")
 		if intentos * 10 < valor && intentos < 2 {
+			fmt.Println("Debug4")
 			if rand.Float64() <= 0.8 {
+				fmt.Println("Debug4")
 				paquete.Estado = "Recibido"
 			} else {
+				fmt.Println("Debug5")
 				intentos += 1
 				paquete.Intentos = strconv.Itoa(intentos)
+				fmt.Println("Debug5")
 			}
 		} else {
+			fmt.Println("Debug6")
 			paquete.Estado = "No Recibido"
+			fmt.Println("Debug6")
 		}
 	}
 }
 
 func Entrega(camion Camion, tEnvio int) bool {
-	fmt.Println("Debug")
 	if camion.Paquete1.Valor > camion.Paquete2.Valor {
-		fmt.Println("Debug")
 		time.Sleep(time.Duration(tEnvio) * time.Second)
-		fmt.Println("Debug")
 		Intento(camion.Paquete1)
-		fmt.Println("Debug")
 	} else {
-		fmt.Println("Debug2")
 		time.Sleep(time.Duration(tEnvio) * time.Second)
-		fmt.Println("Debug2")
 		Intento(camion.Paquete2)
-		fmt.Println("Debug2")
 	}
-	fmt.Println("Debug3")
 	if camion.Paquete1.Estado != "En Camino" && camion.Paquete2.Estado != "En Camino"{
-		fmt.Println("Debug3")
 		return false
 	}
 	fmt.Println("Debug4")
