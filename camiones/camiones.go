@@ -55,7 +55,7 @@ func Intento(paquete *chat.Paquete) {
 }
 
 func Entrega(camion Camion, tEnvio int) bool {
-	fmt.Println("Entra")
+	fmt.Println("Debug")
 	if camion.Paquete1.Valor > camion.Paquete2.Valor {
 		time.Sleep(time.Duration(tEnvio) * time.Second)
 		Intento(camion.Paquete1)
@@ -87,19 +87,21 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 	}
 
 	paquete1, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
-	fmt.Println("Debug")
 	if paquete1.GetId() != "" {
-		fmt.Println("Debug")
 		camion.Paquete1 = paquete1
 		msj := chat.Message{
 			Body: camion.Paquete1.GetSeguimiento() + ",En Camino",
 		}
-		fmt.Println("Debugxd")
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
-		fmt.Println(respuesta.GetBody())
-		fmt.Println("Debugxd")
+		fmt.Printf("Paquete recibido, detalle:\n")
+		fmt.Println("Id: ", camion.Paquete1.Id)
+		fmt.Println("Seguimiento: ", camion.Paquete1.Seguimiento)
+		fmt.Println("Tipo: ", camion.Paquete1.Tipo)
+		fmt.Println("Valor: ", camion.Paquete1.Valor)
+		fmt.Println("Intentos: ", camion.Paquete1.Intentos)
+		fmt.Println("Estado: ", camion.Paquete1.Estado)
 	}
-	fmt.Println("Debug2")
+
 	time.Sleep(time.Duration(tEspera) * time.Second)
 
 	paquete2, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
@@ -109,7 +111,13 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 			Body: camion.Paquete2.GetSeguimiento() + ",En Camino",
 		}
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
-		fmt.Println(respuesta)
+		fmt.Printf("Paquete recibido, detalle:\n")
+		fmt.Println("Id: ", camion.Paquete1.Id)
+		fmt.Println("Seguimiento: ", camion.Paquete1.Seguimiento)
+		fmt.Println("Tipo: ", camion.Paquete1.Tipo)
+		fmt.Println("Valor: ", camion.Paquete1.Valor)
+		fmt.Println("Intentos: ", camion.Paquete1.Intentos)
+		fmt.Println("Estado: ", camion.Paquete1.Estado)
 	}
 
 	aux := true
