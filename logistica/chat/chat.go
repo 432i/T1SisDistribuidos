@@ -8,6 +8,7 @@ import (
         "golang.org/x/net/context"
         "encoding/csv"
         "strings"
+        "strconv"
 )
 
 type Server struct {
@@ -100,9 +101,9 @@ func (s *Server) SolicitarSeguimiento(ctx context.Context, message *Message) (*M
         }
         return &msj, nil
 }
-
+var idSeg = 1
 func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error) {
-        codigoSeguimiento := "432"+orden.GetId()
+        codigoSeguimiento := strconv.Itoa(idSeg)+orden.GetId()
         cuerpo :="Codigo de seguimiento para su producto:   "+codigoSeguimiento
 
         //mensaje que se envia al cliente
@@ -157,7 +158,7 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
                 s.todos_paquetes = append(s.todos_paquetes, pakete)
 
         }
-
+        idSeg++
         return &msj, nil
 }
 
