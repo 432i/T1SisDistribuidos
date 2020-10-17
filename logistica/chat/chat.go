@@ -2,13 +2,14 @@ package chat
 
 import (
         "os"
- //       "fmt"
+        "fmt"
         "log"
         "time"
         "golang.org/x/net/context"
         "encoding/csv"
         "strings"
         "strconv"
+        "github.com/streadway/amqp"
 )
 
 type Server struct {
@@ -170,6 +171,51 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
         return &msj, nil
 }
 
+func PaquetesAFinanzas(){
+        conn, er := amqp.Dial("amqp://test:test@10.6.40.149:5672/")
+        if err != nil{
+                fmt.Println(err)
+                panic(err)
+        }
+        defer conn.Close()
+        
+        ch, err := conn.Channel()
+        if err != nil{
+                fmt.Println(err)
+                panic(err)
+        }
+        defer ch.Close()
+        //definimos una cola
+        q, err := ch.QueueDeclare(
+                "test",
+                false,
+                false,
+                false,
+                false,
+                nil
+        )
+        if err != nil{
+                fmt.Println(err)
+                panic(err)
+        }
+        //publicar un mensaje en la cola
+        err = ch.Publish(
+                "",
+                "testeooo",
+                false,
+                false,
+                amqp.Publishing{
+                        ContentType: "text/plain"
+                        Body: []byte("Hola holahoalhaola"),
+                },
+        )
+        if err != nil{
+                fmt.Println(err)
+                panic(err)
+        }
+
+}
+
 func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*Paquete, error) {
         var msj Paquete
 
@@ -273,6 +319,7 @@ func (s *Server) PaqueteCamionToQueue(ctx context.Context, paquete *Paquete) (*M
                         Destino: paquete.GetDestino(),
                 })
                 msj = Message {Body: "El paquete ingreso a las colas de servidor y finanzas"}
+                PaquetesAFinanzas()
         } else {
                 msj = Message {Body: "No habia paquete"}
         }
