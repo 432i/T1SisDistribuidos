@@ -7,7 +7,6 @@ import(
         "encoding/csv"
         "log"
         "fmt"
-        "bufio"
         "time"
         "golang.org/x/net/context"
         "google.golang.org/grpc"
@@ -97,11 +96,8 @@ func main(){
         //}
         //log.Printf("Response from server: %s", response.Body)
         var segundos int
-        var tu string
-        reader := bufio.NewReader(os.Stdin)
         fmt.Println("Cuantos segundos desea esperar por cada orden?: \n")
-        tu, _ = reader.ReadString('\n')
-        segundos, err = strconv.Atoi(tu)
+        fmt.Scanln(&segundos)
         
         pedidosPyme := cargarPyme()
         pedidosRetail := cargarRetail()
