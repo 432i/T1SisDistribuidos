@@ -2,7 +2,8 @@ package main
 
 import (
 	"log"
-
+	"encoding/json"
+	"fmt"
 	"github.com/streadway/amqp"
 )
 
