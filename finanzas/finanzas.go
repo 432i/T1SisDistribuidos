@@ -62,6 +62,7 @@ func conexion(){
 			pakete := Paquete{}
 			json.Unmarshal([]byte(d.Body), &pakete)
 			fmt.Println(pakete)
+			fmt.Println(pakete.Intentos)
 
         }
     }()
