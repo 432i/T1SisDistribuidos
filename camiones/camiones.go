@@ -28,41 +28,43 @@ func Intento(paquete *chat.Paquete) {
 	intentos, _ := strconv.Atoi(paquete.Intentos)
 	valor, _ := strconv.Atoi(paquete.Valor)
 	fmt.Println("Debug")
-	if paquete.Tipo == "retail" {
-		fmt.Println("Debug")
-		if intentos < 3 {
+	if paquete.Estado != "Recibido" || paquete.Estado != "No Recibido" {
+		if paquete.Tipo == "retail" {
 			fmt.Println("Debug")
-			if rand.Float64() <= 0.8 {
+			if intentos < 3 {
 				fmt.Println("Debug")
-				paquete.Estado = "Recibido"
-				fmt.Println("Debug")
+				if rand.Float64() <= 0.8 {
+					fmt.Println("Debug")
+					paquete.Estado = "Recibido"
+					fmt.Println("Debug")
+				} else {
+					fmt.Println("Debug2")
+					intentos += 1
+					paquete.Intentos = strconv.Itoa(intentos)
+					fmt.Println("Debug2")
+				}
 			} else {
-				fmt.Println("Debug2")
-				intentos += 1
-				paquete.Intentos = strconv.Itoa(intentos)
-				fmt.Println("Debug2")
+				fmt.Println("Debug3")
+				paquete.Estado = "No Recibido"
 			}
 		} else {
-			fmt.Println("Debug3")
-			paquete.Estado = "No Recibido"
-		}
-	} else {
-		fmt.Println("Debug4")
-		if intentos * 10 < valor && intentos < 2 {
 			fmt.Println("Debug4")
-			if rand.Float64() <= 0.8 {
+			if intentos * 10 < valor && intentos < 2 {
 				fmt.Println("Debug4")
-				paquete.Estado = "Recibido"
+				if rand.Float64() <= 0.8 {
+					fmt.Println("Debug4")
+					paquete.Estado = "Recibido"
+				} else {
+					fmt.Println("Debug5")
+					intentos += 1
+					paquete.Intentos = strconv.Itoa(intentos)
+					fmt.Println("Debug5")
+				}
 			} else {
-				fmt.Println("Debug5")
-				intentos += 1
-				paquete.Intentos = strconv.Itoa(intentos)
-				fmt.Println("Debug5")
+				fmt.Println("Debug6")
+				paquete.Estado = "No Recibido"
+				fmt.Println("Debug6")
 			}
-		} else {
-			fmt.Println("Debug6")
-			paquete.Estado = "No Recibido"
-			fmt.Println("Debug6")
 		}
 	}
 }
