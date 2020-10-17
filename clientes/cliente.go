@@ -2,7 +2,6 @@ package main
 import(
         "os"
         "strings"
-        "strconv"
         "io"
         "encoding/csv"
         "log"
