@@ -71,7 +71,20 @@ func Intento(paquete *chat.Paquete) {
 
 func Entrega(camion Camion, tEnvio int) bool {
 	fmt.Println("A")
-	if camion.Paquete1.Valor > camion.Paquete2.Valor {
+	if camion.Paquete1.Estado != "En Camino" && camion.Paquete2.Estado != "En Camino"{
+		fmt.Println("C")
+		return false
+	}
+	fmt.Println("A")
+	if camion.Paquete1.Estado == "Recibido" || camion.Paquete1.Estado == "No Recibido" {
+		fmt.Println("X")
+		Intento(camion.Paquete2)
+		fmt.Println("X")
+	} else if camion.Paquete2.Estado == "Recibido" || camion.Paquete2.Estado == "No Recibido"{
+		fmt.Println("Y")
+		Intento(camion.Paquete1)
+		fmt.Println("Y")
+	} else if camion.Paquete1.Valor > camion.Paquete2.Valor {
 		fmt.Println("A")
 		Intento(camion.Paquete1)
 		time.Sleep(time.Duration(tEnvio) * time.Second)
@@ -86,11 +99,6 @@ func Entrega(camion Camion, tEnvio int) bool {
 		fmt.Println("B")
 		Intento(camion.Paquete1)
 		fmt.Println("B")
-	}
-	fmt.Println("C")
-	if camion.Paquete1.Estado != "En Camino" && camion.Paquete2.Estado != "En Camino"{
-		fmt.Println("C")
-		return false
 	}
 	fmt.Println("Debug4")
 	return true
