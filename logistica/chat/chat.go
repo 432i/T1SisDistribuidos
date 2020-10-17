@@ -231,6 +231,22 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
                         } else {
                                 s.cola_ret_a_camion = s.cola_ret_a_camion[1:]
                         }
+                } else if len(s.cola_prio_a_camion) > 0 {
+                        msj = Paquete {
+                                Id: s.cola_prio_a_camion[0].GetId(),
+                                Seguimiento: s.cola_prio_a_camion[0].GetSeguimiento(),
+                                Tipo: s.cola_prio_a_camion[0].GetTipo(),
+                                Valor: s.cola_prio_a_camion[0].GetValor(),
+                                Intentos: s.cola_prio_a_camion[0].GetIntentos(),
+                                Estado: s.cola_prio_a_camion[0].GetEstado(),
+                                Origen: s.cola_prio_a_camion[0].GetOrigen(),
+                                Destino: s.cola_prio_a_camion[0].GetDestino(),
+                        }
+                        if len(s.cola_prio_a_camion) == 1 {
+                                s.cola_prio_a_camion = make([]Paquete, 0)
+                        } else {
+                                s.cola_prio_a_camion = s.cola_prio_a_camion[1:]
+                        }
                 } else {
                         msj = Paquete{
                                 Id: "",
