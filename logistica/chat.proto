@@ -18,6 +18,8 @@ message Paquete  {
     string Valor = 4;
     string Intentos = 5;
     string Estado = 6;
+    string Origen = 7;
+    string Destino = 8;
 }
 
 message Message {
