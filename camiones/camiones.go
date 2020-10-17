@@ -148,6 +148,9 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 		fmt.Println("     Estado: ", camion.Paquete1.Estado)
 		fmt.Println("     Origen: ", camion.Paquete1.Origen)
 		fmt.Println("     Destino: ", camion.Paquete1.Destino)
+	} else {
+		fmt.Println("No hay paquetes en la cola")
+		camion.Paquete1 = paquete1
 	}
 
 	time.Sleep(time.Duration(tEspera) * time.Second)
@@ -170,6 +173,9 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 		fmt.Println("     Estado: ", camion.Paquete2.Estado)
 		fmt.Println("     Origen: ", camion.Paquete2.Origen)
 		fmt.Println("     Destino: ", camion.Paquete2.Destino)
+	} else {
+		fmt.Println("No hay paquetes en la cola")
+		camion.Paquete2 = paquete2
 	}
 
 	aux := true
