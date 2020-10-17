@@ -56,9 +56,10 @@ func conexion(){
     failOnError(err, "Failed to register a consumer")
 
     forever := make(chan bool)
-	var pakete Paquete
+
     go func() {
         for d := range msgs {
+			pakete := Paquete{}
 			msj := d.Body //{tipo: , id:, }
 			fmt.Println(msj)
 			json.Unmarshal([]byte(msj), &pakete)
@@ -74,14 +75,17 @@ func main() {
 	var respuesta int
 	go conexion()
 	for{
-		fmt.Println("Ingrese 432 para salir del sistema y mostrar balance financiero: \n")
+		fmt.Println("Ingrese 432 y preione enter para salir del sistema y mostrar balance financiero \n")
 		fmt.Scanln(&respuesta)
 		if respuesta == 432{
 			fmt.Println("\n ---------------------- \n")
-			fmt.Println("\n BALANCE FINANCIERO: \n")
-			fmt.Printf(" Ganancias: %d\n", &ingresos)
-			fmt.Printf(" Gastos: %d\n", &gastos)
-			fmt.Printf(" Total: \n", ingresos-gastos)
+			fmt.Println("\n BALANCE FINANCIERO ")
+			fmt.Println("\n Ganancias: ")
+			fmt.Println(ingresos)
+			fmt.Println("\n Gastos: ")
+			fmt.Println(gastos)
+			fmt.Println("\n Total: ")
+			fmt.Println(ingresos-gastos)
 			fmt.Println("\n ---------------------- \n")
 			break
 		}
