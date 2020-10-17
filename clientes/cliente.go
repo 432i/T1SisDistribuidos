@@ -98,6 +98,7 @@ func main(){
         fmt.Println("Cuantos segundos desea esperar por cada orden?: ")
         fmt.Scanln(&segundos)
         //mmm
+        //mmmmm
         pedidosPyme := cargarPyme()
         pedidosRetail := cargarRetail()
 
