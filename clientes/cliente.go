@@ -117,8 +117,6 @@ func main(){
                         fmt.Fprintln(os.Stderr, err)
                         return
                 }
-                fmt.Println("Tu respuesta fue: ")
-                fmt.Println(respuesta)
 
 
                 if strings.Compare("1", respuesta) == 0{
