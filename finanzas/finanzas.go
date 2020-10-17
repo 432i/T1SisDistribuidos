@@ -19,6 +19,7 @@ type registro struct {
     perdidasOGananciasPaquete float64
 }
 
+
 func main() {
 	//Se establece conexion a rabbit con usuario e ip del servidor
 	conn, err := amqp.Dial("amqp://finanzas:finanzas@10.6.40.150:5672/")
