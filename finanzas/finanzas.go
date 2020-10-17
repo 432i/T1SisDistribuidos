@@ -31,7 +31,7 @@ func main() {
 	defer ch.Close()
 
 	q, err := ch.QueueDeclare(
-		"hello", // name
+		"testeoooadspasd", // name
 		false,   // durable
 		false,   // delete when unused
 		false,   // exclusive
