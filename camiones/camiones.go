@@ -7,6 +7,7 @@ import (
 	"context"
 	"math/rand"
 	"strconv"
+	"encoding/csv"
 	"github.com/432i/T1SisDistribuidos/logistica/chat"
 	"google.golang.org/grpc"
 )
@@ -15,6 +16,31 @@ type Camion struct {
 	Tipo string
 	Paquete1 *chat.Paquete
 	Paquete2 *chat.Paquete
+}
+
+func crearRegistro(nombreArchivo string){
+	archivo, err := os.Create(nombreArchivo)
+	if err != nil{
+			log.Println(err)
+	}
+	archivo.Close()
+}
+
+func guardarPaquete(nombreArchivo string,id string, tipo string, valor string, origen string, destino string, intentos int, fechaEntrega string){
+
+	orden := []string{id, tipo, valor, origen, destino, intentos, fechaEntrega}
+	archivo, err := os.OpenFile(nombreArchivo, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	w := csv.NewWriter(archivo)
+
+	w.Write(orden)
+
+	w.Flush()
+	archivo.Close()
 }
 
 func getTime() string {
