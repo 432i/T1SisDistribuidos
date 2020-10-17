@@ -63,15 +63,18 @@ func Entrega(camion Camion, tEnvio int) bool {
 		Intento(camion.Paquete1)
 		fmt.Println("Debug")
 	} else {
-		fmt.Println("Debug")
+		fmt.Println("Debug2")
 		time.Sleep(time.Duration(tEnvio) * time.Second)
-		fmt.Println("Debug")
+		fmt.Println("Debug2")
 		Intento(camion.Paquete2)
-		fmt.Println("Debug")
+		fmt.Println("Debug2")
 	}
+	fmt.Println("Debug3")
 	if camion.Paquete1.Estado != "En Camino" && camion.Paquete2.Estado != "En Camino"{
+		fmt.Println("Debug3")
 		return false
 	}
+	fmt.Println("Debug3")
 	return true
 }
 
