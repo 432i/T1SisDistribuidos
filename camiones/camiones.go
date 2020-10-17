@@ -94,10 +94,10 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 		msj := chat.Message{
 			Body: camion.Paquete1.GetSeguimiento() + ",En Camino",
 		}
-		fmt.Println("Debug")
+		fmt.Println("Debugxd")
 		respuesta, _ := c.ModificarEstado(context.Background(), &msj)
-		fmt.Println(respuesta)
-		fmt.Println("Debug")
+		fmt.Println(respuesta.GetBody())
+		fmt.Println("Debugxd")
 	}
 	fmt.Println("Debug2")
 	time.Sleep(time.Duration(tEspera) * time.Second)
