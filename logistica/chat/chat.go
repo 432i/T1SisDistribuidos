@@ -173,34 +173,35 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
 
 func PaquetesAFinanzas(){
         conn, err := amqp.Dial("amqp://finanzas:finanzas@10.6.40.150:5672/")
-        if err != nil{
-                fmt.Println(err)
-                panic(err)
-        }
+        failOnError(err, "Failed to connect to RabbitMQ")
         defer conn.Close()
-        
+
         ch, err := conn.Channel()
-        if err != nil{
-                fmt.Println(err)
-                panic(err)
-        }
+        failOnError(err, "Failed to open a channel")
         defer ch.Close()
-        
-        //publicar un mensaje en la cola
-        err = ch.Publish(
-                "",
-                "TestQueue",
-                false,
-                false,
-                amqp.Publishing{
-                        ContentType: "text/plain",
-                        Body: []byte("Hola holahoalhaola"),
-                },
+
+        q, err := ch.QueueDeclare(
+                "hello", // name
+                false,   // durable
+                false,   // delete when unused
+                false,   // exclusive
+                false,   // no-wait
+                nil,     // arguments
         )
-        if err != nil{
-                fmt.Println(err)
-                panic(err)
-        }
+        failOnError(err, "Failed to declare a queue")
+
+        body := "Hello World!"
+        err = ch.Publish(
+                "",     // exchange
+                q.Name, // routing key
+                false,  // mandatory
+                false,  // immediate
+                amqp.Publishing{
+                ContentType: "text/plain",
+                Body:        []byte(body),
+        })
+        log.Printf(" [x] Sent %s", body)
+        failOnError(err, "Failed to publish a message")
 
 }
 

@@ -23,32 +23,41 @@ func main() {
 	//Se establece conexion a rabbit con usuario e ip del servidor
 	conn, err := amqp.Dial("amqp://finanzas:finanzas@10.6.40.150:5672/")
 	failOnError(err, "Failed to connect to RabbitMQ")
-	defer conn.Close()
+    defer conn.Close()
 
-	//Se crea un canal para la comunicacion
-	ch, err := conn.Channel()
-	failOnError(err, "Failed to open a channel")
-	defer ch.Close()
+    ch, err := conn.Channel()
+    failOnError(err, "Failed to open a channel")
+    defer ch.Close()
 
-	msgs, err := ch.Consume(
-		"TestQueue", // queue
-		"",     // consumer
-		true,   // auto-ack
-		false,  // exclusive
-		false,  // no-local
-		false,  // no-wait
-		nil,    // args
-	)
-	failOnError(err, "Failed to register a consumer")
+    q, err := ch.QueueDeclare(
+        "hello", // name
+        false,   // durable
+        false,   // delete when unused
+        false,   // exclusive
+        false,   // no-wait
+        nil,     // arguments
+    )
+    failOnError(err, "Failed to declare a queue")
 
-	forever := make(chan bool)
+    msgs, err := ch.Consume(
+        q.Name, // queue
+        "",     // consumer
+        true,   // auto-ack
+        false,  // exclusive
+        false,  // no-local
+        false,  // no-wait
+        nil,    // args
+    )
+    failOnError(err, "Failed to register a consumer")
 
-	go func() {
-		for d := range msgs {
-			log.Printf("Received a message: %s", d.Body)
-		}
-	}()
+    forever := make(chan bool)
 
-	log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
-	<-forever
+    go func() {
+        for d := range msgs {
+            log.Printf("Received a message: %s", d.Body)
+        }
+    }()
+
+    log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
+    <-forever
 }
