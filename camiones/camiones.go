@@ -21,13 +21,13 @@ type Camion struct {
 }
 
 func crearRegistro(nombreArchivo string){
-	archivo, err := os.Create(nombreArchivo)
+	archivo, _ := os.Create(nombreArchivo)
 	archivo.Close()
 }
 
 func guardarPaquete(nombreArchivo string, id string, tipo string, valor string, origen string, destino string, intentos string, fechaEntrega string){
 	orden := []string{id, tipo, valor, origen, destino, intentos, fechaEntrega}
-	archivo, err := os.OpenFile(nombreArchivo, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	archivo, _ := os.OpenFile(nombreArchivo, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 
 	w := csv.NewWriter(archivo)
 
@@ -101,7 +101,7 @@ func Entrega(camion Camion, tEnvio int) bool {
 
 func Carga(camion Camion, tEspera int, tEnvio int, nombreArchivo string) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial("10.6.40.149:9000", grpc.WithInsecure())
+	conn, _ := grpc.Dial("10.6.40.149:9000", grpc.WithInsecure())
 	defer conn.Close()
 
 	c := chat.NewChatServiceClient(conn)
