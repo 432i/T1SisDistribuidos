@@ -101,7 +101,7 @@ func Entrega(camion Camion, tEnvio int) bool {
 
 func Carga(camion Camion, tEspera int, tEnvio int, nombreArchivo string) {
 	var conn *grpc.ClientConn
-	conn, _ := grpc.Dial("10.6.40.149:9000", grpc.WithInsecure())
+	conn, _ = grpc.Dial("10.6.40.149:9000", grpc.WithInsecure())
 	defer conn.Close()
 
 	c := chat.NewChatServiceClient(conn)
