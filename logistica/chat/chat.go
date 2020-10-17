@@ -322,7 +322,7 @@ func (s *Server) PaqueteCamionToQueue(ctx context.Context, paquete *Paquete) (*M
                         s.cola_a_finanzas = s.cola_a_finanzas[1:]
                 }
                 //pasamos a json el pakete
-                body := fmt.Sprintf(`{"id":"%s", "tipo":"%s", "valor":%d, "intentos":%s, "estado":"%s"}`, pakete.GetId(), pakete.GetTipo(), pakete.GetValor(), pakete.GetIntentos(), pakete.GetEstado())
+                body := fmt.Sprintf(`{"id":"%s", "tipo":"%s", "valor":%s, "intentos":%s, "estado":"%s"}`, pakete.GetId(), pakete.GetTipo(), pakete.GetValor(), pakete.GetIntentos(), pakete.GetEstado())
                 PaquetesAFinanzas(body)
         } else {
                 msj = Message {Body: "No habia paquete"}
