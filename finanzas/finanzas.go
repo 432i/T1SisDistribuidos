@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/streadway/amqp"
-	"strconv"
+	//"strconv"
 )
 
 func failOnError(err error, msg string) {
