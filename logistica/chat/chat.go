@@ -185,23 +185,11 @@ func PaquetesAFinanzas(){
                 panic(err)
         }
         defer ch.Close()
-        //definimos una cola
-        q, err := ch.QueueDeclare(
-                "testeoooadspasd",
-                false,
-                false,
-                false,
-                false,
-                nil,
-        )
-        if err != nil{
-                fmt.Println(err)
-                panic(err)
-        }
+        
         //publicar un mensaje en la cola
         err = ch.Publish(
                 "",
-                q.Name,
+                "TestQueue",
                 false,
                 false,
                 amqp.Publishing{
