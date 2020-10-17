@@ -165,12 +165,28 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 	for aux {
 		aux = Entrega(camion, tEnvio)
 	}
+	var msj Message
+
 	respuesta, _ := PaqueteCamionToQueue(context.Background(), camion.paquete1)
 	fmt.Println(respuesta)
+	msj = chat.Message{
+			Body: camion.Paquete1.GetSeguimiento() + "," + camion.Paquete1.GetEstado(),
+		}
+	respuesta, _ = c.ModificarEstado(context.Background(), &msj)
 	//Guardar paquete1 en registro
+
 	respuesta, _ = PaqueteCamionToQueue(context.Background(), camion.paquete2)
 	fmt.Println(respuesta)
+	msj = chat.Message{
+			Body: camion.Paquete2.GetSeguimiento() + "," + camion.Paquete2.GetEstado(),
+		}
+	respuesta, _ = c.ModificarEstado(context.Background(), &msj)
 	//Guardar paquete2 en registro
+
+	respuesta = chat.Message{
+			Body: "Se guardo registro de los paquetes",
+		}
+	fmt.Println(respuesta.GetBody())
 
 }
 
