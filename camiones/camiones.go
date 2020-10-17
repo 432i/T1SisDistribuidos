@@ -74,7 +74,7 @@ func Entrega(camion Camion, tEnvio int) bool {
 		fmt.Println("Debug3")
 		return false
 	}
-	fmt.Println("Debug3")
+	fmt.Println("Debug4")
 	return true
 }
 
