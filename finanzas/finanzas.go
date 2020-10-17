@@ -30,18 +30,8 @@ func main() {
 	failOnError(err, "Failed to open a channel")
 	defer ch.Close()
 
-	q, err := ch.QueueDeclare(
-		"testeoooadspasd", // name
-		false,   // durable
-		false,   // delete when unused
-		false,   // exclusive
-		false,   // no-wait
-		nil,     // arguments
-	)
-	failOnError(err, "Failed to declare a queue")
-
 	msgs, err := ch.Consume(
-		q.Name, // queue
+		"TestQueue", // queue
 		"",     // consumer
 		true,   // auto-ack
 		false,  // exclusive
