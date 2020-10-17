@@ -14,11 +14,11 @@ func failOnError(err error, msg string) {
 }
 	
 type Paquete struct {
-	id string
-	tipo string
-	valor string
-	intentos string
-	estado string
+	id string `json:"id"`
+	tipo string `json:"tipo"`
+	valor string `json:"valor"`
+	intentos string `json:"intentos"`
+	estado string `json:"estado"`
 }
 
 var gastos int
@@ -59,7 +59,7 @@ func conexion(){
 	var pakete Paquete
     go func() {
         for d := range msgs {
-			msj := d.Body
+			msj := d.Body //{tipo: , id:, }
 			json.Unmarshal([]byte(msj), &pakete)
 			fmt.Println(pakete)
         }
@@ -78,9 +78,9 @@ func main() {
 		if respuesta == 432{
 			fmt.Println("\n ---------------------- \n")
 			fmt.Println("\n BALANCE FINANCIERO: \n")
-			fmt.Println(" Ganancias: %d\n", ingresos)
-			fmt.Println(" Gastos: %d\n", gastos)
-			fmt.Println(" Total: %d\n", ingresos-gastos)
+			fmt.Printf(" Ganancias: %d\n", ingresos)
+			fmt.Printf(" Gastos: %d\n", gastos)
+			fmt.Printf(" Total: %d\n", ingresos-gastos)
 			fmt.Println("\n ---------------------- \n")
 			break
 		}
