@@ -173,7 +173,7 @@ func Carga(camion Camion, tEspera int, tEnvio int, nombreArchivo string) {
 		}
 	respuesta, _ = c.ModificarEstado(context.Background(), &msj)
 
-	if camion.Paquete1.Estado != "No Recibido" {
+	if camion.Paquete1.Estado == "No Recibido" || camion.Paquete1.Estado == "Recibido" {
 		guardarPaquete(nombreArchivo, camion.Paquete1.Id, camion.Paquete1.Tipo, camion.Paquete1.Valor, camion.Paquete1.Origen, camion.Paquete1.Destino, camion.Paquete1.Intentos, getTime())
 	} else {
 		guardarPaquete(nombreArchivo, camion.Paquete1.Id, camion.Paquete1.Tipo, camion.Paquete1.Valor, camion.Paquete1.Origen, camion.Paquete1.Destino, camion.Paquete1.Intentos, "0")
@@ -186,7 +186,7 @@ func Carga(camion Camion, tEspera int, tEnvio int, nombreArchivo string) {
 		}
 	respuesta, _ = c.ModificarEstado(context.Background(), &msj)
 	
-	if camion.Paquete2.Estado != "No Recibido" {
+	if camion.Paquete2.Estado == "No Recibido" || camion.Paquete2.Estado == "Recibido" {
 		guardarPaquete(nombreArchivo, camion.Paquete2.Id, camion.Paquete2.Tipo, camion.Paquete2.Valor, camion.Paquete2.Origen, camion.Paquete2.Destino, camion.Paquete2.Intentos, getTime())
 	} else {
 		guardarPaquete(nombreArchivo, camion.Paquete2.Id, camion.Paquete2.Tipo, camion.Paquete2.Valor, camion.Paquete2.Origen, camion.Paquete2.Destino, camion.Paquete2.Intentos, "0")
