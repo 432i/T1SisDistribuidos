@@ -73,15 +73,18 @@ func Entrega(camion Camion, tEnvio int) bool {
 	fmt.Println("A")
 	if camion.Paquete1.Valor > camion.Paquete2.Valor {
 		fmt.Println("A")
+		Intento(camion.Paquete1)
 		time.Sleep(time.Duration(tEnvio) * time.Second)
 		fmt.Println("A")
-		Intento(camion.Paquete1)
+		Intento(camion.Paquete2)
 		fmt.Println("A")
 	} else {
 		fmt.Println("B")
+		Intento(camion.Paquete2)
+		fmt.Println("B")
 		time.Sleep(time.Duration(tEnvio) * time.Second)
 		fmt.Println("B")
-		Intento(camion.Paquete2)
+		Intento(camion.Paquete1)
 		fmt.Println("B")
 	}
 	fmt.Println("C")
@@ -113,6 +116,7 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 	paquete1, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
 	if paquete1.GetId() != "" {
 		camion.Paquete1 = paquete1
+		camion.Paquete1.Estado = "En Camino"
 		msj := chat.Message{
 			Body: camion.Paquete1.GetSeguimiento() + ",En Camino",
 		}
@@ -132,6 +136,7 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 	paquete2, _ := c.PaqueteQueueToCamion(context.Background(), &mensaje)
 	if paquete2.GetId() != "" {
 		camion.Paquete2 = paquete2
+		camion.Paquete2.Estado = "En Camino"
 		msj := chat.Message{
 			Body: camion.Paquete2.GetSeguimiento() + ",En Camino",
 		}
@@ -157,18 +162,15 @@ func Carga(camion Camion, tEspera int, tEnvio int) {
 }
 
 func main() {
-	reader := bufio.NewReader(os.Stdin)
-
+	var tEspera int
+	var tEnvio int
 	fmt.Printf("Ingrese el tiempo de espera de los camiones\n")
-	tEspera1, _ := reader.ReadString('\n')
-	fmt.Printf("El tiempo de espera para tomar el segundo paquete es de %s segundos\n", tEspera1)
+	fmt.Scanln(&tEspera)
+	fmt.Printf("El tiempo de espera para tomar el segundo paquete es de %d segundos\n", tEspera)
 
 	fmt.Printf("Ingrese el tiempo de envio de los paquetes\n")
-	tEnvio1, _ := reader.ReadString('\n')
-	fmt.Printf("El tiempo de envío entre paquetes es de %s segundos\n", tEnvio1)
-
-	tEspera, _ := strconv.Atoi(tEspera1)
-	tEnvio, _ := strconv.Atoi(tEnvio1)
+	fmt.Scanln(&tEnvio)
+	fmt.Printf("El tiempo de envío entre paquetes es de %d segundos\n", tEnvio)
 
     CamionR1 := Camion {
 		Tipo: "retail",
