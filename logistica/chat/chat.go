@@ -192,7 +192,7 @@ func PaquetesAFinanzas(){
                 false,
                 false,
                 false,
-                nil
+                nil,
         )
         if err != nil{
                 fmt.Println(err)
@@ -205,7 +205,7 @@ func PaquetesAFinanzas(){
                 false,
                 false,
                 amqp.Publishing{
-                        ContentType: "text/plain"
+                        ContentType: "text/plain",
                         Body: []byte("Hola holahoalhaola"),
                 },
         )
