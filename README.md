@@ -15,7 +15,8 @@
 - export GOPATH=$HOME/go
 - export GOBIN=$GOPATH/bin
 - export PATH=$PATH:$GOROOT:$GOPATH:$GOBIN
-Presionar enter y ejecutar el servidor de logistica
+
+Presionar enter y ejecutar el servidor de logística
 
 ## Autores ✒️
 
