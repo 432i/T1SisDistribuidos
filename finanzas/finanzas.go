@@ -32,11 +32,11 @@ func crearRegistro(){
 	archivo.Close()
 }
 
-func guardarPaquete(estado string, intentos string, valor int){ 
+func guardarPaquete(estado string, intentos string, valor float64){ 
 	//valor es la perdida o la ganancia del pakete
 	//estado de Recibido indica que fue entregado (envio completado), No recibido que no se pudo entregar
 	
-	orden := []string{estado, intentos, strconv.Itoa(valor)}
+	orden := []string{estado, intentos, strconv.FormatFloat(valor, 'f', -1, 64)}
 	archivo, err := os.OpenFile("paquetes.csv", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 
 	if err != nil {
