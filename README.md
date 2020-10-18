@@ -18,6 +18,10 @@
 
 Presionar enter y ejecutar el servidor de logística
 
+Asegurarse de que el firewall está desactivado o los métodos gRPC no funcionarán:
+
+- service firewalld stop
+
 ## Autores ✒️
 
 * **Ignacio Aedo, rol 201773556-2** - *Desarrollo* - [432i](https://github.com/432i)
