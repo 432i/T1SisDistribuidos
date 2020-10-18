@@ -122,7 +122,7 @@ func main(){
 
                 if strings.Compare("1", respuesta) == 0{
                         fmt.Println("Enviando orden desde una pyme. . .")
-                        time.Sleep(time.Duration(segundos)*time.Second)
+                        
                         if contPyme == (cantPyme-1){
                                 fmt.Println("No quedan más ordenes que realizar. Saliendo. \n ")
                         }else{
@@ -141,7 +141,7 @@ func main(){
                                         fmt.Println("Error al enviar la orden")
                                 }
                                 log.Printf("%s", response.Body)
-                                
+                                time.Sleep(time.Duration(segundos)*time.Second)
                                 contPyme = contPyme+1
                         }
                 }
@@ -149,7 +149,7 @@ func main(){
 
                 if strings.Compare("2", respuesta) == 0{
                         fmt.Println("Enviando orden desde el retail. . .")
-                        time.Sleep(time.Duration(segundos)*time.Second)
+                        
                         if contRetail == (cantRetail-1){
                                 fmt.Println("No quedan más ordenes que realizar. Saliendo. \n ")
                         }else{
@@ -170,7 +170,7 @@ func main(){
                                 log.Printf("%s", response.Body)
 
                                 contRetail = contRetail+1
-
+                                time.Sleep(time.Duration(segundos)*time.Second)
                         }
 
                 }
