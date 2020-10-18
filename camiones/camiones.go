@@ -20,11 +20,30 @@ type Camion struct {
 	Paquete2 *chat.Paquete
 }
 
+/*
+Funcion: crearRegistro
+Parametros:
+	- nombreArchivo: string que contiene el nombre del archivo de registros del camion
+Descripcion:
+	- Crear el archivo csv para los registros de los paquetes
+Retorno:
+	- No tiene retorno
+*/
 func crearRegistro(nombreArchivo string){
 	archivo, _ := os.Create(nombreArchivo)
 	archivo.Close()
 }
 
+/*
+Funcion: guardarPaquete
+Parametros:
+	- nombreArchivo: string que contiene el nombre del archivo de registros del camion
+	- Resto de parametros: Atributos solicitados para el registro de cada paquete
+Descripcion:
+	- Guarda en el csv nombreArchivo el registro del paquete
+Retorno:
+	- No tiene retorno
+*/
 func guardarPaquete(nombreArchivo string, id string, tipo string, valor string, origen string, destino string, intentos string, fechaEntrega string){
 	orden := []string{id, tipo, valor, origen, destino, intentos, fechaEntrega}
 	archivo, _ := os.OpenFile(nombreArchivo, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
@@ -37,6 +56,15 @@ func guardarPaquete(nombreArchivo string, id string, tipo string, valor string, 
 	archivo.Close()
 }
 
+/*
+Funcion: getTime
+Parametros:
+	- No recibe parametros
+Descripcion:
+	- Obtiene el time-stamp para registrar el paquete en el csv
+Retorno:
+	- string: Devuelve el time-stamp generado
+*/
 func getTime() string {
     t := time.Now()
     return fmt.Sprintf("%d-%02d-%02d %02d:%02d:%02d",
@@ -44,6 +72,15 @@ func getTime() string {
         t.Hour(), t.Minute(), t.Second())
 }
 
+/*
+Funcion: Intento
+Parametros:
+	- paquete: Puntero a paquete
+Descripcion:
+	- Hace el intento de entregar el paquete, modificando su estado y/o intentos cada vez que se trata
+Retorno:
+	- No tiene retorno
+*/
 func Intento(paquete *chat.Paquete) {
 	intentos, _ := strconv.Atoi(paquete.Intentos)
 	valor, _ := strconv.Atoi(paquete.Valor)
@@ -74,6 +111,19 @@ func Intento(paquete *chat.Paquete) {
 	}
 }
 
+/*
+Funcion: Entrega
+Parametros:
+	- camion: Estructura tipo Camion
+	- tEnvio: int con el tiempo de envio solicitado
+Descripcion:
+	- Hace las comparaciones entre paquetes para identificar cual se debe entregar primero
+	- Llama a la funcion Intento, la cual se describe cuando corresponde
+Retorno:
+	- Bool:
+		- Cuando retorna true, el ciclo por el cual fue llamada esta funcion continua para seguir intentando entregar paquetes
+		- False rompe el ciclo para que el camion "regrese" a central
+*/
 func Entrega(camion Camion, tEnvio int) bool {
 	if camion.Paquete1.Estado == "" && camion.Paquete2.Estado == "" {
 		return false;
@@ -99,6 +149,20 @@ func Entrega(camion Camion, tEnvio int) bool {
 	return true
 }
 
+/*
+Funcion: Carga
+Parametros:
+	- camion: Estructura tipo Camion
+	- tEspera: int con el tiempo de espera solicitado
+	- tEnvio: int con el tiempo de envio solicitado
+	- nombreArchivo: string con el nombre del archivo csv del camion
+Descripcion:
+	- Genera la conexion rpc y carga los paquetes al camion dado, tomandolos de las colas del servidor
+	- Posteriormente, llama a la funcion Entrega, la cual se detalla en su respectivo lugar
+	- Una vez finaliza una entrega (camion en central), escribe la informacion en su registro csv y manda los paquetes a las coals del servidor
+Retorno:
+	- No tiene retorno
+*/
 func Carga(camion Camion, tEspera int, tEnvio int, nombreArchivo string) {
 	var conn *grpc.ClientConn
 	conn, _ = grpc.Dial("10.6.40.149:9000", grpc.WithInsecure())
