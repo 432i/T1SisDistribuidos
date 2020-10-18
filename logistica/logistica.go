@@ -8,6 +8,15 @@ import (
         "github.com/432i/T1SisDistribuidos/logistica/chat"
         "google.golang.org/grpc"
 )
+/*
+Funcion: crearRegistro
+Parametros:
+	- Ninguno
+Descripcion:
+	- crea el registro de logistica registro.csv
+Retorno:
+	- No tiene retorno
+*/
 func crearRegistro(){
         archivo, err := os.Create("registro.csv")
         if err != nil{

@@ -23,7 +23,15 @@ type Paquete struct {
 	Intentos string `json:"intentos"`
 	Estado string `json:"estado"`
 }
-
+/*
+Funcion: crearRegistro
+Parametros:
+	- Ninguno
+Descripcion:
+	- Crea el registro de paquetes paquetes.csv
+Retorno:
+	- No tiene retorno
+*/
 func crearRegistro(){
 	archivo, err := os.Create("paquetes.csv")
 	if err != nil{
@@ -31,7 +39,17 @@ func crearRegistro(){
 	}
 	archivo.Close()
 }
-
+/*
+Funcion: guardarPaquete
+Parametros:
+	- estado: string que indica el estado del paquete (recibido, no recibido)
+	- intentos: string que indica el número de intentos que se realizaron para entregar el paquete
+	- valor: el costo o la ganancia que tiene el paquete para la empresa
+Descripcion:
+	- Guarda paquetes con los campos que recibe en paquetes.csv
+Retorno:
+	- No tiene retorno
+*/
 func guardarPaquete(estado string, intentos string, valor float64){ 
 	//valor es la perdida o la ganancia del pakete
 	//estado de Recibido indica que fue entregado (envio completado), No recibido que no se pudo entregar
@@ -53,7 +71,15 @@ func guardarPaquete(estado string, intentos string, valor float64){
 
 var gastos float64
 var ingresos float64
-
+/*
+Funcion: conexion
+Parametros:
+	- Ninguno
+Descripcion:
+	- Realiza la conexión con rabbitMQ y saca paquetes que recibe desde la cola para procesarlos
+Retorno:
+	- No tiene retorno
+*/
 func conexion(){
 	//Se establece conexion a rabbit con usuario e ip del servidor
 	conn, err := amqp.Dial("amqp://finanzas:finanzas@10.6.40.150:5672/")

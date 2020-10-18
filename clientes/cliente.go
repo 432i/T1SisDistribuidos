@@ -30,6 +30,15 @@ type Pyme struct{
         destino string 
         prioritario string 
 }
+/*
+Funcion: cargarPyme
+Parametros:
+	- Ninguno
+Descripcion:
+	- Desde el archivo pymes.csv carga todas las ordenes a memoria
+Retorno:
+	- No tiene retorno
+*/
 func cargarPyme() []Pyme{
         csvpyme, _ := os.Open("pymes.csv")
         readerpyme := csv.NewReader(csvpyme)
@@ -54,7 +63,15 @@ func cargarPyme() []Pyme{
         }
         return pedidospyme
 }
-
+/*
+Funcion: cargarPyme
+Parametros:
+	- Ninguno
+Descripcion:
+	- Desde el archivo retail.csv carga todas las ordenes a memoria
+Retorno:
+	- No tiene retorno
+*/
 func cargarRetail() []Retail{
         csvretail, _ := os.Open("retail.csv")
         readerretail := csv.NewReader(csvretail)
