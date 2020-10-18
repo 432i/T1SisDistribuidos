@@ -56,7 +56,7 @@ var ingresos float64
 
 func conexion(){
 	//Se establece conexion a rabbit con usuario e ip del servidor
-	conn, err := amqp.Dial("amqp://finanzas:finanzas@10.6.40.150:5672/")
+	conn, err := amqp.Dial("amqp://finanzas:finanzas@10.0.6.40.150:5672/")
 	failOnError(err, "Failed to connect to RabbitMQ")
     defer conn.Close()
 
@@ -99,37 +99,37 @@ func conexion(){
 			if pakete.Tipo == "retail"{
 				if pakete.Estado == "No Recibido"{
 					ingresos += valor
-					gastos += intentos*10
-					guardarPaquete(pakete.Estado, pakete.Intentos, valor-intentos*10)
+					gastos += intentos*10.0
+					guardarPaquete(pakete.Estado, pakete.Intentos, valor-intentos*10.0)
 				}
 				if pakete.Estado == "Recibido"{
 					ingresos += valor
-					gastos += intentos*10
-					guardarPaquete(pakete.Estado, pakete.Intentos, valor-intentos*10)
+					gastos += intentos*10.0
+					guardarPaquete(pakete.Estado, pakete.Intentos, valor-intentos*10.0)
 				}
 
 			}
 			if pakete.Tipo == "normal"{
 				if pakete.Estado == "No Recibido"{
-					gastos += intentos*10
-					guardarPaquete(pakete.Estado, pakete.Intentos, -1*intentos*10)
+					gastos += intentos*10.0
+					guardarPaquete(pakete.Estado, pakete.Intentos, -1.0*intentos*10.0)
 				}
 				if pakete.Estado == "Recibido"{
 					ingresos += valor
-					gastos += intentos*10
-					guardarPaquete(pakete.Estado, pakete.Intentos, valor-intentos*10)
+					gastos += intentos*10.0
+					guardarPaquete(pakete.Estado, pakete.Intentos, valor-intentos*10.0)
 				}
 			}	
 			if pakete.Tipo == "prioritario"{
 				if pakete.Estado == "No Recibido"{
 					ingresos += valor*0.3
-					gastos += intentos*10
-					guardarPaquete(pakete.Estado, pakete.Intentos, valor*0.3-intentos*10)
+					gastos += intentos*10.0
+					guardarPaquete(pakete.Estado, pakete.Intentos, valor*0.3-intentos*10.0)
 				}
 				if pakete.Estado == "Recibido"{
 					ingresos += valor
-					gastos += intentos*10
-					guardarPaquete(pakete.Estado, pakete.Intentos, valor-intentos*10)
+					gastos += intentos*10.0
+					guardarPaquete(pakete.Estado, pakete.Intentos, valor-intentos*10.0)
 				}
 			}
 			
