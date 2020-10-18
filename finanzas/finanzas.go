@@ -93,7 +93,9 @@ func conexion(){
 			json.Unmarshal([]byte(d.Body), &pakete)
 			fmt.Println(pakete)
 			intentos, _ := strconv.Atoi(pakete.Intentos)
+			intentos = float64(intentos)
 			valor, _ := strconv.Atoi(pakete.Valor)
+			valor = float64(valor)
 			if pakete.Tipo == "retail"{
 				if pakete.Estado == "No Recibido"{
 					ingresos += valor
