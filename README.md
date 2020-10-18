@@ -10,7 +10,7 @@
 ## 2. Entrar a la carpeta T1SisDistribuidos y entrar a la carpeta correspondiente según la entidad de la máquina
 ## 3. Escribir make y presionar enter en la consola para ejecutar el código
 ## Consideraciones:
--Debe ejecutarse el servidor de logistica primero, y antes de hacerlo se deben exportar variables, para esto escribir los siguientes comandos en consola:
+Debe ejecutarse el servidor de logistica primero, y antes de hacerlo se deben exportar variables, para esto escribir los siguientes comandos en consola:
 - export GOROOT=/usr/local/go
 - export GOPATH=$HOME/go
 - export GOBIN=$GOPATH/bin
