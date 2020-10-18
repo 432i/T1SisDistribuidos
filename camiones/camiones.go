@@ -231,8 +231,8 @@ func main() {
 	crearRegistro("registroCamion" + CamionN.IdCamion + ".csv")
 
 	for {
-		go Carga(CamionR2, tEspera, tEnvio, "registroCamionR2.csv")
-		go Carga(CamionN, tEspera, tEnvio, "registroCamionN.csv")
+//		go Carga(CamionR2, tEspera, tEnvio, "registroCamionR2.csv")
+//		go Carga(CamionN, tEspera, tEnvio, "registroCamionN.csv")
 		Carga(CamionR1, tEspera, tEnvio, "registroCamionR1.csv")
 	}
 
