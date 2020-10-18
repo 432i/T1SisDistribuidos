@@ -1,5 +1,5 @@
 # T1SisDistribuidos
-Integrantes: Ignacio Aedo, 201773556-2,
+Integrantes: Ignacio Aedo, 201773556-2, \n
               Ethiel Carmona, 201773533-3
 Buenas tardes a todos,
 
