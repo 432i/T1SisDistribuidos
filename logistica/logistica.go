@@ -15,7 +15,11 @@ func crearRegistro(){
         }
         archivo.Close()
 }
-func servidorLogistica(){
+
+
+
+func main() {
+
         fmt.Println("Go gRPC Beginners Tutorial!")
         crearRegistro()
         lis, err := net.Listen("tcp", fmt.Sprintf(":%d", 9000))
@@ -34,11 +38,5 @@ func servidorLogistica(){
                 log.Fatalf("failed to serve: %s", err)
         }
         fmt.Println("holahola")
-}
-
-
-func main() {
-
-        servidorLogistica()
 
 }
