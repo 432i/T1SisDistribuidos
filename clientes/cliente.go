@@ -64,7 +64,7 @@ func cargarPyme() []Pyme{
         return pedidospyme
 }
 /*
-Funcion: cargarPyme
+Funcion: cargarRetail
 Parametros:
 	- Ninguno
 Descripcion:
