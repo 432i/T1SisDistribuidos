@@ -2,7 +2,7 @@
 
 ## Comenzando 🚀
 
-## 1. Entrar a la maquina correspondiente:
+## 1. Entrar a la máquina correspondiente:
 - Máquina 1 (dist09): logistica
 - Máquina 2 (dist10): finanzas
 - Máquina 3 (dist11): camiones
