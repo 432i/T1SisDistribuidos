@@ -56,7 +56,7 @@ var ingresos float64
 
 func conexion(){
 	//Se establece conexion a rabbit con usuario e ip del servidor
-	conn, err := amqp.Dial("amqp://finanzas:finanzas@10.0.6.40.150:5672/")
+	conn, err := amqp.Dial("amqp://finanzas:finanzas@10.0.6.40.150:5673/")
 	failOnError(err, "Failed to connect to RabbitMQ")
     defer conn.Close()
 

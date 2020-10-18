@@ -178,7 +178,7 @@ func failOnError(err error, msg string) {
 }
 
 func PaquetesAFinanzas(pakete string){
-        conn, err := amqp.Dial("amqp://finanzas:finanzas@10.6.40.150:5672/")
+        conn, err := amqp.Dial("amqp://finanzas:finanzas@10.6.40.150:5673/")
         failOnError(err, "Failed to connect to RabbitMQ")
         defer conn.Close()
 
