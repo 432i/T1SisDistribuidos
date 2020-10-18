@@ -9,7 +9,7 @@
 - Máquina 4 (dist12): clientes
 ## 2. Entrar a la carpeta T1SisDistribuidos y entrar a la carpeta correspondiente según la entidad de la máquina
 ## 3. Escribir make y presionar enter en la consola para ejecutar el código
-## Consideraciones:
+## Consideraciones (leer antes):
 El archivo chat.go tiene toda la implementación de logística y logistica.go levanta el server del mismo
 
 
