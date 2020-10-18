@@ -10,6 +10,9 @@
 ## 2. Entrar a la carpeta T1SisDistribuidos y entrar a la carpeta correspondiente según la entidad de la máquina
 ## 3. Escribir make y presionar enter en la consola para ejecutar el código
 ## Consideraciones:
+El archivo chat.go tiene toda la implementación de logística y logistica.go levanta el server del mismo
+
+
 Debe ejecutarse el servidor de logistica primero, y antes de hacerlo se deben exportar variables, para esto escribir los siguientes comandos en consola:
 - export GOROOT=/usr/local/go
 - export GOPATH=$HOME/go
