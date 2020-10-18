@@ -4,10 +4,10 @@ import (
 	"log"
 	"encoding/json"
 	"fmt"
-	"github.com/streadway/amqp"
 	"strconv"
 	"os"
 	"encoding/csv"
+	"github.com/streadway/amqp"
 )
 
 func failOnError(err error, msg string) {
@@ -56,7 +56,7 @@ var ingresos float64
 
 func conexion(){
 	//Se establece conexion a rabbit con usuario e ip del servidor
-	conn, err := amqp.Dial("amqp://finanzas:finanzas@10.0.6.40.150:5673/")
+	conn, err := amqp.Dial("amqp://finanzas:finanzas@10.0.6.40.150:5672/")
 	failOnError(err, "Failed to connect to RabbitMQ")
     defer conn.Close()
 
