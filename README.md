@@ -19,7 +19,7 @@ Debe ejecutarse el servidor de logistica primero, y antes de hacerlo se deben ex
 - export GOBIN=$GOPATH/bin
 - export PATH=$PATH:$GOROOT:$GOPATH:$GOBIN
 
-Presionar enter y ejecutar el servidor de logística
+Presionar enter y ejecutar el servidor de logística haciendo make
 
 Asegurarse de que el firewall está desactivado o los métodos gRPC no funcionarán:
 
