@@ -8,9 +8,16 @@
 - Máquina 3 (dist11): camiones
 - Máquina 4 (dist12): clientes
 ## 2. Entrar a la carpeta T1SisDistribuidos y entrar a la carpeta correspondiente según la entidad de la máquina
+
+- Para logistica: carpeta logistica (no chat)
+- Para finanzas: carpeta finanzas
+- Para camiones: carpeta camiones
+- Para clientes: carpeta clientes
+
+
 ## 3. Escribir make y presionar enter en la consola para ejecutar el código
 ## Consideraciones (leer antes):
-El archivo chat.go tiene toda la implementación de logística y logistica.go levanta el server del mismo
+El archivo chat.go (dentro de chat) tiene toda la implementación de logística y logistica.go levanta el server del mismo
 
 
 Debe ejecutarse el servidor de logistica primero, y antes de hacerlo se deben exportar variables, para esto escribir los siguientes comandos en consola:
