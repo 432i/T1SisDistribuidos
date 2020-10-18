@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"github.com/streadway/amqp"
 	"strconv"
+	"os"
+	"encoding/csv"
 )
 
 func failOnError(err error, msg string) {
@@ -33,8 +35,8 @@ func crearRegistro(){
 func guardarPaquete(estado string, intentos string, valor int){ 
 	//valor es la perdida o la ganancia del pakete
 	//estado de Recibido indica que fue entregado (envio completado), No recibido que no se pudo entregar
-
-	orden := []string{estado, intentos, valor}
+	
+	orden := []string{estado, intentos, strconv.Itoa(valor)}
 	archivo, err := os.OpenFile("paquetes.csv", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 
 	if err != nil {
@@ -49,8 +51,8 @@ func guardarPaquete(estado string, intentos string, valor int){
 	archivo.Close()
 }
 
-var gastos int
-var ingresos int
+var gastos float64
+var ingresos float64
 
 func conexion(){
 	//Se establece conexion a rabbit con usuario e ip del servidor
