@@ -20,7 +20,16 @@ type Server struct {
         cola_a_server []Paquete
         cola_a_finanzas []Paquete
 }
-//se guarda la orden en registro.csv
+
+/*
+Funcion: guardarOrden
+Parametros:
+    - Todos los strings: Atributos de un registro
+Descripcion:
+    - Hace registro de un paquete para almacenarlo en el registro del servidor
+Retorno:
+    - No tiene retorno
+*/
 func guardarOrden(id string, producto string, valor string, tienda string, destino string, prioritario, codigo string){
         var tipof string
         tiempoactual := time.Now()
@@ -50,7 +59,15 @@ func guardarOrden(id string, producto string, valor string, tienda string, desti
 	archivo.Close()
 }
 
-//debe recibirse un string de forma "codigoSeguimiento,nuevoEstado"
+/*
+Funcion: ModificarEstado
+Parametros:
+    - message: Contiene el nuevo estado de un paquete
+Descripcion:
+    - Modifica el estado de un paquete para mantener al cliente al tanto
+Retorno:
+    - Retorna un mensaje indicando el exito de este
+*/
 func (s *Server) ModificarEstado(ctx context.Context, message *Message) (*Message, error){
         estring := message.GetBody()
         l := strings.Split(estring, ",")
@@ -85,7 +102,15 @@ func (s *Server) ModificarEstado(ctx context.Context, message *Message) (*Messag
 
 }
 
-
+/*
+Funcion: SolicitarSeguimiento
+Parametros:
+    - message: Contiene el codigo de seguimiento
+Descripcion:
+    - Dado un codigo de seguimiento, busca cual es el estado actual del paquete
+Retorno:
+    - Retorna el estado del paquete, si este no existe, se indica que la orden no se encuentra en el sistema
+*/
 func (s *Server) SolicitarSeguimiento(ctx context.Context, message *Message) (*Message, error) {
         codigoSeguimiento := message.GetBody()
         var msj Message
@@ -110,6 +135,16 @@ func (s *Server) SolicitarSeguimiento(ctx context.Context, message *Message) (*M
         }
         return &msj, nil
 }
+
+/*
+Funcion: EnviarOrden
+Parametros:
+    - orden: Orden realizada por un cliente
+Descripcion:
+    - Asigna un codigo de seguimiento y genera un paquete dada la orden del cliente y lo ingresa al sistema
+Retorno:
+    - Retorna el codigo se seguimiento de la orden
+*/
 var idSeg = 1
 func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error) {
         codigoSeguimiento := strconv.Itoa(idSeg)+orden.GetId()
@@ -171,12 +206,31 @@ func (s *Server) EnviarOrden(ctx context.Context, orden *Orden) (*Message, error
         return &msj, nil
 }
 
+/*
+Funcion: failOnError
+Parametros:
+    - err: Tipo de error
+    - msg: Tipo de mensaje
+Descripcion:
+    - Manejo de errores, printea cuando se produce un error de conexion indicando el motivo (No deberia suceder)
+Retorno:
+    - No tiene retorno
+*/
 func failOnError(err error, msg string) {
         if err != nil {
             log.Fatalf("%s: %s", msg, err)
         }
 }
 
+/*
+Funcion: PaquetesAFinanzas
+Parametros:
+    - pakete: Contiene informacion de paquete
+Descripcion:
+    - Establece conexion con el servidor de finanzas y envia un string en json con informacion de un paquete
+Retorno:
+    - No tiene retorno
+*/
 func PaquetesAFinanzas(pakete string){
         conn, err := amqp.Dial("amqp://finanzas:finanzas@10.6.40.150:5672/")
         failOnError(err, "Failed to connect to RabbitMQ")
@@ -210,6 +264,15 @@ func PaquetesAFinanzas(pakete string){
 
 }
 
+/*
+Funcion: PaqueteQueueToCamion
+Parametros:
+    - mensaje: string retail/prioritario/normal
+Descripcion:
+    - Dependiendo del tipo de mensaje (retail, prioritario, normal), toma un paquete de una de las colas y lo envía a camiones
+Retorno:
+    - Retorna un paquete de la cola seleccionada
+*/
 func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*Paquete, error) {
         var msj Paquete
 
@@ -305,6 +368,16 @@ func (s *Server) PaqueteQueueToCamion(ctx context.Context, mensaje *Message) (*P
         return &msj, nil
 }
 
+/*
+Funcion: PaqueteCamionToQueue
+Parametros:
+    - paquete: Puntero a Paquete
+Descripcion:
+    - Toma el paquete del parametro y lo deja en las colas de retorno (servidor y finanzas)
+Retorno:
+    - Retorna un mensaje, el cual indica si el paquete se ingreso en las colas de servidor y finanzas
+    - En caso contrario, se indica que no habia mensaje (Con esto se maneja que se haya dejado de enviar paquetes u ordenes)
+*/
 func (s *Server) PaqueteCamionToQueue(ctx context.Context, paquete *Paquete) (*Message, error) {
         var msj Message
         if paquete.Tipo != "" {
