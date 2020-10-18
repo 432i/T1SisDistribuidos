@@ -139,6 +139,7 @@ func main(){
                                 response, err := c.EnviarOrden(context.Background(), &message)
                                 if err != nil{
                                         fmt.Println("Error al enviar la orden")
+                                        log.Fatalf("%s", err)
                                         break
                                 }
                                 log.Printf("%s", response.Body)
@@ -167,6 +168,7 @@ func main(){
                                 response, err := c.EnviarOrden(context.Background(), &message)
                                 if err != nil{
                                         fmt.Println("Error al enviar la orden")
+                                        log.Fatalf("%s", err)
                                         break
                                 }
                                 log.Printf("%s", response.Body)
