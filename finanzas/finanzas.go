@@ -146,7 +146,7 @@ func main() {
 	var respuesta int
 	go conexion()
 	for{
-		fmt.Println("Ingrese 432 y preione enter para salir del sistema y mostrar balance financiero \n")
+		fmt.Println("Ingrese 432 y presione enter para salir del sistema y mostrar balance financiero \n")
 		fmt.Scanln(&respuesta)
 		if respuesta == 432{
 			fmt.Println("\n ---------------------- \n")
