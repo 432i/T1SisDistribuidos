@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/streadway/amqp"
-	//"strconv"
+	"strconv"
 )
 
 func failOnError(err error, msg string) {
@@ -22,7 +22,32 @@ type Paquete struct {
 	Estado string `json:"estado"`
 }
 
+func crearRegistro(){
+	archivo, err := os.Create("paquetes.csv")
+	if err != nil{
+			log.Println(err)
+	}
+	archivo.Close()
+}
 
+func guardarPaquete(estado string, intentos string, valor int){ 
+	//valor es la perdida o la ganancia del pakete
+	//estado de Recibido indica que fue entregado (envio completado), No recibido que no se pudo entregar
+
+	orden := []string{estado, intentos, valor}
+	archivo, err := os.OpenFile("paquetes.csv", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	w := csv.NewWriter(archivo)
+
+	w.Write(orden)
+
+	w.Flush()
+	archivo.Close()
+}
 
 var gastos int
 var ingresos int
@@ -64,8 +89,46 @@ func conexion(){
         for d := range msgs {
 			pakete := Paquete{}
 			json.Unmarshal([]byte(d.Body), &pakete)
-			//intentos, _ := strconv.Atoi(pakete.Intentos)
 			fmt.Println(pakete)
+			intentos, _ := strconv.Atoi(pakete.Intentos)
+			valor, _ := strconv.Atoi(pakete.Valor)
+			if pakete.Tipo == "retail"{
+				if pakete.Estado == "No Recibido"{
+					ingresos += valor
+					gastos += intentos*10
+					guardarPaquete(pakete.Estado, pakete.Intentos, valor-intentos*10)
+				}
+				if pakete.Estado == "Recibido"{
+					ingresos += valor
+					gastos += intentos*10
+					guardarPaquete(pakete.Estado, pakete.Intentos, valor-intentos*10)
+				}
+
+			}
+			if pakete.Tipo == "normal"{
+				if pakete.Estado == "No Recibido"{
+					gastos += intentos*10
+					guardarPaquete(pakete.Estado, pakete.Intentos, -1*intentos*10)
+				}
+				if pakete.Estado == "Recibido"{
+					ingresos += valor
+					gastos += intentos*10
+					guardarPaquete(pakete.Estado, pakete.Intentos, valor-intentos*10)
+				}
+			}	
+			if pakete.Tipo == "prioritario"{
+				if pakete.Estado == "No Recibido"{
+					ingresos += valor*0.3
+					gastos += intentos*10
+					guardarPaquete(pakete.Estado, pakete.Intentos, valor*0.3-intentos*10)
+				}
+				if pakete.Estado == "Recibido"{
+					ingresos += valor
+					gastos += intentos*10
+					guardarPaquete(pakete.Estado, pakete.Intentos, valor-intentos*10)
+				}
+			}
+			
 
         }
     }()
@@ -75,6 +138,7 @@ func conexion(){
 }
 
 func main() {
+	crearRegistro()
 	var respuesta int
 	go conexion()
 	for{
